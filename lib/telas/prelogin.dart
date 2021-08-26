@@ -23,7 +23,9 @@ class _PreloginState extends State<Prelogin> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Image.asset('assets/Logos/Logoredonda.png'),
+              Image.asset(
+                'Logos/Logoredonda.png',
+              ),
               Divider(),
               TextFormField(
                 decoration: InputDecoration(
