@@ -1,0 +1,131 @@
+CREATE TABLE "public.tb_pessoa" (
+	"seqpessoa" serial NOT NULL,
+	"nome" serial(255) NOT NULL,
+	"nrocpf" integer(11) NOT NULL,
+	"email" varchar(255) NOT NULL,
+	"telefone" integer(11) NOT NULL,
+	"indseverino" BOOLEAN NOT NULL,
+	"imglogo" VARCHAR(255),
+	CONSTRAINT "tb_pessoa_pk" PRIMARY KEY ("seqpessoa")
+) WITH (
+  OIDS=FALSE
+);
+
+
+
+CREATE TABLE "public.tb_login" (
+	"seqlogin" serial NOT NULL,
+	"seqpessoa" integer NOT NULL,
+	"login" varchar(255) NOT NULL,
+	"senha" varchar(255) NOT NULL,
+	CONSTRAINT "tb_login_pk" PRIMARY KEY ("seqlogin")
+) WITH (
+  OIDS=FALSE
+);
+
+
+
+CREATE TABLE "public.tb_colaborador" (
+	"seqcolaborador" serial NOT NULL,
+	"seqpessoa" integer NOT NULL,
+	"status" varchar(1) NOT NULL,
+	"razaosocial" varchar(255) NOT NULL,
+	"nrocpfcnpj" integer NOT NULL,
+	"linkwhatsapp" VARCHAR(255),
+	"nrotelcomercial" integer(11) NOT NULL,
+	"instagram" varchar(255),
+	"facebook" varchar(255),
+	"notaavaliacao" BOOLEAN(2,1) NOT NULL,
+	CONSTRAINT "tb_colaborador_pk" PRIMARY KEY ("seqcolaborador")
+) WITH (
+  OIDS=FALSE
+);
+
+
+
+CREATE TABLE "public.tb_endereco" (
+	"seqpessoa" integer NOT NULL,
+	"seqcolaborador" integer NOT NULL,
+	"logradouro" varchar(255) NOT NULL,
+	"complemento" varchar(255),
+	"numero" integer(10) NOT NULL,
+	"bairro" varchar(100) NOT NULL,
+	"cidade" varchar(100) NOT NULL,
+	"cep" integer(8) NOT NULL,
+	"estado" varchar(50) NOT NULL,
+	CONSTRAINT "tb_endereco_pk" PRIMARY KEY ("seqpessoa")
+) WITH (
+  OIDS=FALSE
+);
+
+
+
+CREATE TABLE "public.tb_ajuda" (
+	"seqpessoa" integer NOT NULL,
+	"textodescricao" varchar(300) NOT NULL
+) WITH (
+  OIDS=FALSE
+);
+
+
+
+CREATE TABLE "public.tb_profissao" (
+	"seqprofissao" serial NOT NULL,
+	"nomeprofissao" varchar(50) NOT NULL,
+	CONSTRAINT "tb_profissao_pk" PRIMARY KEY ("seqprofissao")
+) WITH (
+  OIDS=FALSE
+);
+
+
+
+CREATE TABLE "public.tb_profissaocolaborador" (
+	"seqprofcolab" serial NOT NULL,
+	"seqcolaborador" integer NOT NULL,
+	"nroprofissao" integer NOT NULL,
+	"indprincipal" BOOLEAN NOT NULL,
+	CONSTRAINT "tb_profissaocolaborador_pk" PRIMARY KEY ("seqprofcolab")
+) WITH (
+  OIDS=FALSE
+);
+
+
+
+CREATE TABLE "public.tb_servico" (
+	"seqservico" serial NOT NULL,
+	"seqpessoa" integer NOT NULL,
+	"seqcolaborador" integer NOT NULL,
+	"datahorainicio" DATE NOT NULL,
+	"datahorafim" DATE NOT NULL,
+	CONSTRAINT "tb_servico_pk" PRIMARY KEY ("seqservico")
+) WITH (
+  OIDS=FALSE
+);
+
+
+
+
+ALTER TABLE "tb_login" ADD CONSTRAINT "tb_login_fk0" FOREIGN KEY ("seqpessoa") REFERENCES "tb_pessoa"("seqpessoa");
+
+ALTER TABLE "tb_colaborador" ADD CONSTRAINT "tb_colaborador_fk0" FOREIGN KEY ("seqpessoa") REFERENCES "tb_pessoa"("seqpessoa");
+
+ALTER TABLE "tb_endereco" ADD CONSTRAINT "tb_endereco_fk0" FOREIGN KEY ("seqpessoa") REFERENCES "tb_pessoa"("seqpessoa");
+ALTER TABLE "tb_endereco" ADD CONSTRAINT "tb_endereco_fk1" FOREIGN KEY ("seqcolaborador") REFERENCES "tb_colaborador"("seqcolaborador");
+
+ALTER TABLE "tb_ajuda" ADD CONSTRAINT "tb_ajuda_fk0" FOREIGN KEY ("seqpessoa") REFERENCES "tb_pessoa"("seqpessoa");
+
+
+ALTER TABLE "tb_profissaocolaborador" ADD CONSTRAINT "tb_profissaocolaborador_fk0" FOREIGN KEY ("seqcolaborador") REFERENCES "tb_colaborador"("seqcolaborador");
+ALTER TABLE "tb_profissaocolaborador" ADD CONSTRAINT "tb_profissaocolaborador_fk1" FOREIGN KEY ("nroprofissao") REFERENCES "tb_profissao"("seqprofissao");
+
+ALTER TABLE "tb_servico" ADD CONSTRAINT "tb_servico_fk0" FOREIGN KEY ("seqpessoa") REFERENCES "tb_pessoa"("seqpessoa");
+ALTER TABLE "tb_servico" ADD CONSTRAINT "tb_servico_fk1" FOREIGN KEY ("seqcolaborador") REFERENCES "tb_colaborador"("seqcolaborador");
+
+
+
+
+
+
+
+
+
