@@ -6,6 +6,22 @@ class Login extends StatefulWidget {
   _LoginState createState() => _LoginState();
 }
 
+class LoginPage extends StatelessWidget {
+  
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Severino's"),
+        actions: <wi>,        
+      ),
+      body: Container(
+        
+      ),
+    );
+  }
+}
+
 class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
@@ -23,9 +39,7 @@ class _LoginState extends State<Login> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Image.asset(
-                'Logos/Logoredonda.png',
-              ),
+              Image.asset('assets/Logos/Logoredonda.png'),
               Divider(),
               TextFormField(
                 decoration: InputDecoration(
