@@ -7,7 +7,11 @@
         {
             "name": "TCC-Severinos",
             "request": "launch",
-            "type": "dart"
+            "type": "dart",
+            "args": [
+                "--web-hostname",
+                "127.0.0.1"
+            ]
         },
         {
             "name": "TCC-Severinos (profile mode)",
