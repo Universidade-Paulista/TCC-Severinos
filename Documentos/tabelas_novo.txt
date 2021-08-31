@@ -43,3 +43,25 @@ CREATE TABLE tb_servico (
    CONSTRAINT tb_servico_seq_pessoa_fk FOREIGN KEY (seqpessoa) REFERENCES tb_pessoa(seqpessoa),
    CONSTRAINT tb_servico_seq_colaborador_fk FOREIGN KEY (seqcolaborador) REFERENCES tb_colaborador(seqcolaborador)
 );
+
+CREATE TABLE tb_endereco(
+   seqpessoa      INTEGER NOT NULL,
+   seqcolaborador INTEGER NOT NULL,
+   logradouro     VARCHAR(255) NOT NULL,
+   complemento    VARCHAR(255),
+   numero         INTEGER NOT NULL,
+   bairro         VARCHAR(100) NOT NULL,
+   cep            VARCHAR(9) NOT NULL,
+   estado         VARCHAR(50) NOT NULL,
+   CONSTRAINT tb_endereco_pk PRIMARY KEY (seqpessoa),
+   CONSTRAINT tb_endereco_seq_pessoa_fk FOREIGN KEY (seqpessoa) REFERENCES tb_pessoa(seqpessoa),
+   CONSTRAINT tb_endereco_seq_colaborador_fk FOREIGN KEY (seqcolaborador) REFERENCES tb_colaborador(seqcolaborador)
+);
+
+CREATE TABLE tb_ajuda(
+   seqajuda SERIAL NOT NULL,
+   seqpessoa INTEGER NOT NULL,
+   textodescricao VARCHAR(255) NOT NULL,
+   CONSTRAINT tb_ajuda_pk PRIMARY KEY (seqpessoa),
+   CONSTRAINT tb_ajuda_seq_pessoa_fk FOREIGN KEY (seqpessoa) REFERENCES tb_pessoa(seqpessoa)
+);
