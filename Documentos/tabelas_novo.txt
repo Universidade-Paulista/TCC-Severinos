@@ -65,3 +65,19 @@ CREATE TABLE tb_ajuda(
    CONSTRAINT tb_ajuda_pk PRIMARY KEY (seqpessoa),
    CONSTRAINT tb_ajuda_seq_pessoa_fk FOREIGN KEY (seqpessoa) REFERENCES tb_pessoa(seqpessoa)
 );
+
+CREATE TABLE tb_profissaocolaborador (
+   seqprofcolab SERIAL NOT NULL,
+   seqcolaborador INTEGER NOT NULL,
+   seqprofissao INTEGER NOT NULL,
+   indprincipal BOOL NOT NULL,
+   CONSTRAINT tb_profissaocolaborador_pk PRIMARY KEY (seqprofcolab),
+   CONSTRAINT tb_servico_seq_profissao_fk FOREIGN KEY (seqprofissao) REFERENCES tb_profissao(seqprofissao),
+   CONSTRAINT tb_servico_seq_colaborador_fk FOREIGN KEY (seqcolaborador) REFERENCES tb_colaborador(seqcolaborador)
+);
+
+CREATE TABLE tb_profissao (
+    seqprofissao SERIAL NOT NULL,
+    nomeprofissao varchar(255) NOT NULL,
+	CONSTRAINT tb_profissao_pk PRIMARY KEY (seqprofissao)
+);
