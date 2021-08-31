@@ -1,7 +1,7 @@
 CREATE TABLE tb_pessoa (
    seqpessoa SERIAL NOT NULL,
    nome VARCHAR(255) NOT NULL,
-   nrocpf INTEGER NOT NULL,
+   nrocpf VARCHAR(14) NOT NULL,
    email VARCHAR(255) NOT NULL,
    telefone INTEGER NOT NULL,
    indseverino BOOLEAN NOT NULL,
