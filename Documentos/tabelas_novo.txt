@@ -1,0 +1,45 @@
+CREATE TABLE tb_pessoa (
+   seqpessoa SERIAL NOT NULL,
+   nome VARCHAR(255) NOT NULL,
+   nrocpf INTEGER NOT NULL,
+   email VARCHAR(255) NOT NULL,
+   telefone INTEGER NOT NULL,
+   indseverino BOOLEAN NOT NULL,
+   imglogo OID,
+   CONSTRAINT tb_pessoa_pk PRIMARY KEY (seqpessoa)
+);
+
+CREATE TABLE tb_login (
+   seqlogin SERIAL NOT NULL,
+   seqpessoa INTEGER NOT NULL,
+   login VARCHAR(255) NOT NULL,
+   senha VARCHAR(255) NOT NULL,
+   CONSTRAINT tb_login_pk PRIMARY KEY (seqlogin),
+   CONSTRAINT tb_login_seq_pessoa_fk FOREIGN KEY (seqpessoa) REFERENCES tb_pessoa(seqpessoa)
+);
+
+CREATE TABLE tb_colaborador (
+   seqcolaborador SERIAL NOT NULL,
+   seqpessoa INTEGER NOT NULL,
+   status VARCHAR(1) NOT NULL,
+   razaosocial VARCHAR(255) NOT NULL,
+   nrocpfcnpj INTEGER NOT NULL,
+   linkwhatsapp VARCHAR(255),
+   nrotelcomercial INTEGER NOT NULL,
+   instagram VARCHAR(255),
+   facebook VARCHAR(255),
+   notaavaliacao REAL,
+   CONSTRAINT tb_colaborador_pk PRIMARY KEY (seqcolaborador),
+   CONSTRAINT tb_colaborador_seq_pessoa_fk FOREIGN KEY (seqpessoa) REFERENCES tb_pessoa(seqpessoa)  
+);
+
+CREATE TABLE tb_servico (
+   seqservico SERIAL NOT NULL,
+   seqpessoa INTEGER NOT NULL,
+   seqcolaborador INTEGER NOT NULL,
+   datahorainicio DATE NOT NULL,
+   datahorafim DATE NOT NULL,
+   CONSTRAINT tb_servico_pk PRIMARY KEY (seqservico),
+   CONSTRAINT tb_servico_seq_pessoa_fk FOREIGN KEY (seqpessoa) REFERENCES tb_pessoa(seqpessoa),
+   CONSTRAINT tb_servico_seq_colaborador_fk FOREIGN KEY (seqcolaborador) REFERENCES tb_colaborador(seqcolaborador)
+);
