@@ -1,0 +1,9 @@
+Host: ec2-35-153-114-74.compute-1.amazonaws.com
+
+DataBase: d13nbustk8eoiv
+
+User: eyzsiosffqeroz
+
+Porta: 5432
+
+Senha: 75f2eec3886a903f63b330acae42b36d5eff5e6381c9232333bdc00e1639b200
