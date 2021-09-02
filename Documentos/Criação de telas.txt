@@ -1,1 +1,7 @@
-https://www.youtube.com/watch?v=lmArDnXxvtQ
+Criando uma tela de login
+https://www.youtube.com/watch?v=lmArDnXxvtQ]
+
+Packages
+https://pub.dev/packages/brasil_fields/install - Para validação de campos brasileiros
+https://pub.dev/packages/get - Diversas validações, notificação, navegação
+

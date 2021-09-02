@@ -1,43 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-class LoginL extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        padding: EdgeInsets.only(
-          top: 60,
-          left: 40,
-          right: 40,
-        ),
-        color: Colors.white,
-        child: ListView(
-          children: <Widget>[
-            SizedBox(
-              width: 300,
-              height: 300,
-              child: Image.asset('assets/Logos/LogoRedonda.png'),
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            TextFormField(
-              keyboardType: TextInputType.emailAddress,
-              decoration: InputDecoration(
-                  labelText: "E-mail",
-                  labelStyle: TextStyle(
-                    color: Colors.black38,
-                    fontWeight: FontWeight.w400,
-                    fontSize: 20,
-                  )),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
+import 'package:severino/telas/Cadastro.dart';
+import 'package:get/get.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -48,14 +12,6 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      /*appBar: AppBar(
-        title: Image.asset(
-          'assets/Logos/LogoEscrita.png',
-          height: 225,
-          width: 600,R
-          alignment: Alignment.centerLeft,
-        ),
-      ),*/
       body: Container(
         padding: EdgeInsets.only(
           top: 30,
@@ -66,12 +22,12 @@ class _LoginState extends State<Login> {
         child: ListView(
           children: <Widget>[
             SizedBox(
-              width: 300,
-              height: 300,
-              child: Image.asset('assets/Logos/LogoRedonda.png'),
+              width: 350,
+              height: 350,
+              child: Image.asset('assets/Logos/LogoNome.png'),
             ),
             SizedBox(
-              height: 20,
+              height: 10,
             ),
             TextFormField(
               keyboardType: TextInputType.emailAddress,
@@ -105,7 +61,7 @@ class _LoginState extends State<Login> {
               height: 10,
             ),
             Container(
-              height: 10,
+              height: 35,
               alignment: Alignment.centerRight,
               child: TextButton(
                 onPressed: () {},
@@ -161,7 +117,10 @@ class _LoginState extends State<Login> {
               height: 35,
               alignment: Alignment.center,
               child: TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  Get.testMode = true;
+                  Get.to(Cadastro());
+                },
                 child: Text(
                   "Cadastre-se",
                   style: TextStyle(fontSize: 15, color: Colors.black),
@@ -170,27 +129,6 @@ class _LoginState extends State<Login> {
             ),
           ],
         ),
-      ),
-    );
-  }
-
-  Container logo() {
-    return Container(
-      width: 300,
-      height: 300,
-      child: Image.asset('assets/Logos/LogoRedonda.png'),
-    );
-  }
-
-  Container campos() {
-    return Container(
-      child: Column(
-        children: [
-          TextField(
-            decoration:
-                InputDecoration(hintText: "E-mail", labelText: "E-mail"),
-          )
-        ],
       ),
     );
   }
