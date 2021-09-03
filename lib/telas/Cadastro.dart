@@ -14,7 +14,7 @@ class _CadastroState extends State<Cadastro> {
     return Scaffold(
       appBar: AppBar(
         title: Image.asset(
-          'assets/Logos/LogoEscrita.png',
+          'assets/Logos/LogoEscrita2.png',
           height: 40,
           alignment: Alignment.center,
         ),

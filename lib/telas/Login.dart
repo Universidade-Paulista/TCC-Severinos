@@ -22,9 +22,9 @@ class _LoginState extends State<Login> {
         child: ListView(
           children: <Widget>[
             SizedBox(
-              width: 350,
-              height: 350,
-              child: Image.asset('assets/Logos/LogoNome.png'),
+              width: 250,
+              height: 250,
+              child: Image.asset('assets/Logos/LogoNome2.png'),
             ),
             SizedBox(
               height: 10,

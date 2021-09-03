@@ -50,7 +50,9 @@ flutter:
   assets:
     - assets/Logos/LogoRedonda.png
     - assets/Logos/LogoEscrita.png
+    - assets/Logos/LogoEscrita2.png
     - assets/Logos/LogoNome.png
+    - assets/Logos/LogoNome2.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
