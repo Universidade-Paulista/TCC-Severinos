@@ -15,9 +15,8 @@ class _CadastroState extends State<Cadastro> {
       appBar: AppBar(
         title: Image.asset(
           'assets/Logos/LogoEscrita.png',
-          height: 225,
-          width: 600,
-          alignment: Alignment.centerLeft,
+          height: 40,
+          alignment: Alignment.center,
         ),
       ),
       body: Container(
@@ -35,11 +34,13 @@ class _CadastroState extends State<Cadastro> {
                 labelText: "E-mail",
                 labelStyle: TextStyle(
                   color: Colors.black87,
-                  fontWeight: FontWeight.w400,
+                  fontWeight: FontWeight.bold,
                   fontSize: 10,
                 ),
               ),
-              style: TextStyle(fontSize: 15),
+              style: TextStyle(
+                fontSize: 25,
+              ),
             ),
             SizedBox(
               height: 5,
@@ -51,11 +52,13 @@ class _CadastroState extends State<Cadastro> {
                 labelText: "Senha",
                 labelStyle: TextStyle(
                   color: Colors.black87,
-                  fontWeight: FontWeight.w400,
+                  fontWeight: FontWeight.bold,
                   fontSize: 10,
                 ),
               ),
-              style: TextStyle(fontSize: 15),
+              style: TextStyle(
+                fontSize: 25,
+              ),
             ),
             SizedBox(
               height: 5,
@@ -67,11 +70,13 @@ class _CadastroState extends State<Cadastro> {
                 labelText: "Confirmar senha",
                 labelStyle: TextStyle(
                   color: Colors.black87,
-                  fontWeight: FontWeight.w400,
+                  fontWeight: FontWeight.bold,
                   fontSize: 10,
                 ),
               ),
-              style: TextStyle(fontSize: 15),
+              style: TextStyle(
+                fontSize: 25,
+              ),
             ),
             SizedBox(
               height: 40,
@@ -82,11 +87,13 @@ class _CadastroState extends State<Cadastro> {
                 labelText: "Nome",
                 labelStyle: TextStyle(
                   color: Colors.black87,
-                  fontWeight: FontWeight.w400,
+                  fontWeight: FontWeight.bold,
                   fontSize: 10,
                 ),
               ),
-              style: TextStyle(fontSize: 15),
+              style: TextStyle(
+                fontSize: 25,
+              ),
             ),
             SizedBox(
               height: 5,
@@ -101,11 +108,13 @@ class _CadastroState extends State<Cadastro> {
                 labelText: "CPF",
                 labelStyle: TextStyle(
                   color: Colors.black87,
-                  fontWeight: FontWeight.w400,
+                  fontWeight: FontWeight.bold,
                   fontSize: 10,
                 ),
               ),
-              style: TextStyle(fontSize: 15),
+              style: TextStyle(
+                fontSize: 25,
+              ),
             ),
             SizedBox(
               height: 5,
@@ -120,11 +129,30 @@ class _CadastroState extends State<Cadastro> {
                 labelText: "CEP",
                 labelStyle: TextStyle(
                   color: Colors.black87,
-                  fontWeight: FontWeight.w400,
+                  fontWeight: FontWeight.bold,
                   fontSize: 10,
                 ),
               ),
-              style: TextStyle(fontSize: 15),
+              style: TextStyle(
+                fontSize: 25,
+              ),
+            ),
+            SizedBox(
+              height: 5,
+            ),
+            TextFormField(
+              keyboardType: TextInputType.text,
+              decoration: InputDecoration(
+                labelText: "Complemento",
+                labelStyle: TextStyle(
+                  color: Colors.black87,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 10,
+                ),
+              ),
+              style: TextStyle(
+                fontSize: 25,
+              ),
             ),
           ],
         ),
