@@ -34,7 +34,7 @@ class _CadastroState extends State<Cadastro> {
               decoration: InputDecoration(
                 labelText: "E-mail",
                 labelStyle: TextStyle(
-                  color: Colors.black38,
+                  color: Colors.black87,
                   fontWeight: FontWeight.w400,
                   fontSize: 10,
                 ),
@@ -50,7 +50,7 @@ class _CadastroState extends State<Cadastro> {
               decoration: InputDecoration(
                 labelText: "Senha",
                 labelStyle: TextStyle(
-                  color: Colors.black38,
+                  color: Colors.black87,
                   fontWeight: FontWeight.w400,
                   fontSize: 10,
                 ),
@@ -66,7 +66,7 @@ class _CadastroState extends State<Cadastro> {
               decoration: InputDecoration(
                 labelText: "Confirmar senha",
                 labelStyle: TextStyle(
-                  color: Colors.black38,
+                  color: Colors.black87,
                   fontWeight: FontWeight.w400,
                   fontSize: 10,
                 ),
@@ -81,7 +81,7 @@ class _CadastroState extends State<Cadastro> {
               decoration: InputDecoration(
                 labelText: "Nome",
                 labelStyle: TextStyle(
-                  color: Colors.black38,
+                  color: Colors.black87,
                   fontWeight: FontWeight.w400,
                   fontSize: 10,
                 ),
@@ -100,7 +100,7 @@ class _CadastroState extends State<Cadastro> {
               decoration: InputDecoration(
                 labelText: "CPF",
                 labelStyle: TextStyle(
-                  color: Colors.black38,
+                  color: Colors.black87,
                   fontWeight: FontWeight.w400,
                   fontSize: 10,
                 ),
