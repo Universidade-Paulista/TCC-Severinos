@@ -118,7 +118,6 @@ class _LoginState extends State<Login> {
               alignment: Alignment.center,
               child: TextButton(
                 onPressed: () {
-                  Get.testMode = true;
                   Get.to(Cadastro());
                 },
                 child: Text(

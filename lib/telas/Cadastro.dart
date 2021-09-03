@@ -119,15 +119,12 @@ class _CadastroState extends State<Cadastro> {
               decoration: InputDecoration(
                 labelText: "CEP",
                 labelStyle: TextStyle(
-                  color: Colors.black38,
+                  color: Colors.black87,
                   fontWeight: FontWeight.w400,
                   fontSize: 10,
                 ),
               ),
               style: TextStyle(fontSize: 15),
-            ),
-            SizedBox(
-              height: 10,
             ),
           ],
         ),
