@@ -13,10 +13,10 @@ class _CadastroState extends State<Cadastro> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: Image.asset(
           'assets/Logos/LogoEscrita2.png',
           height: 40,
-          alignment: Alignment.center,
         ),
       ),
       body: Container(
@@ -24,8 +24,9 @@ class _CadastroState extends State<Cadastro> {
           top: 30,
           left: 20,
           right: 20,
+          bottom: 30,
         ),
-        color: Colors.white,
+        color: Colors.grey.shade300,
         child: ListView(
           children: [
             TextFormField(
