@@ -24,7 +24,6 @@ class _CadastroState extends State<Cadastro> {
           top: 30,
           left: 20,
           right: 20,
-          bottom: 30,
         ),
         color: Colors.grey.shade300,
         child: ListView(

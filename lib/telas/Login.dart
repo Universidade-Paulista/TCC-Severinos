@@ -18,7 +18,7 @@ class _LoginState extends State<Login> {
           left: 40,
           right: 40,
         ),
-        color: Colors.grey.shade300,
+        color: Colors.white,
         child: ListView(
           children: <Widget>[
             SizedBox(
