@@ -15,7 +15,7 @@ class Severinos extends StatelessWidget {
       title: 'Severinos',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primaryColor: Colors.grey.shade300,
+        primaryColor: Colors.cyan.shade300,
       ),
       home: Login(),
     );
