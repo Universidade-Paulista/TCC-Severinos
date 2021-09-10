@@ -32,14 +32,15 @@ dependencies:
   get: ^4.3.1
   flutter_launcher_icons: ^0.9.2
   flutter_native_splash: ^1.2.3
+  steps: ^1.0.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
     
 flutter_native_splash:
-  color: "FFFFFF"
-  image: "assets/Logos/logo-circulo.png"
+  color: "#FFFFFF"
+  image: "assets/Logos/logo-circulo2.png"
   android: true
 
 flutter_icons:
@@ -66,8 +67,7 @@ flutter:
     - assets/Logos/LogoEscrita2.png
     - assets/Logos/LogoNome.png
     - assets/Logos/LogoNome2.png
-    - assets/Logos/logo-circulo.png
-    - assets/Logos/logo.png
+    - assets/Logos/logo-circulo2.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
