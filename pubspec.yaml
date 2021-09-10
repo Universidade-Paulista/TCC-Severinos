@@ -67,7 +67,6 @@ flutter:
     - assets/Logos/LogoNome.png
     - assets/Logos/LogoNome2.png
     - assets/Logos/logo-circulo.png
-    - assets/Logos/logo.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

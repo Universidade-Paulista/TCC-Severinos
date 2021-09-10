@@ -9,7 +9,6 @@ class Cadastro extends StatefulWidget {
 }
 
 class _CadastroState extends State<Cadastro> {
-  @override
   bool severino = false;
 
   Widget build(BuildContext context) {
