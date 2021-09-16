@@ -32,14 +32,16 @@ dependencies:
   get: ^4.3.1
   flutter_launcher_icons: ^0.9.2
   flutter_native_splash: ^1.2.3
+  steps: ^1.0.1
+  http: ^0.13.3
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
     
 flutter_native_splash:
-  color: "FFFFFF"
-  image: "assets/Logos/logo-circulo.png"
+  color: "#FFFFFF"
+  image: "assets/Logos/logo-circulo2.png"
   android: true
 
 flutter_icons:
