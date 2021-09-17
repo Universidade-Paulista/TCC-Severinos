@@ -7,7 +7,7 @@ using TCCteste;
 
 namespace SeverinosAPI.Controllers
 {
-    [Route("login/[controller]")]
+    [Route("api/[controller]")]
     [Controller]
     public class LoginController : ControllerBase
     {

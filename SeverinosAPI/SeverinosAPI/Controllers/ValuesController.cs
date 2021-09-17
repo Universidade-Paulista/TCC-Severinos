@@ -15,16 +15,7 @@ namespace SeverinosAPI.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
-            DBModel.GetConexao();
-
-            var pessoa = DBModel.GetReader("select nome from tb_pessoa ");
-
-            pessoa.Read();
-            var tes = pessoa["nome"].ToString();
-
-            return new string[] { pessoa["nome"].ToString() };
-
-            //return new string[] { "value1", "value2" };
+            return new string[] { "value1", "value2" };
         }
 
         // GET api/values/5
