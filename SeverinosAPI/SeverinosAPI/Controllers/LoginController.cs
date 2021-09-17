@@ -22,9 +22,7 @@ namespace SeverinosAPI.Controllers
             pessoa.Read();
             var tes = pessoa["nome"].ToString();
 
-            return new string[] { pessoa["nome"].ToString() };
-
-            //return new string[] { "value1", "value2" };
+            return new string[] { pessoa["nome"].ToString() };            
         }
 
         // GET login/Login/5

@@ -94,9 +94,7 @@ class _LoginState extends State<Login> {
               ),
               child: SizedBox.expand(
                 child: TextButton(
-                  onPressed: () {
-                    getJSONData().toString();
-                  },
+                  onPressed: () {},
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -137,7 +135,7 @@ class _LoginState extends State<Login> {
 
   Future<String> getJSONData() async {
     var request =
-        http.Request('GET', Uri.parse('https://localhost:44319/api/values'));
+        http.Request('GET', Uri.parse('https://localhost:44319/api/Login'));
 
     http.StreamedResponse response = await request.send();
 

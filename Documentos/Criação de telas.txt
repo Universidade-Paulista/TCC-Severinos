@@ -5,3 +5,6 @@ Packages
 https://pub.dev/packages/brasil_fields/install - Para validação de campos brasileiros
 https://pub.dev/packages/get - Diversas validações, notificação, navegação
 
+
+Como consumir api
+https://blog.flutterando.com.br/aprendendo-a-consumir-uma-api-no-flutter-em-1-minuto-b03c2f93f9af
