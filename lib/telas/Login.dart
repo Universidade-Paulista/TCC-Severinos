@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:severino/telas/Cadastro.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
 
 class Login extends StatefulWidget {
   @override
@@ -93,7 +94,9 @@ class _LoginState extends State<Login> {
               ),
               child: SizedBox.expand(
                 child: TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    getJSONData().toString();
+                  },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -130,5 +133,18 @@ class _LoginState extends State<Login> {
         ),
       ),
     );
+  }
+
+  Future<String> getJSONData() async {
+    var request =
+        http.Request('GET', Uri.parse('https://localhost:44319/api/values'));
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      return (await response.stream.bytesToString());
+    } else {
+      return (response.reasonPhrase);
+    }
   }
 }

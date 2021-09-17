@@ -1,70 +1,55 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
-using System.Security.Claims;
-using System.Text;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Tokens;
-using SeverinosAPI.Models;
 using TCCteste;
 
-namespace Severinoslogin.Controllers
+namespace SeverinosAPI.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-
+    [Route("login/[controller]")]
+    [Controller]
     public class LoginController : ControllerBase
     {
-        private readonly IConfiguration _configuration;
-        public LoginController(IConfiguration configuration)
+        // GET login/Login
+        [HttpGet]
+        public ActionResult<IEnumerable<string>> Get()
         {
-            _configuration = configuration;
-        }
-
-        [AllowAnonymous]
-        [HttpPost]
-
-        public IActionResult RequestLogin([FromBody] Usuarios request)
-        {
-
             DBModel.GetConexao();
 
             var pessoa = DBModel.GetReader("select nome from tb_pessoa ");
 
             pessoa.Read();
-            var tes = pessoa["nome"].ToString();            
+            var tes = pessoa["nome"].ToString();
 
-            if (pessoa["nome"].ToString() == "teste")
-            {
-                return Ok(new string[] {"Usuario Encontrado"});
+            return new string[] { pessoa["nome"].ToString() };
 
-                //var claims = new[]
-                //{
-                //    new Claim(ClaimTypes.Name, request.Nome)
-                //};
+            //return new string[] { "value1", "value2" };
+        }
 
-                //var key = new SymmetricSecurityKey(
-                //    Encoding.UTF8.GetBytes(_configuration["SecurityKey"]));
+        // GET login/Login/5
+        [HttpGet("{id}")]
+        public ActionResult<string> Get(int id)
+        {
+            return "value";
+        }
 
-                //var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+        // POST login/Login
+        [HttpPost]
+        public void Post([FromBody] string value)
+        {
+        }
 
-                //var token = new JwtSecurityToken(
-                //    issuer: "Severinos",
-                //    audience: "Severinos",
-                //    claims: claims,
-                //    expires: DateTime.Now.AddMonths(30),
-                //    signingCredentials: creds);
+        // PUT login/Login/5
+        [HttpPut("{id}")]
+        public void Put(int id, [FromBody] string value)
+        {
+        }
 
-                //return Ok(new
-                //{
-                //    token = new JwtSecurityTokenHandler().WriteToken(token)
-                //});
-            }
-            return BadRequest("Usuario não encontrado");
+        // DELETE login/Login/5
+        [HttpDelete("{id}")]
+        public void Delete(int id)
+        {
         }
     }
 }
