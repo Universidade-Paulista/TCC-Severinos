@@ -1,20 +1,18 @@
 import 'package:rxdart/rxdart.dart';
-import 'package:severino/Servi%C3%A7os/Login.dart';
+import 'package:severino/Servicos/LoginService.dart';
 
-class LoginBlock {  
-
-final login = Login();
+class LoginBloc {
+  final login = LoginService();
   final _controlador = BehaviorSubject();
-  
+
   Stream get saida => _controlador.stream;
   Sink get entrada => _controlador.sink;
-  
-  chamadaDaSuaRequisição() async {
-    await _service.suaRequisicao().then(entrada.add);
+
+  _chamadaRequestLogin() async {
+    //await login.requestLogin().then(entrada.add);
   }
-  
+
   void dispose() {
     _controlador.close();
   }
-
 }

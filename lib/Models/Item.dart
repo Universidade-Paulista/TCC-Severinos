@@ -1,18 +1,21 @@
-class Item {
-  String title;
-  bool done;
+import 'dart:convert';
 
-  Item({this.title, this.done});
+class ProductModel {
+  ProductModel({
+    this.id,
+    this.descricao,
+  });
 
-  Item.fromJson(Map<String, dynamic> json) {
-    title = json['title'];
-    done = json['done'];
-  }
+  final int id;
+  final String descricao;
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['title'] = this.title;
-    data['done'] = this.done;
-    return data;
-  }
+  factory ProductModel.fromJson(Map<String, dynamic> json) => ProductModel(
+        id: json["id"],
+        descricao: json["descricao"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "descricao": descricao,
+      };
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:severino/Servicos/LoginService.dart';
 import 'package:severino/telas/Cadastro.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -10,6 +11,9 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  final _txtEmail = TextEditingController();
+  final log = new LoginService();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,6 +36,7 @@ class _LoginState extends State<Login> {
             ),
             TextFormField(
               keyboardType: TextInputType.emailAddress,
+              controller: _txtEmail,
               decoration: InputDecoration(
                 labelText: "E-mail",
                 labelStyle: TextStyle(
@@ -94,7 +99,10 @@ class _LoginState extends State<Login> {
               ),
               child: SizedBox.expand(
                 child: TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    var teste = log.getLogin();
+                    var te = teste;
+                  },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
