@@ -11951,23 +11951,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\harley.francisco\\.nuget\\packages\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\duda_\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\harley.francisco\\Documents\\GitHub\\TCC-Severinos\\SeverinosAPI\\SeverinosAPI\\SeverinosAPI.csproj",
+      "projectUniqueName": "D:\\MeusProjetos\\TCC-Severinos\\SeverinosAPI\\SeverinosAPI\\SeverinosAPI.csproj",
       "projectName": "SeverinosAPI",
-      "projectPath": "C:\\Users\\harley.francisco\\Documents\\GitHub\\TCC-Severinos\\SeverinosAPI\\SeverinosAPI\\SeverinosAPI.csproj",
-      "packagesPath": "C:\\Users\\harley.francisco\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\harley.francisco\\Documents\\GitHub\\TCC-Severinos\\SeverinosAPI\\SeverinosAPI\\obj\\",
+      "projectPath": "D:\\MeusProjetos\\TCC-Severinos\\SeverinosAPI\\SeverinosAPI\\SeverinosAPI.csproj",
+      "packagesPath": "C:\\Users\\duda_\\.nuget\\packages\\",
+      "outputPath": "D:\\MeusProjetos\\TCC-Severinos\\SeverinosAPI\\SeverinosAPI\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-      ],
       "configFilePaths": [
-        "C:\\Users\\harley.francisco\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\duda_\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -11979,6 +11975,7 @@
       },
       "frameworks": {
         "netcoreapp2.1": {
+          "targetAlias": "netcoreapp2.1",
           "projectReferences": {}
         }
       },
@@ -11990,6 +11987,7 @@
     },
     "frameworks": {
       "netcoreapp2.1": {
+        "targetAlias": "netcoreapp2.1",
         "dependencies": {
           "Microsoft.AspNetCore.App": {
             "suppressParent": "All",
@@ -12003,6 +12001,7 @@
             "version": "[2.2.0, )"
           },
           "Microsoft.NETCore.App": {
+            "suppressParent": "All",
             "target": "Package",
             "version": "[2.1.0, )",
             "autoReferenced": true
@@ -12013,10 +12012,16 @@
           }
         },
         "imports": [
-          "net461"
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48"
         ],
         "assetTargetFallback": true,
-        "warn": true
+        "warn": true,
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.401\\RuntimeIdentifierGraph.json"
       }
     }
   },
@@ -12025,7 +12030,7 @@
       "code": "NU1608",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "Detected package version outside of dependency constraint: Microsoft.AspNetCore.App 2.1.1 requires Microsoft.AspNetCore.Razor.Design (>= 2.1.1 && < 2.2.0) but version Microsoft.AspNetCore.Razor.Design 2.2.0 was resolved.",
+      "message": "Versão detectada do pacote fora da restrição de dependência: Microsoft.AspNetCore.App 2.1.1 requer Microsoft.AspNetCore.Razor.Design (>= 2.1.1 && < 2.2.0), mas a versão Microsoft.AspNetCore.Razor.Design 2.2.0 foi resolvida.",
       "libraryId": "Microsoft.AspNetCore.Razor.Design",
       "targetGraphs": [
         ".NETCoreApp,Version=v2.1"

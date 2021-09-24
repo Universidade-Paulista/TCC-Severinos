@@ -12,8 +12,10 @@ class LoginService {
   }*/
 
   Future<String> getLogin() async {
-    var request =
-        http.Request('GET', Uri.parse('https://localhost:44319/api/Login'));
+    var request = http.Request(
+        'GET',
+        Uri.parse(
+            'https://192.168.15.6:44319/api/Login')); //aqui vai o ip do ipv4 da maq q ta rodando
 
     http.StreamedResponse response = await request.send();
 
