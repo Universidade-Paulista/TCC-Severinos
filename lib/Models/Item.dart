@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 class ProductModel {
   ProductModel({
     this.id,

@@ -100,8 +100,7 @@ class _LoginState extends State<Login> {
               child: SizedBox.expand(
                 child: TextButton(
                   onPressed: () {
-                    var teste = log.getLogin();
-                    var te = teste;
+                    log.requestLogin();
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
