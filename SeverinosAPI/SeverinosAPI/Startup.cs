@@ -39,9 +39,13 @@ namespace SeverinosAPI
             {
                 app.UseHsts();
             }
-
-            app.UseHttpsRedirection();
+            
+            //app.UseHttpsRedirection();
             app.UseMvc();
+
+            app.UseCors(x => x.AllowAnyMethod()
+                              .AllowAnyOrigin()
+                              .AllowAnyHeader());
         }
     }
 }

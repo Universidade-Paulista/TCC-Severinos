@@ -4,33 +4,29 @@ import 'package:http/http.dart' as http;
 class LoginService {
   Dio dio = new Dio();
 
-  requestLogin() async {
-    // Response response = await dio.get('https://localhost:44319/api/Login');
-    // return response.data.toString();
-
+  getLogin1() async {
     final dio = Dio();
-    Response response = await dio.get("http://localhost:64045/api/Login");
-    if (response.statusCode == 200) {
-      return response.data().toString();
-    }
-    //já convertendo em objeto para salvar no banco futuramente
+    Response response = await dio.get("http://10.0.0.77:5000/api/Login");
 
-    // Se o usuário fez o login com sucesso, gravo o usuário e a senha no interceptor pra usar
-    // nas próximas requisições
+    if (response.statusCode == 200) {
+      var tes = response.data().toString();
+    } else {
+      print(response.statusCode);
+    }
   }
 
   // Future<String> getLogin() async {
   //   var request =
-  //       http.Request('GET', Uri.parse('https://localhost:44319/api/Login'));
+  //       http.Request('GET', Uri.parse('http://10.0.0.77:5000/api/Login'));
 
   //   http.StreamedResponse response = await request.send();
 
   //   if (response.statusCode == 200) {
-  //     print(await response.stream.bytesToString());
+  //     var teste = await response.stream.bytesToString();
   //   } else {
   //     print(response.reasonPhrase);
   //   }
 
-  //   return response.toString();
+  //   return response.data;
   // }
 }
