@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:severino/Servicos/LoginService.dart';
 import 'package:severino/telas/Cadastro.dart';
 import 'package:get/get.dart';
-import 'package:http/http.dart' as http;
 
 class Login extends StatefulWidget {
   @override
@@ -12,6 +11,7 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   final _txtEmail = TextEditingController();
+  final _txtSenha = TextEditingController();
   final log = new LoginService();
 
   @override
@@ -52,6 +52,7 @@ class _LoginState extends State<Login> {
             ),
             TextFormField(
               keyboardType: TextInputType.text,
+              controller: _txtSenha,
               obscureText: true,
               decoration: InputDecoration(
                 labelText: "Senha",
@@ -100,7 +101,7 @@ class _LoginState extends State<Login> {
               child: SizedBox.expand(
                 child: TextButton(
                   onPressed: () async {
-                    var teste = await log.getLogin1();
+                    _txtEmail.text = await log.getLogin();
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -138,18 +139,5 @@ class _LoginState extends State<Login> {
         ),
       ),
     );
-  }
-
-  Future<String> getJSONData() async {
-    var request =
-        http.Request('GET', Uri.parse('https://localhost:44319/api/Login'));
-
-    http.StreamedResponse response = await request.send();
-
-    if (response.statusCode == 200) {
-      return (await response.stream.bytesToString());
-    } else {
-      return (response.reasonPhrase);
-    }
   }
 }

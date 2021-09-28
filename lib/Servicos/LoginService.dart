@@ -1,32 +1,20 @@
 import 'package:dio/dio.dart';
-import 'package:http/http.dart' as http;
+import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 
 class LoginService {
   Dio dio = new Dio();
 
-  getLogin1() async {
+  getLogin() async {
     final dio = Dio();
     Response response = await dio.get("http://10.0.0.77:5000/api/Login");
 
     if (response.statusCode == 200) {
-      var tes = response.data().toString();
+      return response.data[0].toString();
     } else {
-      print(response.statusCode);
+      AlertDialog(
+        title: Text(response.statusMessage),
+      );
     }
   }
-
-  // Future<String> getLogin() async {
-  //   var request =
-  //       http.Request('GET', Uri.parse('http://10.0.0.77:5000/api/Login'));
-
-  //   http.StreamedResponse response = await request.send();
-
-  //   if (response.statusCode == 200) {
-  //     var teste = await response.stream.bytesToString();
-  //   } else {
-  //     print(response.reasonPhrase);
-  //   }
-
-  //   return response.data;
-  // }
 }

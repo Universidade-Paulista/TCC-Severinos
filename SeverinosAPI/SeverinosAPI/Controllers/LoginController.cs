@@ -11,7 +11,7 @@ namespace SeverinosAPI.Controllers
     [Controller]
     public class LoginController : ControllerBase
     {
-        // GET login/Login
+        // GET api/Login
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
@@ -26,10 +26,24 @@ namespace SeverinosAPI.Controllers
         }
 
         // GET login/Login/5
-        [HttpGet("{id}")]
-        public ActionResult<string> Get(int id)
+        [HttpGet("{usuario}/{senha}")]
+        public ActionResult<bool> Get(String usuario, String senha)
         {
-            return "value";
+            DBModel.GetConexao();
+
+            var pessoa = DBModel.GetReader($"select Count(*) AS Cnt from tb_login where login = {usuario} and senha = {senha} ");
+
+            pessoa.Read();
+            int tes = Convert.ToInt32(pessoa["Cnt"]);
+
+            if (tes == 1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }            
         }
 
         // POST login/Login
