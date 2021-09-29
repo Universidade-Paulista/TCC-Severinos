@@ -21,24 +21,29 @@ class _CadastroState extends State<Cadastro> {
             height: 40,
           ),
         ),
-        body: Stepper(
-          steps: _mySteps(),
-          currentStep: this._currentStep,
-          onStepTapped: (step) {
-            setState(() {
-              this._currentStep = step;
-            });
-          },
-          onStepContinue: () {
-            setState(() {
-              if (this._currentStep < this._mySteps().length - 1) {
-                this._currentStep = this._currentStep + 1;
-              } else {
-                print('Completo');
-              }
-            });
-          },
-        ));
+        body: Theme(
+            data: ThemeData(
+                accentColor: Colors.cyan,
+                primarySwatch: Colors.cyan,
+                colorScheme: ColorScheme.light(primary: Colors.cyan.shade400)),
+            child: Stepper(
+              steps: _mySteps(),
+              currentStep: this._currentStep,
+              onStepTapped: (step) {
+                setState(() {
+                  this._currentStep = step;
+                });
+              },
+              onStepContinue: () {
+                setState(() {
+                  if (this._currentStep < this._mySteps().length - 1) {
+                    this._currentStep = this._currentStep + 1;
+                  } else {
+                    print('Completo');
+                  }
+                });
+              },
+            )));
   }
 
   List<Step> _mySteps() {
