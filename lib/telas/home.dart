@@ -1,4 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
+//import 'package:get/get_navigation/src/extension_navigation.dart';
+//import 'package:location/location.dart';
+//import 'package:location_platform_interface/location_platform_interface.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:get/get_navigation/src/extension_navigation.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -6,50 +12,132 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  final _txtEndereco = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [Color(0xfff3f9a7), Color(0xffcac531)]),
+    _txtEndereco.text = _getCurrentPosition();
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          "SEVERINO'S",
+          style: TextStyle(
+            fontSize: 17,
+            fontFamily: 'Abadi',
+          ),
         ),
-        child: Padding(
-            padding: EdgeInsets.all(60),
+      ),
+      drawer: Drawer(
+        child: _getContainerDrawer(),
+      ),
+      body: _getParametrosTela(),
+    );
+  }
+
+  _getParametrosTela() {
+    return Container(
+      padding: EdgeInsets.only(
+        top: 40,
+        left: 20,
+        right: 20,
+      ),
+      color: Colors.grey.shade300,
+      child: ListView(
+        children: <Widget>[
+          TextFormField(
+            keyboardType: TextInputType.text,
+            controller: _txtEndereco,
+            decoration: InputDecoration(
+              labelText: "Endereço",
+              labelStyle: TextStyle(
+                color: Colors.black,
+                fontWeight: FontWeight.w400,
+                fontSize: 20,
+              ),
+            ),
+            style: TextStyle(fontSize: 20),
+          ),
+        ],
+      ),
+    );
+  }
+
+  _getContainerDrawer() {
+    return Container(
+      decoration: BoxDecoration(color: Colors.white),
+      child: Column(
+        children: <Widget>[
+          Expanded(
             child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[
+                SizedBox(
+                  height: 40,
+                ),
+                ListTile(
+                  leading: Icon(Icons.home),
+                  title: Text("Editar perfil"),
+                  onTap: () {
+                    navigator.pop();
+                  },
+                ),
+                ListTile(
+                  leading: Icon(Icons.qr_code_scanner_outlined),
+                  title: Text("Histórico de serviços"),
+                  onTap: () {},
+                ),
+              ],
+            ),
+          ),
+          Container(
+            child: Align(
+              alignment: FractionalOffset.bottomCenter,
+              child: Column(
                 children: <Widget>[
-                  Image.asset('Logos/Logoredonda.png'),
-                  ButtonTheme(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(40.0)),
-                    height: 60.0,
-                    buttonColor: Colors.yellow,
-                    child: ElevatedButton(
-                      onPressed: () => {},
-                      child: Text(
-                        "Preciso de um Severino",
-                        style: TextStyle(color: Colors.black),
-                      ),
-                    ),
-                  ),
                   Divider(),
-                  ButtonTheme(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(40.0)),
-                    height: 60.0,
-                    minWidth: 60.0,
-                    buttonColor: Colors.yellow,
-                    child: ElevatedButton(
-                      onPressed: () => {},
-                      child: Text(
-                        "Sou um Severino",
-                        style: TextStyle(color: Colors.black),
-                      ),
-                    ),
+                  ListTile(
+                    leading: Icon(Icons.settings),
+                    title: Text("Central de ajuda"),
+                    onTap: () {},
                   ),
-                ])));
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Future<void> _getCurrentPosition() async {
+    // verify permissions
+    LocationPermission permission = await Geolocator.requestPermission();
+    if (permission == LocationPermission.denied ||
+        permission == LocationPermission.deniedForever) {
+      await Geolocator.openAppSettings();
+      await Geolocator.openLocationSettings();
+    }
+    // get current position
+    var _currentPosition = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+
+    // get address
+    return await _getGeolocationAddress(_currentPosition);
+  }
+
+  // Method to get Address from position:
+
+  Future<String> _getGeolocationAddress(Position position) async {
+    // geocoding
+    var places = await placemarkFromCoordinates(
+      position.latitude,
+      position.longitude,
+    );
+    if (places != null && places.isNotEmpty) {
+      final Placemark place = places.first;
+      return "${place.thoroughfare}, ${place.locality}";
+    }
+
+    return "No address available";
   }
 }

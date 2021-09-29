@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:severino/Servicos/LoginService.dart';
 import 'package:severino/telas/Cadastro.dart';
 import 'package:get/get.dart';
+import 'package:severino/telas/home.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -101,7 +103,13 @@ class _LoginState extends State<Login> {
               child: SizedBox.expand(
                 child: TextButton(
                   onPressed: () async {
-                    _txtEmail.text = await log.getLogin();
+                    // if (await log.getLogin(_txtEmail.text, _txtSenha.text)) {
+                    //   _getSalvar();
+                    //   Get.to(Home());
+                    // } else {
+                    //   _showMyDialog("E-mail e/ou senha inválidos");
+                    // }
+                    Get.to(Home());
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -138,6 +146,40 @@ class _LoginState extends State<Login> {
           ],
         ),
       ),
+    );
+  }
+
+  _getSalvar() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    prefs.setString('Email', _txtEmail.text);
+    prefs.setString('Senha', _txtSenha.text);
+  }
+
+  Future<void> _showMyDialog(sMensagem) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Atenção'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text(sMensagem),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Text('Ok'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }
