@@ -43,4 +43,3 @@ C:\Users\harley.francisco\Documents\GitHub\TCC-Severinos\SeverinosAPI\SeverinosA
 C:\Users\harley.francisco\Documents\GitHub\TCC-Severinos\SeverinosAPI\SeverinosAPI\obj\Debug\netcoreapp2.1\SeverinosAPI.RazorTargetAssemblyInfo.cache
 C:\Users\harley.francisco\Documents\GitHub\TCC-Severinos\SeverinosAPI\SeverinosAPI\obj\Debug\netcoreapp2.1\SeverinosAPI.dll
 C:\Users\harley.francisco\Documents\GitHub\TCC-Severinos\SeverinosAPI\SeverinosAPI\obj\Debug\netcoreapp2.1\SeverinosAPI.pdb
-D:\MeusProjetos\TCC-Severinos\SeverinosAPI\SeverinosAPI\obj\Debug\netcoreapp2.1\SeverinosAPI.csproj.AssemblyReference.cache
