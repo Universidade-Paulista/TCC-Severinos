@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
-//import 'package:get/get_navigation/src/extension_navigation.dart';
-//import 'package:location/location.dart';
-//import 'package:location_platform_interface/location_platform_interface.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 
@@ -16,7 +13,7 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    _txtEndereco.text = _getCurrentPosition();
+    _txtEndereco.text = _getCurrentPosition().toString();
 
     return Scaffold(
       appBar: AppBar(
@@ -109,7 +106,7 @@ class _HomeState extends State<Home> {
     );
   }
 
-  Future<void> _getCurrentPosition() async {
+  Future<String> _getCurrentPosition() async {
     // verify permissions
     LocationPermission permission = await Geolocator.requestPermission();
     if (permission == LocationPermission.denied ||
@@ -135,9 +132,11 @@ class _HomeState extends State<Home> {
     );
     if (places != null && places.isNotEmpty) {
       final Placemark place = places.first;
-      return "${place.thoroughfare}, ${place.locality}";
+      String endereco =
+          "${place.street} ${place.name}, ${place.subLocality}, ${place.subAdministrativeArea} - ${place.administrativeArea} ${place.postalCode} ${place.country}";
+      return endereco;
+    } else {
+      return "No address available";
     }
-
-    return "No address available";
   }
 }
