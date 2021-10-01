@@ -21,6 +21,7 @@ class _CadastroState extends State<Cadastro> {
             height: 40,
           ),
         ),
+        backgroundColor: Colors.grey.shade300,
         body: Theme(
             data: ThemeData(
                 accentColor: Colors.cyan,
