@@ -11,7 +11,6 @@ class Cadastro extends StatefulWidget {
 class _CadastroState extends State<Cadastro> {
   bool severino = false;
   int _currentStep = 0;
-  bool _teste = false;
 
   Widget build(BuildContext context) {
     return Scaffold(
