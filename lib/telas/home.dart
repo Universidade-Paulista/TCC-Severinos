@@ -1,7 +1,11 @@
+import 'dart:html';
+
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
+import 'package:dropdownfield/dropdownfield.dart';
+import 'package:io/ansi.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -10,10 +14,21 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   final _txtEndereco = TextEditingController();
+  String _servicoId = '';
+  List<String> _profissoes = [
+    "Food",
+    "Transport",
+    "Personal",
+    "Shopping",
+    "Medical",
+    "Rent",
+    "Movie",
+    "Salary"
+  ];
 
   @override
   Widget build(BuildContext context) {
-    _txtEndereco.text = _getCurrentPosition().toString();
+    _getCurrentPosition();
 
     return Scaffold(
       appBar: AppBar(
@@ -53,8 +68,14 @@ class _HomeState extends State<Home> {
                 fontSize: 20,
               ),
             ),
-            style: TextStyle(fontSize: 20),
+            style: TextStyle(fontSize: 15),
           ),
+          SizedBox(
+            height: 15,
+          ),
+          Container(
+            child: _getDropDownField(),
+          )
         ],
       ),
     );
@@ -72,14 +93,14 @@ class _HomeState extends State<Home> {
                   height: 40,
                 ),
                 ListTile(
-                  leading: Icon(Icons.home),
+                  leading: Icon(Icons.edit),
                   title: Text("Editar perfil"),
                   onTap: () {
                     navigator.pop();
                   },
                 ),
                 ListTile(
-                  leading: Icon(Icons.qr_code_scanner_outlined),
+                  leading: Icon(Icons.history),
                   title: Text("Histórico de serviços"),
                   onTap: () {},
                 ),
@@ -93,7 +114,7 @@ class _HomeState extends State<Home> {
                 children: <Widget>[
                   Divider(),
                   ListTile(
-                    leading: Icon(Icons.settings),
+                    leading: Icon(Icons.help),
                     title: Text("Central de ajuda"),
                     onTap: () {},
                   ),
@@ -106,7 +127,20 @@ class _HomeState extends State<Home> {
     );
   }
 
-  Future<String> _getCurrentPosition() async {
+  _getDropDownField() {
+    return DropDownField(
+      onValueChanged: (dynamic value) {
+        _servicoId = value;
+      },
+      value: _servicoId,
+      required: false,
+      hintText: 'Pesquisar um serviço',
+      hintStyle: TextStyle(fontSize: 16, color: Colors.black),
+      items: _profissoes,
+    );
+  }
+
+  Future<void> _getCurrentPosition() async {
     // verify permissions
     LocationPermission permission = await Geolocator.requestPermission();
     if (permission == LocationPermission.denied ||
@@ -119,12 +153,12 @@ class _HomeState extends State<Home> {
         desiredAccuracy: LocationAccuracy.high);
 
     // get address
-    return await _getGeolocationAddress(_currentPosition);
+    await _getGeolocationAddress(_currentPosition);
   }
 
   // Method to get Address from position:
 
-  Future<String> _getGeolocationAddress(Position position) async {
+  Future<void> _getGeolocationAddress(Position position) async {
     // geocoding
     var places = await placemarkFromCoordinates(
       position.latitude,
@@ -132,9 +166,7 @@ class _HomeState extends State<Home> {
     );
     if (places != null && places.isNotEmpty) {
       final Placemark place = places.first;
-      String endereco =
-          "${place.street} ${place.name}, ${place.subLocality}, ${place.subAdministrativeArea} - ${place.administrativeArea} ${place.postalCode} ${place.country}";
-      return endereco;
+      _txtEndereco.text = "${place.street} ${place.name}, ${place.subLocality}";
     } else {
       return "No address available";
     }

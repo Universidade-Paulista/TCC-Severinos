@@ -11,6 +11,7 @@ class Cadastro extends StatefulWidget {
 class _CadastroState extends State<Cadastro> {
   bool severino = false;
   int _currentStep = 0;
+  bool _teste = false;
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -256,28 +257,6 @@ class _CadastroState extends State<Cadastro> {
               fontSize: 25,
             ),
           ),
-          SizedBox(
-            height: 40,
-          ),
-        ]),
-        isActive: _currentStep >= 0,
-      ),
-      Step(
-        title: Text('Seja um Severino'),
-        content: Column(children: <Widget>[
-          CheckboxListTile(
-              title: Text("Deseja se tornar um severino?"),
-              subtitle: Text(
-                "Ao selecionar está opção você se tornara um prestador de serviços do aplicativo Severino's",
-              ),
-              checkColor: Colors.black,
-              activeColor: Colors.cyan.shade300,
-              value: severino,
-              onChanged: (bool valCheck) {
-                setState(() {
-                  severino = valCheck;
-                });
-              }),
           SizedBox(
             height: 40,
           ),
