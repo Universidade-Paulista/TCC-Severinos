@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:severino/telas/Cadastro.dart';
 import 'package:get/get.dart';
+import 'package:severino/telas/CadastroSev.dart';
 
 class PreCadastro extends StatefulWidget {
   @override
@@ -96,7 +97,7 @@ class _PreCadastroState extends State<PreCadastro> {
               child: SizedBox.expand(
                 child: TextButton(
                   onPressed: () async {
-                    Get.to(Cadastro());
+                    Get.to(CadastroSev());
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
