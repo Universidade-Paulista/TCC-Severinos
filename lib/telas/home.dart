@@ -13,14 +13,12 @@ class _HomeState extends State<Home> {
   final _txtEndereco = TextEditingController();
   String _servicoId = '';
   List<String> _profissoes = [
-    "Food",
-    "Transport",
-    "Personal",
-    "Shopping",
-    "Medical",
-    "Rent",
-    "Movie",
-    "Salary"
+    "Encanador",
+    "Marceneiro",
+    "Eletricista",
+    "Mecanico",
+    "Garota de aluguel",
+    "Motorista"
   ];
 
   @override
@@ -72,7 +70,19 @@ class _HomeState extends State<Home> {
           ),
           Container(
             child: _getDropDownField(),
-          )
+          ),
+          SizedBox(
+            height: 40,
+          ),
+          _getContainerBotaoLadoLado(),
+          SizedBox(
+            height: 20,
+          ),
+          _getContainerBotaoLadoLado(),
+          SizedBox(
+            height: 20,
+          ),
+          _getContainerBotaoLadoLado(),
         ],
       ),
     );
@@ -121,6 +131,32 @@ class _HomeState extends State<Home> {
           ),
         ],
       ),
+    );
+  }
+
+  _getCaixaTexto(
+      Alignment alinhamento, Color cor, double altura, double largura) {
+    return Align(
+      alignment: alinhamento,
+      child: Container(
+        width: largura,
+        height: altura,
+        color: cor,
+      ),
+    );
+  }
+
+  _getContainerBotaoLadoLado() {
+    return Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            _getCaixaTexto(Alignment.topLeft, Colors.green, 160, 180),
+            _getCaixaTexto(Alignment.topRight, Colors.green, 160, 180),
+          ],
+        )
+      ],
     );
   }
 
