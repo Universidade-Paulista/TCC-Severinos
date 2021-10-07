@@ -27,12 +27,10 @@ class _HomeState extends State<Home> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          "SEVERINO'S",
-          style: TextStyle(
-            fontSize: 17,
-            fontFamily: 'Abadi',
-          ),
+        centerTitle: true,
+        title: Image.asset(
+          'assets/Logos/Logo-original.png',
+          height: 40,
         ),
       ),
       drawer: Drawer(
