@@ -140,6 +140,39 @@ class _HomeState extends State<Home> {
         width: largura,
         height: altura,
         color: cor,
+        child: Container(
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              stops: [0.3, 1],
+              colors: [
+                Color(0xFF80DEEA),
+                Color(0xFF4DD0E1),
+              ],
+            ),
+          ),
+          child: SizedBox.expand(
+            child: TextButton(
+              onPressed: () {},
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Eletricista",
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: Colors.black87,
+                    ),
+                    textAlign: TextAlign.left,
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
       ),
     );
   }
@@ -150,8 +183,8 @@ class _HomeState extends State<Home> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            _getCaixaTexto(Alignment.topLeft, Colors.green, 160, 180),
-            _getCaixaTexto(Alignment.topRight, Colors.green, 160, 180),
+            _getCaixaTexto(Alignment.topLeft, Colors.green, 160, 160),
+            _getCaixaTexto(Alignment.topRight, Colors.green, 160, 160),
           ],
         )
       ],
