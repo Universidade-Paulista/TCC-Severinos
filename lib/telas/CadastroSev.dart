@@ -308,14 +308,31 @@ class _CadastroSevState extends State<CadastroSev> {
             obscureText: true,
             decoration: InputDecoration(
               labelText: "Link WhatsApp",
+              hintText: "https://api.whatsapp.com/send?phone=SeuNúmero",
               labelStyle: TextStyle(
                 color: Colors.black87,
                 fontWeight: FontWeight.bold,
                 fontSize: 10,
               ),
+              suffixIcon: Padding(
+                padding: EdgeInsets.all(0.0),
+                child: IconButton(
+                  icon: Icon(Icons.help_outline),
+                  color: Colors.grey.shade400,
+                  onPressed: () {
+                    _showMyDialog("Substitua o termo " +
+                        "SeuNúmero" +
+                        " pelo número do seu telefone, incluindo o código do país e o DDD. No exemplo a seguir, utilizamos o DDI " +
+                        "55" +
+                        ", do Brasil, e o código " +
+                        "11" +
+                        ", da cidade de São Paulo: https://api.whatsapp.com/send?phone=5511012345678");
+                  },
+                ),
+              ),
             ),
             style: TextStyle(
-              fontSize: 25,
+              fontSize: 10,
             ),
           ),
           SizedBox(
@@ -326,5 +343,31 @@ class _CadastroSevState extends State<CadastroSev> {
       )
     ];
     return _steps;
+  }
+
+  Future<void> _showMyDialog(sMensagem) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text(sMensagem),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Text('Ok'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 }
