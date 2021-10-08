@@ -70,7 +70,7 @@ class _HomeState extends State<Home> {
             child: _getDropDownField(),
           ),
           SizedBox(
-            height: 40,
+            height: 30,
           ),
           _getContainerBotaoLadoLado(),
           SizedBox(
@@ -193,8 +193,8 @@ class _HomeState extends State<Home> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             _getCaixaTexto(
-                Alignment.topLeft, Colors.lightGreenAccent, 160, 170),
-            _getCaixaTexto(Alignment.topRight, Colors.green, 160, 170),
+                Alignment.topLeft, Colors.lightGreenAccent, 155, 170),
+            _getCaixaTexto(Alignment.topRight, Colors.green, 155, 170),
           ],
         )
       ],
