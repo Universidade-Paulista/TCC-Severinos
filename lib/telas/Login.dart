@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:severino/Servicos/LoginService.dart';
-import 'package:severino/telas/Cadastro.dart';
 import 'package:get/get.dart';
 import 'package:severino/telas/PreCadastro.dart';
 import 'package:severino/telas/home.dart';
