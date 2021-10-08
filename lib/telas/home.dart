@@ -72,15 +72,54 @@ class _HomeState extends State<Home> {
           SizedBox(
             height: 30,
           ),
-          _getContainerBotaoLadoLado(),
+          _getContainerBotaoLadoLado(
+            "Eletricista",
+            Icon(
+              Icons.electrical_services,
+              size: 100,
+              color: Colors.black38,
+            ),
+            "Encanador",
+            Icon(
+              Icons.plumbing,
+              size: 100,
+              color: Colors.black38,
+            ),
+          ),
           SizedBox(
             height: 20,
           ),
-          _getContainerBotaoLadoLado(),
+          _getContainerBotaoLadoLado(
+            "Marceneiro",
+            Icon(
+              Icons.carpenter,
+              size: 100,
+              color: Colors.black38,
+            ),
+            "Mecânico",
+            Icon(
+              Icons.car_repair,
+              size: 100,
+              color: Colors.black38,
+            ),
+          ),
           SizedBox(
             height: 20,
           ),
-          _getContainerBotaoLadoLado(),
+          _getContainerBotaoLadoLado(
+            "Pintor",
+            Icon(
+              Icons.format_paint,
+              size: 100,
+              color: Colors.black38,
+            ),
+            "Empreiteiro",
+            Icon(
+              Icons.engineering,
+              size: 100,
+              color: Colors.black38,
+            ),
+          ),
         ],
       ),
     );
@@ -132,8 +171,8 @@ class _HomeState extends State<Home> {
     );
   }
 
-  _getCaixaTexto(
-      Alignment alinhamento, Color cor, double altura, double largura) {
+  _getCaixaTexto(Alignment alinhamento, Color cor, double altura,
+      double largura, String titulo, Icon icone) {
     return Align(
       alignment: alinhamento,
       child: Container(
@@ -165,18 +204,19 @@ class _HomeState extends State<Home> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Text(
-                    "Eletricista",
+                    titulo,
                     style: TextStyle(
                       fontSize: 15,
                       color: Colors.black,
                     ),
                     textAlign: TextAlign.left,
                   ),
-                  Icon(
-                    Icons.electrical_services,
-                    size: 100,
-                    color: Colors.black38,
-                  )
+                  icone,
+                  // Icon(
+                  //   Icons.electrical_services,
+                  //   size: 100,
+                  //   color: Colors.black38,
+                  // )
                 ],
               ),
             ),
@@ -186,15 +226,17 @@ class _HomeState extends State<Home> {
     );
   }
 
-  _getContainerBotaoLadoLado() {
+  _getContainerBotaoLadoLado(
+      String tituloEsq, Icon iconeEsq, String tituloDir, Icon iconeDir) {
     return Column(
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            _getCaixaTexto(
-                Alignment.topLeft, Colors.lightGreenAccent, 155, 170),
-            _getCaixaTexto(Alignment.topRight, Colors.green, 155, 170),
+            _getCaixaTexto(Alignment.topLeft, Colors.lightGreenAccent, 155, 170,
+                tituloEsq, iconeEsq),
+            _getCaixaTexto(Alignment.topRight, Colors.green, 155, 170,
+                tituloDir, iconeDir),
           ],
         )
       ],
