@@ -142,6 +142,10 @@ class _HomeState extends State<Home> {
         color: cor,
         child: Container(
           alignment: Alignment.center,
+          padding: EdgeInsets.only(
+            top: 10,
+            left: 10,
+          ),
           decoration: BoxDecoration(
             gradient: LinearGradient(
               begin: Alignment.topLeft,
@@ -149,7 +153,7 @@ class _HomeState extends State<Home> {
               stops: [0.3, 1],
               colors: [
                 Color(0xFF80DEEA),
-                Color(0xFF4DD0E1),
+                Colors.lightGreenAccent,
               ],
             ),
           ),
@@ -158,16 +162,21 @@ class _HomeState extends State<Home> {
               onPressed: () {},
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Text(
                     "Eletricista",
                     style: TextStyle(
-                      fontSize: 12,
-                      color: Colors.black87,
+                      fontSize: 15,
+                      color: Colors.black,
                     ),
                     textAlign: TextAlign.left,
                   ),
+                  Icon(
+                    Icons.electrical_services,
+                    size: 100,
+                    color: Colors.black38,
+                  )
                 ],
               ),
             ),
@@ -183,8 +192,9 @@ class _HomeState extends State<Home> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            _getCaixaTexto(Alignment.topLeft, Colors.green, 160, 160),
-            _getCaixaTexto(Alignment.topRight, Colors.green, 160, 160),
+            _getCaixaTexto(
+                Alignment.topLeft, Colors.lightGreenAccent, 160, 170),
+            _getCaixaTexto(Alignment.topRight, Colors.green, 160, 170),
           ],
         )
       ],
