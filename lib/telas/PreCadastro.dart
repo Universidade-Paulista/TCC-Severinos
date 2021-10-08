@@ -99,7 +99,6 @@ class _PreCadastroState extends State<PreCadastro> {
                   onPressed: () async {
                     Get.to(CadastroSev());
                   },
-                  onLongPress: () {},
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
