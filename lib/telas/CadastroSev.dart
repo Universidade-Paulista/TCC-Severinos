@@ -304,11 +304,15 @@ class _CadastroSevState extends State<CadastroSev> {
             height: 5,
           ),
           TextFormField(
-            keyboardType: TextInputType.text,
-            obscureText: true,
+            inputFormatters: [
+              FilteringTextInputFormatter.digitsOnly,
+              TelefoneInputFormatter()
+            ],
+            keyboardType: TextInputType.number,
             decoration: InputDecoration(
-              labelText: "Link WhatsApp",
-              hintText: "https://api.whatsapp.com/send?phone=SeuNúmero",
+              labelText: "Número do WhatsApp",
+              //deixar 55 fixo
+              //hintText: "55 DDD 999999999",
               labelStyle: TextStyle(
                 color: Colors.black87,
                 fontWeight: FontWeight.bold,
@@ -320,13 +324,8 @@ class _CadastroSevState extends State<CadastroSev> {
                   icon: Icon(Icons.help_outline),
                   color: Colors.grey.shade400,
                   onPressed: () {
-                    _showMyDialog("Substitua o termo " +
-                        "SeuNúmero" +
-                        " pelo número do seu telefone, incluindo o código do país e o DDD. No exemplo a seguir, utilizamos o DDI " +
-                        "55" +
-                        ", do Brasil, e o código " +
-                        "11" +
-                        ", da cidade de São Paulo: https://api.whatsapp.com/send?phone=5511012345678");
+                    _showMyDialog(
+                        "Será gerado um link de integração com o WhatsApp a partir do número disponibilizado para que os clientes possam entrar em contato através do seu perfil.");
                   },
                 ),
               ),
