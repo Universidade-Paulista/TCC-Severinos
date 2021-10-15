@@ -45,6 +45,7 @@ dependencies:
   location: ^4.3.0
   geocoding: ^2.0.1
   dropdownfield: ^1.0.3
+  flutter_rating_bar: ^4.0.0
 
 dev_dependencies:
   flutter_test:

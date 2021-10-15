@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
+import 'package:get/get.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:dropdownfield/dropdownfield.dart';
+import 'package:severino/telas/ListPrestadores.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -113,9 +115,9 @@ class _HomeState extends State<Home> {
               size: 100,
               color: Colors.black38,
             ),
-            "Empreiteiro",
+            "Diarista",
             Icon(
-              Icons.engineering,
+              Icons.cleaning_services,
               size: 100,
               color: Colors.black38,
             ),
@@ -198,7 +200,9 @@ class _HomeState extends State<Home> {
           ),
           child: SizedBox.expand(
             child: TextButton(
-              onPressed: () {},
+              onPressed: () {
+                Get.to(ListaPrestadores());
+              },
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
