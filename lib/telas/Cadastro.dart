@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:brasil_fields/brasil_fields.dart';
+import 'package:severino/telas/Login.dart';
 
 class Cadastro extends StatefulWidget {
   @override
@@ -28,6 +29,31 @@ class _CadastroState extends State<Cadastro> {
                 primarySwatch: Colors.cyan,
                 colorScheme: ColorScheme.light(primary: Colors.cyan.shade400)),
             child: Stepper(
+              controlsBuilder: (BuildContext context,
+                  {VoidCallback onStepContinue, VoidCallback onStepCancel}) {
+                return Row(
+                  children: <Widget>[
+                    SizedBox(height: 50.0),
+                    Container(
+                      color: Colors.cyan.shade300,
+                      child: TextButton(
+                        child: Text(
+                          "CONTINUAR",
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        onPressed: onStepContinue,
+                      ),
+                    ),
+                    TextButton(
+                      child: Text(
+                        'CANCELAR',
+                        style: TextStyle(color: Colors.grey.shade600),
+                      ),
+                      onPressed: onStepCancel,
+                    ),
+                  ],
+                );
+              },
               steps: _mySteps(),
               currentStep: this._currentStep,
               onStepTapped: (step) {
@@ -40,7 +66,19 @@ class _CadastroState extends State<Cadastro> {
                   if (this._currentStep < this._mySteps().length - 1) {
                     this._currentStep = this._currentStep + 1;
                   } else {
-                    print('Completo');
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) {
+                      return Login();
+                    }));
+                  }
+                });
+              },
+              onStepCancel: () {
+                setState(() {
+                  if (this._currentStep > 0) {
+                    this._currentStep = this._currentStep - 1;
+                  } else {
+                    this._currentStep = 0;
                   }
                 });
               },
@@ -163,6 +201,29 @@ class _CadastroState extends State<Cadastro> {
             ),
           ),
           SizedBox(
+            height: 15,
+          ),
+          TextFormField(
+            inputFormatters: [
+              FilteringTextInputFormatter.digitsOnly,
+              TelefoneInputFormatter()
+            ],
+            keyboardType: TextInputType.number,
+            decoration: InputDecoration(
+              labelText: "Celular",
+              //deixar 55 fixo
+              //hintText: "55 DDD 999999999",
+              labelStyle: TextStyle(
+                color: Colors.black87,
+                fontWeight: FontWeight.bold,
+                fontSize: 10,
+              ),
+            ),
+            style: TextStyle(
+              fontSize: 25,
+            ),
+          ),
+          SizedBox(
             height: 40,
           ),
           Text(
@@ -261,7 +322,7 @@ class _CadastroState extends State<Cadastro> {
             height: 40,
           ),
         ]),
-        isActive: _currentStep >= 0,
+        isActive: _currentStep >= 1,
       ),
     ];
     return _steps;
