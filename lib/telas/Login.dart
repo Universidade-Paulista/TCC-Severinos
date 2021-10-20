@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:severino/Servicos/LoginService.dart';
 import 'package:get/get.dart';
+import 'package:severino/telas/HomeSev.dart';
 import 'package:severino/telas/PreCadastro.dart';
 import 'package:severino/telas/home.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -109,7 +110,8 @@ class _LoginState extends State<Login> {
                     // } else {
                     //   _showMyDialog("E-mail e/ou senha inválidos");
                     // }
-                    Get.to(Home());
+                    //Get.to(Home());
+                    Get.to(HomeSev());
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,

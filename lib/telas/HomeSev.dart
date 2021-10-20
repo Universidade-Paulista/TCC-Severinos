@@ -1,6 +1,12 @@
+import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:io/ansi.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:path/path.dart';
 
 class HomeSev extends StatefulWidget {
   @override
@@ -12,6 +18,8 @@ class _HomeSevState extends State<HomeSev> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        foregroundColor: Colors.black,
+        backgroundColor: Colors.grey.shade300,
         centerTitle: true,
         title: Image.asset(
           'assets/Logos/Logo-original.png',
@@ -45,29 +53,7 @@ class _HomeSevState extends State<HomeSev> {
               ),
             ),
             SizedBox(
-              height: 70,
-            ),
-            Container(
-              height: 170,
-              alignment: Alignment.center,
-              child: SizedBox.expand(
-                  child: ElevatedButton(
-                onPressed: () {},
-                child: Icon(
-                  Icons.add_a_photo,
-                  color: Colors.white,
-                  size: 30,
-                ),
-                style: ElevatedButton.styleFrom(
-                  shape: CircleBorder(),
-                  padding: EdgeInsets.all(20),
-                  primary: Colors.grey.shade400, // <-- Button color
-                  onPrimary: Colors.cyan.shade300, // <-- Splash color
-                ),
-              )),
-            ),
-            SizedBox(
-              height: 20,
+              height: 10,
             ),
             Container(
               child: Row(
@@ -81,6 +67,68 @@ class _HomeSevState extends State<HomeSev> {
                     ),
                   ),
                 ],
+              ),
+            ),
+            SizedBox(
+              height: 70,
+            ),
+            arquivo != null
+                ? Padding(
+                    padding: EdgeInsets.only(bottom: 0),
+                    child: Center(
+                      child: SizedBox(
+                        width: 150,
+                        height: 150,
+                        child: ClipOval(
+                            child: Image.file(arquivo, fit: BoxFit.cover)),
+                      ),
+                    ),
+                  )
+                : Container(
+                    height: 150,
+                    alignment: Alignment.center,
+                    child: SizedBox.expand(
+                        child: ElevatedButton(
+                      onPressed: () {},
+                      child: Icon(
+                        Icons.person_rounded,
+                        color: Colors.white,
+                        size: 30,
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        shape: CircleBorder(),
+                        padding: EdgeInsets.all(20),
+                        primary: Colors.grey.shade400, // <-- Button color
+                      ),
+                    )),
+                  ),
+            SizedBox(
+              height: 5,
+            ),
+            Container(
+              height: 50,
+              alignment: Alignment.center,
+              child: SizedBox.expand(
+                child: ElevatedButton.icon(
+                  onPressed: () => getFileFromGallery(),
+                  icon: Icon(
+                    Icons.edit,
+                    color: Colors.black,
+                    size: 14,
+                  ),
+                  label: Padding(
+                    padding: const EdgeInsets.all(0.0),
+                    child: Text('Insira sua logo'),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                      elevation: 0.0,
+                      primary: Colors.transparent,
+                      onPrimary: Colors.black,
+                      textStyle: TextStyle(
+                        fontSize: 12,
+                        color: Colors.black,
+                      )),
+                ),
               ),
             ),
             SizedBox(
@@ -170,4 +218,37 @@ class _HomeSevState extends State<HomeSev> {
       ),
     );
   }
+
+  File arquivo;
+  final picker = ImagePicker();
+
+  Future getFileFromGallery() async {
+    final file = await picker.getImage(source: ImageSource.gallery);
+
+    if (file != null) {
+      setState(() => arquivo = File(file.path));
+    }
+  }
+
+  // Future pickImage(ImageSource source) async {
+  //   try {
+  //     final image = await ImagePicker().pickImage(source: source);
+  //     if (image == null) return;
+
+  //     final imageTemporary = File(image.path);
+  //     setState(() => this.arquivo = imageTemporary);
+  //     //final imagePermanent = await saveImagePermanently(image.path);
+  //     // setState(() => this.image = imagePermanent);
+  //   } on PlatformException catch (e) {
+  //     print("Failed to pick image: $e");
+  //   }
+  // }
 }
+
+// Future<File> saveImagePermanently(String imagePath) async {
+//   final directory = await getApplicationDocumentsDirectory();
+//   final name = basename(imagePath);
+//   final image = File('${directory.path}/$name');
+
+//   return File(imagePath).copy(image.path);
+// }
