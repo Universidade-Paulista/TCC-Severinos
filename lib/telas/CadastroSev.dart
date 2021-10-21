@@ -16,6 +16,8 @@ class _CadastroSevState extends State<CadastroSev> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          foregroundColor: Colors.black,
+          backgroundColor: Colors.grey.shade300,
           centerTitle: true,
           title: Image.asset(
             'assets/Logos/Logo-original.png',
@@ -384,7 +386,7 @@ class _CadastroSevState extends State<CadastroSev> {
                   color: Colors.grey.shade400,
                   onPressed: () {
                     _showMyDialog(
-                        "Será gerado um link de integração com o WhatsApp a partir do número disponibilizado para que os clientes possam entrar em contato através do seu perfil.");
+                        "Será gerado um link de integração com o WhatsApp a partir do número disponibilizado, para que os clientes possam entrar em contato através do seu perfil.");
                   },
                 ),
               ),
