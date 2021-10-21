@@ -1,7 +1,4 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class ListaPrestadores extends StatefulWidget {
   @override
@@ -9,6 +6,15 @@ class ListaPrestadores extends StatefulWidget {
 }
 
 class _ListaPrestadoresState extends State<ListaPrestadores> {
+  List<String> _profissoes = [
+    "Encanador",
+    "Marceneiro",
+    "Eletricista",
+    "Mecanico",
+    "Garota de aluguel",
+    "Motorista"
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,71 +25,132 @@ class _ListaPrestadoresState extends State<ListaPrestadores> {
           height: 40,
         ),
       ),
-      body: Column(
-        children: [
-          _getCaixaDeInfo("Eletricista - Elétrica bom encanador", 3),
-        ],
+      body: ListView(
+        children: _profissoes
+            .map(
+              (element) => Card(
+                child: Column(
+                  children: <Widget>[
+                    SizedBox(
+                      height: 10,
+                    ),
+                    _getCaixaDeInfo(_profissoes[1], 1)
+                  ],
+                ),
+              ),
+            )
+            .toList(),
       ),
     );
   }
 
-  _getCaixaDeInfo(String titulo, double nota) {
+  _getCaixaDeInfo(String titulo, int nota) {
     return Container(
-        decoration: BoxDecoration(
-          color: Colors.white,
-          border: Border.all(
-            color: Colors.cyan.shade300,
-          ),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        border: Border.all(
+          color: Colors.cyan.shade300,
         ),
-        margin: EdgeInsets.fromLTRB(10, 40, 10, 40),
-        height: 150,
-        child: Container(
-          margin: EdgeInsets.fromLTRB(5, 5, 5, 5),
-          child: Stack(
-            children: <Widget>[
-              Container(
-                margin: EdgeInsets.fromLTRB(125, 0, 0, 0),
-                color: Colors.white,
-                height: 500.0,
-                width: 500,
-                child: Stack(
-                  children: <Widget>[
-                    Container(
-                      margin: EdgeInsets.fromLTRB(0, 0, 0, 40),
-                      color: Colors.white,
-                      height: 500.0,
-                      width: 500.0,
-                      child: Flexible(
-                        child: Text(
-                          titulo,
-                          maxLines: 5,
-                          style: TextStyle(
-                            fontSize: 15,
-                            color: Colors.black,
-                          ),
-                          textAlign: TextAlign.left,
-                          overflow: TextOverflow.ellipsis,
+      ),
+      margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+      height: 150,
+      child: Container(
+        margin: EdgeInsets.fromLTRB(5, 5, 5, 5),
+        child: Stack(
+          children: <Widget>[
+            Container(
+              margin: EdgeInsets.fromLTRB(125, 0, 0, 0),
+              color: Colors.white,
+              height: 500.0,
+              width: 500,
+              child: Stack(
+                children: <Widget>[
+                  Container(
+                    margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                    color: Colors.white,
+                    height: 500.0,
+                    width: 500.0,
+                    child: Flexible(
+                      child: Text(
+                        titulo,
+                        maxLines: 5,
+                        style: TextStyle(
+                          fontSize: 15,
+                          color: Colors.black,
                         ),
+                        textAlign: TextAlign.left,
+                        overflow: TextOverflow.ellipsis,
                       ),
-                    )
-                  ],
-                ),
+                    ),
+                  )
+                ],
               ),
-              Container(
-                margin: EdgeInsets.fromLTRB(125, 100, 0, 0),
-                color: Colors.white,
-                height: 150.0,
-                width: 500.0,
-                child: Icon(Icons.star),
-                alignment: Alignment.centerLeft,
-              ),
-              Container(
-                color: Colors.black,
-                height: 150.0,
-                width: 120.0,
-              )
-            ],
+            ),
+            Container(
+              margin: EdgeInsets.fromLTRB(125, 100, 0, 0),
+              color: Colors.white,
+              height: 150.0,
+              width: 500.0,
+              child: _returnRating(nota),
+              alignment: Alignment.centerLeft,
+            ),
+            Container(
+              color: Colors.black,
+              height: 150.0,
+              width: 120.0,
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  _returnRating(int nota) {
+    return Container(
+      child: Row(
+        children: <Widget>[
+          Container(
+            color: Colors.white,
+            child: Icon(
+              Icons.star,
+              color: Colors.yellowAccent[700],
+            ),
+            alignment: Alignment.centerLeft,
           ),
-        ));
+          Container(
+            color: Colors.white,
+            child: Icon(
+              nota >= 2 ? Icons.star : Icons.star_border,
+              color: Colors.yellowAccent[700],
+            ),
+            alignment: Alignment.centerLeft,
+          ),
+          Container(
+            color: Colors.white,
+            child: Icon(
+              nota >= 3 ? Icons.star : Icons.star_border,
+              color: Colors.yellowAccent[700],
+            ),
+            alignment: Alignment.centerLeft,
+          ),
+          Container(
+            color: Colors.white,
+            child: Icon(
+              nota >= 4 ? Icons.star : Icons.star_border,
+              color: Colors.yellowAccent[700],
+            ),
+            alignment: Alignment.centerLeft,
+          ),
+          Container(
+            color: Colors.white,
+            child: Icon(
+              nota == 5 ? Icons.star : Icons.star_border,
+              color: Colors.yellowAccent[700],
+            ),
+            alignment: Alignment.centerLeft,
+          ),
+        ],
+      ),
+    );
   }
 }
