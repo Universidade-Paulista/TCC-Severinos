@@ -111,7 +111,7 @@ class _LoginState extends State<Login> {
                     //   _showMyDialog("E-mail e/ou senha inválidos");
                     // }
                     //Get.to(Home());
-                    Get.to(HomeSev());
+                    Get.to(Home());
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
