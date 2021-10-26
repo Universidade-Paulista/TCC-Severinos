@@ -231,8 +231,8 @@ class _HomeSevState extends State<HomeSev> {
 
       File imageFile = new File(file.path);
       List<int> imageBytes = imageFile.readAsBytesSync();
-      String Base64Img = base64.encode(imageBytes);
-      var test = Base64Img;
+      String base64Img = base64.encode(imageBytes);
+      var test = base64Img;
     }
   }
 
