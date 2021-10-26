@@ -34,7 +34,8 @@ class _ListaPrestadoresState extends State<ListaPrestadores> {
                     SizedBox(
                       height: 10,
                     ),
-                    _getCaixaDeInfo(_profissoes[1], 1)
+                    for (var i = 0; i < _profissoes.length; i++)
+                      _getCaixaDeInfo(_profissoes[i], 1)
                   ],
                 ),
               ),

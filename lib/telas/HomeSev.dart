@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -227,6 +228,11 @@ class _HomeSevState extends State<HomeSev> {
 
     if (file != null) {
       setState(() => arquivo = File(file.path));
+
+      File imageFile = new File(file.path);
+      List<int> imageBytes = imageFile.readAsBytesSync();
+      String Base64Img = base64.encode(imageBytes);
+      var test = Base64Img;
     }
   }
 
