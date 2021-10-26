@@ -104,14 +104,17 @@ class _LoginState extends State<Login> {
               child: SizedBox.expand(
                 child: TextButton(
                   onPressed: () async {
-                    // if (await log.getLogin(_txtEmail.text, _txtSenha.text)) {
-                    //   _getSalvar();
-                    //   Get.to(Home());
-                    // } else {
-                    //   _showMyDialog("E-mail e/ou senha inválidos");
-                    // }
-                    //Get.to(Home());
-                    Get.to(HomeSev());
+                    if (await log
+                            .getLogin(_txtEmail.text, _txtSenha.text)
+                            .toString() !=
+                        null) {
+                      _getSalvar();
+                      Get.to(Home());
+                    } else {
+                      _showMyDialog("E-mail e/ou senha inválidos");
+                    }
+                    // Get.to(Home());
+                    // Get.to(HomeSev());
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,

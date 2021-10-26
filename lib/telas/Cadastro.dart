@@ -93,22 +93,6 @@ class _CadastroState extends State<Cadastro> {
         title: Text('Login'),
         content: Column(children: <Widget>[
           TextFormField(
-            decoration: InputDecoration(
-              labelText: "Usuário",
-              labelStyle: TextStyle(
-                color: Colors.black87,
-                fontWeight: FontWeight.bold,
-                fontSize: 10,
-              ),
-            ),
-            style: TextStyle(
-              fontSize: 25,
-            ),
-          ),
-          SizedBox(
-            height: 5,
-          ),
-          TextFormField(
             keyboardType: TextInputType.emailAddress,
             decoration: InputDecoration(
               labelText: "E-mail",
@@ -293,6 +277,23 @@ class _CadastroState extends State<Cadastro> {
             keyboardType: TextInputType.text,
             decoration: InputDecoration(
               labelText: "Cidade",
+              labelStyle: TextStyle(
+                color: Colors.black87,
+                fontWeight: FontWeight.bold,
+                fontSize: 10,
+              ),
+            ),
+            style: TextStyle(
+              fontSize: 25,
+            ),
+          ),
+          SizedBox(
+            height: 5,
+          ),
+          TextFormField(
+            keyboardType: TextInputType.text,
+            decoration: InputDecoration(
+              labelText: "Estado",
               labelStyle: TextStyle(
                 color: Colors.black87,
                 fontWeight: FontWeight.bold,

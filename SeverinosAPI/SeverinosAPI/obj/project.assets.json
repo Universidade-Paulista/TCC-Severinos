@@ -11954,23 +11954,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\harley.francisco\\.nuget\\packages\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\duda_\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\harley.francisco\\Documents\\GitHub\\TCC-Severinos\\SeverinosAPI\\SeverinosAPI\\SeverinosAPI.csproj",
+      "projectUniqueName": "D:\\MeusProjetos\\TCC-Severinos\\SeverinosAPI\\SeverinosAPI\\SeverinosAPI.csproj",
       "projectName": "SeverinosAPI",
-      "projectPath": "C:\\Users\\harley.francisco\\Documents\\GitHub\\TCC-Severinos\\SeverinosAPI\\SeverinosAPI\\SeverinosAPI.csproj",
-      "packagesPath": "C:\\Users\\harley.francisco\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\harley.francisco\\Documents\\GitHub\\TCC-Severinos\\SeverinosAPI\\SeverinosAPI\\obj\\",
+      "projectPath": "D:\\MeusProjetos\\TCC-Severinos\\SeverinosAPI\\SeverinosAPI\\SeverinosAPI.csproj",
+      "packagesPath": "C:\\Users\\duda_\\.nuget\\packages\\",
+      "outputPath": "D:\\MeusProjetos\\TCC-Severinos\\SeverinosAPI\\SeverinosAPI\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-      ],
       "configFilePaths": [
-        "C:\\Users\\harley.francisco\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\duda_\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -11982,6 +11978,7 @@
       },
       "frameworks": {
         "netcoreapp2.1": {
+          "targetAlias": "netcoreapp2.1",
           "projectReferences": {}
         }
       },
@@ -11993,6 +11990,7 @@
     },
     "frameworks": {
       "netcoreapp2.1": {
+        "targetAlias": "netcoreapp2.1",
         "dependencies": {
           "Microsoft.AspNetCore.App": {
             "suppressParent": "All",
@@ -12010,6 +12008,7 @@
             "version": "[2.1.1, )"
           },
           "Microsoft.NETCore.App": {
+            "suppressParent": "All",
             "target": "Package",
             "version": "[2.1.0, )",
             "autoReferenced": true
@@ -12020,10 +12019,16 @@
           }
         },
         "imports": [
-          "net461"
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48"
         ],
         "assetTargetFallback": true,
-        "warn": true
+        "warn": true,
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.401\\RuntimeIdentifierGraph.json"
       }
     }
   }

@@ -93,22 +93,6 @@ class _CadastroSevState extends State<CadastroSev> {
         title: Text('Login'),
         content: Column(children: <Widget>[
           TextFormField(
-            decoration: InputDecoration(
-              labelText: "Usuário",
-              labelStyle: TextStyle(
-                color: Colors.black87,
-                fontWeight: FontWeight.bold,
-                fontSize: 10,
-              ),
-            ),
-            style: TextStyle(
-              fontSize: 25,
-            ),
-          ),
-          SizedBox(
-            height: 5,
-          ),
-          TextFormField(
             keyboardType: TextInputType.emailAddress,
             decoration: InputDecoration(
               labelText: "E-mail",
@@ -307,6 +291,23 @@ class _CadastroSevState extends State<CadastroSev> {
           TextFormField(
             keyboardType: TextInputType.text,
             decoration: InputDecoration(
+              labelText: "Estado",
+              labelStyle: TextStyle(
+                color: Colors.black87,
+                fontWeight: FontWeight.bold,
+                fontSize: 10,
+              ),
+            ),
+            style: TextStyle(
+              fontSize: 25,
+            ),
+          ),
+          SizedBox(
+            height: 5,
+          ),
+          TextFormField(
+            keyboardType: TextInputType.text,
+            decoration: InputDecoration(
               labelText: "Complemento",
               labelStyle: TextStyle(
                 color: Colors.black87,
@@ -374,6 +375,7 @@ class _CadastroSevState extends State<CadastroSev> {
               labelText: "Número do WhatsApp",
               //deixar 55 fixo
               //hintText: "55 DDD 999999999",
+              //https://api.whatsapp.com/send?phone=55 + DDDTelefone
               labelStyle: TextStyle(
                 color: Colors.black87,
                 fontWeight: FontWeight.bold,
