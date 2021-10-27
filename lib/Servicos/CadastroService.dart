@@ -23,35 +23,40 @@ class CadastroService {
     // String nrocpfcnpj,
     // String linkwhatsapp,
     // String nrotelcomercial) async {
-    final dio = Dio();
-    Response response =
-        await dio.post("http://192.168.15.9:5000/api/Cadastro/", data: {
-      'nome': nome,
-      'cpf': cpf,
-      'email': email,
-      'telefone': telefone,
-      'indseverino': indseverino,
-      'senha': senha,
-      'logradouro': logradouro,
-      'complemento': complemento,
-      'numero': numero,
-      'bairro': bairro,
-      'cep': cep,
-      'estado': estado,
-      'cidade': cidade
-      // 'razaosocial': razaosocial,
-      // 'nrocpfcnpj': nrocpfcnpj,
-      // 'linkwhatsapp': linkwhatsapp,
-      // 'nrotelcomercial': nrotelcomercial
-    });
 
-    bool teste;
+    final dio = Dio();
+
+    String sbody = "{                                                   " +
+        "   \"nome\": \"Robert Angelino Bezerra\",           " +
+        "   \"cpf\": \"123.456.789-10\",                     " +
+        "   \"email\": \"robert@teste.com\",                 " +
+        "	 \"telefone\": \"(16) 99289-9414\",               " +
+        "   \"indseverino\": \"true\",                       " +
+        "	 \"senha\": \"0123456789\",                       " +
+        "	 \"logradouro\": \"Rua Manoel José dos Reis\",    " +
+        "	 \"complemento\": null,                           " +
+        "	 \"numero\": \"175\",                             " +
+        "	 \"bairro\": \"Jd. Diva Tarla de Carvalho\",      " +
+        "	 \"cep\": \"14079-398\",                          " +
+        "	 \"estado\": \"São Paulo\",                       " +
+        "   \"cidade\": \"Ribeirão Preto\",                  " +
+        "	 \"razaosocial\": \"Robert Teste LTDA\",          " +
+        "	 \"nrocpfcnpj\": \"12.345.678/9101-11\",          " +
+        "	 \"linkwhatsapp\": null,                          " +
+        "	 \"nrotelcomercial\": \"(16) 3615-9861\"          " +
+        "}                                                   ";
+
+    Response response = await dio.post(
+      "http://192.168.15.9:5000/api/Cadastro/",
+      data: {sbody},
+    );
+
     if (response.statusCode == 200) {
-      teste = true;
-      return teste;
+      return response.data;
     } else {
-      teste = false;
-      return teste;
+      AlertDialog(
+        title: Text(response.statusMessage),
+      );
     }
   }
 }

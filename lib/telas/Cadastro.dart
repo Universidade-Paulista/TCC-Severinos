@@ -89,7 +89,25 @@ class _CadastroState extends State<Cadastro> {
                   if (this._currentStep < this._mySteps().length - 1) {
                     this._currentStep = this._currentStep + 1;
                   } else {
-                    var teste = _postCadastro().toString();
+                    var teste = await cadServ.postCadastro(
+                        nome.text,
+                        cpf.text,
+                        email.text,
+                        telefone.text,
+                        indseverino.text == "S" ? true : false,
+                        senha.text,
+                        logradouro.text,
+                        complemento.text,
+                        numero.text,
+                        bairro.text,
+                        cep.text,
+                        estado.text,
+                        cidade.text);
+                    // razaosocial.text,
+                    // nrocpfcnpj.text,
+                    // linkwhatsapp.text,
+                    // nrotelcomercial.text);
+
                     var tes = teste;
                     // if (teste) {
                     //   Navigator.push(
@@ -392,28 +410,28 @@ class _CadastroState extends State<Cadastro> {
     return _steps;
   }
 
-  _postCadastro() async {
-    var teste = await cadServ.postCadastro(
-        nome.text,
-        cpf.text,
-        email.text,
-        telefone.text,
-        indseverino.text == "S" ? true : false,
-        senha.text,
-        logradouro.text,
-        complemento.text,
-        numero.text,
-        bairro.text,
-        cep.text,
-        estado.text,
-        cidade.text);
-    // razaosocial.text,
-    // nrocpfcnpj.text,
-    // linkwhatsapp.text,
-    // nrotelcomercial.text);
+  // _postCadastro() async {
+  //   var teste = await cadServ.postCadastro(
+  //       nome.text,
+  //       cpf.text,
+  //       email.text,
+  //       telefone.text,
+  //       indseverino.text == "S" ? true : false,
+  //       senha.text,
+  //       logradouro.text,
+  //       complemento.text,
+  //       numero.text,
+  //       bairro.text,
+  //       cep.text,
+  //       estado.text,
+  //       cidade.text);
+  //   // razaosocial.text,
+  //   // nrocpfcnpj.text,
+  //   // linkwhatsapp.text,
+  //   // nrotelcomercial.text);
 
-    return teste.toString();
-  }
+  //   return teste.toString();
+  // }
 
   Future<void> _showMyDialog(sMensagem) async {
     return showDialog<void>(
