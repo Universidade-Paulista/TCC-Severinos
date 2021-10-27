@@ -240,7 +240,24 @@ class _CadastroSevState extends State<CadastroSev> {
           TextFormField(
             keyboardType: TextInputType.text,
             decoration: InputDecoration(
-              labelText: "Rua",
+              labelText: "Logradouro",
+              labelStyle: TextStyle(
+                color: Colors.black87,
+                fontWeight: FontWeight.bold,
+                fontSize: 10,
+              ),
+            ),
+            style: TextStyle(
+              fontSize: 25,
+            ),
+          ),
+          SizedBox(
+            height: 5,
+          ),
+          TextFormField(
+            keyboardType: TextInputType.text,
+            decoration: InputDecoration(
+              labelText: "Número",
               labelStyle: TextStyle(
                 color: Colors.black87,
                 fontWeight: FontWeight.bold,
@@ -351,7 +368,28 @@ class _CadastroSevState extends State<CadastroSev> {
             ],
             keyboardType: TextInputType.number,
             decoration: InputDecoration(
-              labelText: "CNPJ",
+              labelText: "CPF ou CNPJ",
+              labelStyle: TextStyle(
+                color: Colors.black87,
+                fontWeight: FontWeight.bold,
+                fontSize: 10,
+              ),
+            ),
+            style: TextStyle(
+              fontSize: 25,
+            ),
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          TextFormField(
+            inputFormatters: [
+              FilteringTextInputFormatter.digitsOnly,
+              TelefoneInputFormatter()
+            ],
+            keyboardType: TextInputType.number,
+            decoration: InputDecoration(
+              labelText: "Número Comercial",
               labelStyle: TextStyle(
                 color: Colors.black87,
                 fontWeight: FontWeight.bold,

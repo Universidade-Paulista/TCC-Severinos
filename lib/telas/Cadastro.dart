@@ -27,10 +27,10 @@ class _CadastroState extends State<Cadastro> {
   final cep = TextEditingController();
   final estado = TextEditingController();
   final cidade = TextEditingController();
-  final razaosocial = TextEditingController();
-  final nrocpfcnpj = TextEditingController();
-  final linkwhatsapp = TextEditingController();
-  final nrotelcomercial = TextEditingController();
+  // final razaosocial = TextEditingController();
+  // final nrocpfcnpj = TextEditingController();
+  // final linkwhatsapp = TextEditingController();
+  // final nrotelcomercial = TextEditingController();
   final confirmarsenha = TextEditingController();
   final cadServ = new CadastroService();
 
@@ -89,20 +89,18 @@ class _CadastroState extends State<Cadastro> {
                   if (this._currentStep < this._mySteps().length - 1) {
                     this._currentStep = this._currentStep + 1;
                   } else {
-                    _postCadastro();
-
-                    // if (_postCadastro()) {
-                    //   Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(
-                    //       builder: (context) {
-                    //         return Login();
-                    //       },
-                    //     ),
-                    //   );
-                    // } else {
-                    //   _showMyDialog("Erro de cadastro");
-                    // }
+                    if (_postCadastro()) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return Login();
+                          },
+                        ),
+                      );
+                    } else {
+                      _showMyDialog("Erro de cadastro");
+                    }
                   }
                 });
               },
@@ -281,7 +279,25 @@ class _CadastroState extends State<Cadastro> {
             controller: logradouro,
             keyboardType: TextInputType.text,
             decoration: InputDecoration(
-              labelText: "Rua",
+              labelText: "Logradouro",
+              labelStyle: TextStyle(
+                color: Colors.black87,
+                fontWeight: FontWeight.bold,
+                fontSize: 10,
+              ),
+            ),
+            style: TextStyle(
+              fontSize: 25,
+            ),
+          ),
+          SizedBox(
+            height: 5,
+          ),
+          TextFormField(
+            controller: numero,
+            keyboardType: TextInputType.text,
+            decoration: InputDecoration(
+              labelText: "Número",
               labelStyle: TextStyle(
                 color: Colors.black87,
                 fontWeight: FontWeight.bold,
@@ -375,12 +391,12 @@ class _CadastroState extends State<Cadastro> {
   }
 
   _postCadastro() {
-    cadServ.postCadastro(
+    return cadServ.postCadastro(
         nome.text,
         cpf.text,
         email.text,
         telefone.text,
-        indseverino.text,
+        indseverino.text == "S" ? true : false,
         senha.text,
         logradouro.text,
         complemento.text,
@@ -388,11 +404,11 @@ class _CadastroState extends State<Cadastro> {
         bairro.text,
         cep.text,
         estado.text,
-        cidade.text,
-        razaosocial.text,
-        nrocpfcnpj.text,
-        linkwhatsapp.text,
-        nrotelcomercial.text);
+        cidade.text);
+    // razaosocial.text,
+    // nrocpfcnpj.text,
+    // linkwhatsapp.text,
+    // nrotelcomercial.text);
   }
 
   Future<void> _showMyDialog(sMensagem) async {

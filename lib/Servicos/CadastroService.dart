@@ -10,7 +10,7 @@ class CadastroService {
       String cpf,
       String email,
       String telefone,
-      String indseverino,
+      bool indseverino,
       String senha,
       String logradouro,
       String complemento,
@@ -18,11 +18,11 @@ class CadastroService {
       String bairro,
       String cep,
       String estado,
-      String cidade,
-      String razaosocial,
-      String nrocpfcnpj,
-      String linkwhatsapp,
-      String nrotelcomercial) async {
+      String cidade) async {
+    // String razaosocial,
+    // String nrocpfcnpj,
+    // String linkwhatsapp,
+    // String nrotelcomercial) async {
     final dio = Dio();
     Response response =
         await dio.post("http://192.168.15.9:5000/api/Cadastro/", data: {
@@ -38,15 +38,15 @@ class CadastroService {
       'bairro': bairro,
       'cep': cep,
       'estado': estado,
-      'cidade': cidade,
-      'razaosocial': razaosocial,
-      'nrocpfcnpj': nrocpfcnpj,
-      'linkwhatsapp': linkwhatsapp,
-      'nrotelcomercial': nrotelcomercial
+      'cidade': cidade
+      // 'razaosocial': razaosocial,
+      // 'nrocpfcnpj': nrocpfcnpj,
+      // 'linkwhatsapp': linkwhatsapp,
+      // 'nrotelcomercial': nrotelcomercial
     });
 
     if (response.statusCode == 200) {
-      return null;
+      return true;
     } else {
       return false;
     }
