@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:brasil_fields/brasil_fields.dart';
+import 'package:severino/Servicos/CadastroService.dart';
 import 'package:severino/telas/Login.dart';
 
 class Cadastro extends StatefulWidget {
@@ -12,6 +13,26 @@ class Cadastro extends StatefulWidget {
 class _CadastroState extends State<Cadastro> {
   bool severino = false;
   int _currentStep = 0;
+
+  final nome = TextEditingController();
+  final cpf = TextEditingController();
+  final email = TextEditingController();
+  final telefone = TextEditingController();
+  final indseverino = TextEditingController();
+  final senha = TextEditingController();
+  final logradouro = TextEditingController();
+  final complemento = TextEditingController();
+  final numero = TextEditingController();
+  final bairro = TextEditingController();
+  final cep = TextEditingController();
+  final estado = TextEditingController();
+  final cidade = TextEditingController();
+  final razaosocial = TextEditingController();
+  final nrocpfcnpj = TextEditingController();
+  final linkwhatsapp = TextEditingController();
+  final nrotelcomercial = TextEditingController();
+  final confirmarsenha = TextEditingController();
+  final cadServ = new CadastroService();
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -68,10 +89,20 @@ class _CadastroState extends State<Cadastro> {
                   if (this._currentStep < this._mySteps().length - 1) {
                     this._currentStep = this._currentStep + 1;
                   } else {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) {
-                      return Login();
-                    }));
+                    _postCadastro();
+
+                    // if (_postCadastro()) {
+                    //   Navigator.push(
+                    //     context,
+                    //     MaterialPageRoute(
+                    //       builder: (context) {
+                    //         return Login();
+                    //       },
+                    //     ),
+                    //   );
+                    // } else {
+                    //   _showMyDialog("Erro de cadastro");
+                    // }
                   }
                 });
               },
@@ -93,6 +124,7 @@ class _CadastroState extends State<Cadastro> {
         title: Text('Login'),
         content: Column(children: <Widget>[
           TextFormField(
+            controller: email,
             keyboardType: TextInputType.emailAddress,
             decoration: InputDecoration(
               labelText: "E-mail",
@@ -110,6 +142,7 @@ class _CadastroState extends State<Cadastro> {
             height: 5,
           ),
           TextFormField(
+            controller: senha,
             keyboardType: TextInputType.text,
             obscureText: true,
             decoration: InputDecoration(
@@ -128,6 +161,7 @@ class _CadastroState extends State<Cadastro> {
             height: 5,
           ),
           TextFormField(
+            controller: confirmarsenha,
             keyboardType: TextInputType.text,
             obscureText: true,
             decoration: InputDecoration(
@@ -152,6 +186,7 @@ class _CadastroState extends State<Cadastro> {
         title: Text('Dados Cadastrais'),
         content: Column(children: <Widget>[
           TextFormField(
+            controller: nome,
             keyboardType: TextInputType.emailAddress,
             decoration: InputDecoration(
               labelText: "Nome",
@@ -169,6 +204,7 @@ class _CadastroState extends State<Cadastro> {
             height: 5,
           ),
           TextFormField(
+            controller: cpf,
             inputFormatters: [
               FilteringTextInputFormatter.digitsOnly,
               CpfInputFormatter()
@@ -190,6 +226,7 @@ class _CadastroState extends State<Cadastro> {
             height: 15,
           ),
           TextFormField(
+            controller: telefone,
             inputFormatters: [
               FilteringTextInputFormatter.digitsOnly,
               TelefoneInputFormatter()
@@ -219,6 +256,7 @@ class _CadastroState extends State<Cadastro> {
             ),
           ),
           TextFormField(
+            controller: cep,
             inputFormatters: [
               FilteringTextInputFormatter.digitsOnly,
               CepInputFormatter()
@@ -240,6 +278,7 @@ class _CadastroState extends State<Cadastro> {
             height: 5,
           ),
           TextFormField(
+            controller: logradouro,
             keyboardType: TextInputType.text,
             decoration: InputDecoration(
               labelText: "Rua",
@@ -257,6 +296,7 @@ class _CadastroState extends State<Cadastro> {
             height: 5,
           ),
           TextFormField(
+            controller: bairro,
             keyboardType: TextInputType.text,
             decoration: InputDecoration(
               labelText: "Bairro",
@@ -274,6 +314,7 @@ class _CadastroState extends State<Cadastro> {
             height: 5,
           ),
           TextFormField(
+            controller: cidade,
             keyboardType: TextInputType.text,
             decoration: InputDecoration(
               labelText: "Cidade",
@@ -291,6 +332,7 @@ class _CadastroState extends State<Cadastro> {
             height: 5,
           ),
           TextFormField(
+            controller: estado,
             keyboardType: TextInputType.text,
             decoration: InputDecoration(
               labelText: "Estado",
@@ -308,6 +350,7 @@ class _CadastroState extends State<Cadastro> {
             height: 5,
           ),
           TextFormField(
+            controller: complemento,
             keyboardType: TextInputType.text,
             decoration: InputDecoration(
               labelText: "Complemento",
@@ -329,5 +372,53 @@ class _CadastroState extends State<Cadastro> {
       ),
     ];
     return _steps;
+  }
+
+  _postCadastro() {
+    cadServ.postCadastro(
+        nome.text,
+        cpf.text,
+        email.text,
+        telefone.text,
+        indseverino.text,
+        senha.text,
+        logradouro.text,
+        complemento.text,
+        numero.text,
+        bairro.text,
+        cep.text,
+        estado.text,
+        cidade.text,
+        razaosocial.text,
+        nrocpfcnpj.text,
+        linkwhatsapp.text,
+        nrotelcomercial.text);
+  }
+
+  Future<void> _showMyDialog(sMensagem) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Atenção'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text(sMensagem),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Text('Ok'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 }

@@ -104,12 +104,14 @@ class _LoginState extends State<Login> {
               child: SizedBox.expand(
                 child: TextButton(
                   onPressed: () async {
-                    if (await log
-                            .getLogin(_txtEmail.text, _txtSenha.text)
-                            .toString() !=
-                        null) {
+                    String result =
+                        await log.getLogin(_txtEmail.text, _txtSenha.text);
+                    if (result == 'N') {
                       _getSalvar();
                       Get.to(Home());
+                    } else if (result == 'S') {
+                      _getSalvar();
+                      Get.to(HomeSev());
                     } else {
                       _showMyDialog("E-mail e/ou senha inválidos");
                     }
