@@ -1,0 +1,16 @@
+var headers = {
+  'Content-Type': 'application/json'
+};
+
+var request = http.Request('POST', Uri.parse('http://localhost:5000/api/Cadastro/'));
+request.body = '''"{    \r\n    \\"nome\\": \\"Robert Angelino Bezerra\\",\r\n    \\"cpf\\": \\"123.456.789-10\\",\r\n    \\"email\\": \\"robert@teste.com\\",\r\n\t\\"telefone\\": \\"(16) 99289-9414\\",\r\n    \\"indseverino\\": \\"true\\",\r\n\t\\"senha\\": \\"0123456789\\",\r\n\t\\"logradouro\\": \\"Rua Manoel José dos Reis\\",\r\n\t\\"complemento\\": null,\r\n\t\\"numero\\": \\"175\\",\r\n\t\\"bairro\\": \\"Jd. Diva Tarla de Carvalho\\",\r\n\t\\"cep\\": \\"14079-398\\",\r\n\t\\"estado\\": \\"São Paulo\\",\r\n    \\"cidade\\": \\"Ribeirão Preto\\",\r\n\t\\"razaosocial\\": \\"Robert Teste LTDA\\",\r\n\t\\"nrocpfcnpj\\": \\"12.345.678/9101-11\\",\r\n\t\\"linkwhatsapp\\": null,\r\n\t\\"nrotelcomercial\\": \\"(16) 3615-9861\\"\r\n}"''';
+request.headers.addAll(headers);
+
+http.StreamedResponse response = await request.send();
+
+if (response.statusCode == 200) {
+  print(await response.stream.bytesToString());
+}
+else {
+  print(response.reasonPhrase);
+}
