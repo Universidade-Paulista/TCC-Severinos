@@ -85,11 +85,12 @@ class _CadastroState extends State<Cadastro> {
                 });
               },
               onStepContinue: () {
-                setState(() {
+                setState(() async {
                   if (this._currentStep < this._mySteps().length - 1) {
                     this._currentStep = this._currentStep + 1;
                   } else {
-                    if (_postCadastro()) {
+                    bool teste = await _postCadastro();
+                    if (teste) {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -390,7 +391,7 @@ class _CadastroState extends State<Cadastro> {
     return _steps;
   }
 
-  _postCadastro() {
+  Future<bool> _postCadastro() async {
     return cadServ.postCadastro(
         nome.text,
         cpf.text,

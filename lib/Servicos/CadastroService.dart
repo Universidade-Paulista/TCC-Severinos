@@ -5,7 +5,7 @@ import 'package:flutter/cupertino.dart';
 class CadastroService {
   Dio dio = new Dio();
 
-  postCadastro(
+  Future<bool> postCadastro(
       String nome,
       String cpf,
       String email,
