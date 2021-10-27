@@ -89,19 +89,20 @@ class _CadastroState extends State<Cadastro> {
                   if (this._currentStep < this._mySteps().length - 1) {
                     this._currentStep = this._currentStep + 1;
                   } else {
-                    bool teste = await _postCadastro();
-                    if (teste) {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) {
-                            return Login();
-                          },
-                        ),
-                      );
-                    } else {
-                      _showMyDialog("Erro de cadastro");
-                    }
+                    var teste = _postCadastro().toString();
+                    var tes = teste;
+                    // if (teste) {
+                    //   Navigator.push(
+                    //     context,
+                    //     MaterialPageRoute(
+                    //       builder: (context) {
+                    //         return Login();
+                    //       },
+                    //     ),
+                    //   );
+                    // } else {
+                    //   _showMyDialog("Erro de cadastro");
+                    // }
                   }
                 });
               },
@@ -391,8 +392,8 @@ class _CadastroState extends State<Cadastro> {
     return _steps;
   }
 
-  Future<bool> _postCadastro() async {
-    return cadServ.postCadastro(
+  _postCadastro() async {
+    var teste = await cadServ.postCadastro(
         nome.text,
         cpf.text,
         email.text,
@@ -410,6 +411,8 @@ class _CadastroState extends State<Cadastro> {
     // nrocpfcnpj.text,
     // linkwhatsapp.text,
     // nrotelcomercial.text);
+
+    return teste.toString();
   }
 
   Future<void> _showMyDialog(sMensagem) async {

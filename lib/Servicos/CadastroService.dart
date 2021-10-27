@@ -5,7 +5,7 @@ import 'package:flutter/cupertino.dart';
 class CadastroService {
   Dio dio = new Dio();
 
-  Future<bool> postCadastro(
+  postCadastro(
       String nome,
       String cpf,
       String email,
@@ -45,10 +45,13 @@ class CadastroService {
       // 'nrotelcomercial': nrotelcomercial
     });
 
+    bool teste;
     if (response.statusCode == 200) {
-      return true;
+      teste = true;
+      return teste;
     } else {
-      return false;
+      teste = false;
+      return teste;
     }
   }
 }
