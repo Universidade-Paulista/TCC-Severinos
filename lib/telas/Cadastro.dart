@@ -85,11 +85,12 @@ class _CadastroState extends State<Cadastro> {
                 });
               },
               onStepContinue: () {
-                setState(() async {
+                setState(() {
                   if (this._currentStep < this._mySteps().length - 1) {
                     this._currentStep = this._currentStep + 1;
                   } else {
-                    var teste = await cadServ.postCadastro(
+                    cadServ.postCadastro(
+                        context,
                         nome.text,
                         cpf.text,
                         email.text,
@@ -108,7 +109,6 @@ class _CadastroState extends State<Cadastro> {
                     // linkwhatsapp.text,
                     // nrotelcomercial.text);
 
-                    var tes = teste;
                     // if (teste) {
                     //   Navigator.push(
                     //     context,
@@ -433,7 +433,7 @@ class _CadastroState extends State<Cadastro> {
   //   return teste.toString();
   // }
 
-  Future<void> _showMyDialog(sMensagem) async {
+  Future<void> showMyDialog(sMensagem) async {
     return showDialog<void>(
       context: context,
       barrierDismissible: false, // user must tap button!
