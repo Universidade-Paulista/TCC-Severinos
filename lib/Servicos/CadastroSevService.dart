@@ -30,6 +30,9 @@ class CadastroSevService {
       String linkwhatsapp,
       String nrotelcomercial) async {
     final bool indseverino = true;
+    final String link = 'https://api.whatsapp.com/send?phone=55' +
+        linkwhatsapp.replaceAll('(', '').replaceAll(')', '');
+
     String sbody = "{" +
         "\"nome\": \"" +
         nome +
@@ -77,7 +80,7 @@ class CadastroSevService {
         nrocpfcnpj +
         "\",                      " +
         "	  \"linkwhatsapp\": \"" +
-        linkwhatsapp +
+        link +
         "\",                      " +
         "	  \"nrotelcomercial\": \"" +
         nrotelcomercial +
@@ -86,8 +89,8 @@ class CadastroSevService {
 
     var headers = {'Content-Type': 'application/json'};
 
-    var request = http.Request('POST',
-        Uri.parse('https://apiseverinos.azurewebsites.net/api/Cadastro/'));
+    var request = http.Request(
+        'POST', Uri.parse('http://192.168.15.9:5000/api/Cadastro/'));
 
     request.body = jsonEncode(sbody);
     request.headers.addAll(headers);
