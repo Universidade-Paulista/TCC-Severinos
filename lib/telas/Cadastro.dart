@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:brasil_fields/brasil_fields.dart';
 import 'package:severino/Servicos/CadastroService.dart';
-import 'package:severino/telas/Login.dart';
 
 class Cadastro extends StatefulWidget {
   @override
@@ -108,19 +107,6 @@ class _CadastroState extends State<Cadastro> {
                     // nrocpfcnpj.text,
                     // linkwhatsapp.text,
                     // nrotelcomercial.text);
-
-                    // if (teste) {
-                    //   Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(
-                    //       builder: (context) {
-                    //         return Login();
-                    //       },
-                    //     ),
-                    //   );
-                    // } else {
-                    //   _showMyDialog("Erro de cadastro");
-                    // }
                   }
                 });
               },
@@ -409,29 +395,6 @@ class _CadastroState extends State<Cadastro> {
     ];
     return _steps;
   }
-
-  // _postCadastro() async {
-  //   var teste = await cadServ.postCadastro(
-  //       nome.text,
-  //       cpf.text,
-  //       email.text,
-  //       telefone.text,
-  //       indseverino.text == "S" ? true : false,
-  //       senha.text,
-  //       logradouro.text,
-  //       complemento.text,
-  //       numero.text,
-  //       bairro.text,
-  //       cep.text,
-  //       estado.text,
-  //       cidade.text);
-  //   // razaosocial.text,
-  //   // nrocpfcnpj.text,
-  //   // linkwhatsapp.text,
-  //   // nrotelcomercial.text);
-
-  //   return teste.toString();
-  // }
 
   Future<void> showMyDialog(sMensagem) async {
     return showDialog<void>(

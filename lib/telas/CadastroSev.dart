@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:brasil_fields/brasil_fields.dart';
+import 'package:severino/Servicos/CadastroSevService.dart';
 import 'package:severino/telas/Login.dart';
 
 class CadastroSev extends StatefulWidget {
@@ -12,6 +13,26 @@ class CadastroSev extends StatefulWidget {
 class _CadastroSevState extends State<CadastroSev> {
   bool severino = false;
   int _currentStep = 0;
+
+  final nome = TextEditingController();
+  final cpf = TextEditingController();
+  final email = TextEditingController();
+  final telefone = TextEditingController();
+  final indseverino = TextEditingController();
+  final senha = TextEditingController();
+  final logradouro = TextEditingController();
+  final complemento = TextEditingController();
+  final numero = TextEditingController();
+  final bairro = TextEditingController();
+  final cep = TextEditingController();
+  final estado = TextEditingController();
+  final cidade = TextEditingController();
+  final razaosocial = TextEditingController();
+  final nrocpfcnpj = TextEditingController();
+  final linkwhatsapp = TextEditingController();
+  final nrotelcomercial = TextEditingController();
+  final confirmarsenha = TextEditingController();
+  final cadSevServ = new CadastroSevService();
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -68,10 +89,25 @@ class _CadastroSevState extends State<CadastroSev> {
                   if (this._currentStep < this._mySteps().length - 1) {
                     this._currentStep = this._currentStep + 1;
                   } else {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) {
-                      return Login();
-                    }));
+                    cadSevServ.postCadastroSev(
+                        context,
+                        nome.text,
+                        cpf.text,
+                        email.text,
+                        telefone.text,
+                        indseverino.text == "N" ? true : false,
+                        senha.text,
+                        logradouro.text,
+                        complemento.text,
+                        numero.text,
+                        bairro.text,
+                        cep.text,
+                        estado.text,
+                        cidade.text,
+                        razaosocial.text,
+                        nrocpfcnpj.text,
+                        linkwhatsapp.text,
+                        nrotelcomercial.text);
                   }
                 });
               },
@@ -93,6 +129,7 @@ class _CadastroSevState extends State<CadastroSev> {
         title: Text('Login'),
         content: Column(children: <Widget>[
           TextFormField(
+            controller: email,
             keyboardType: TextInputType.emailAddress,
             decoration: InputDecoration(
               labelText: "E-mail",
@@ -110,6 +147,7 @@ class _CadastroSevState extends State<CadastroSev> {
             height: 5,
           ),
           TextFormField(
+            controller: senha,
             keyboardType: TextInputType.text,
             obscureText: true,
             decoration: InputDecoration(
@@ -128,6 +166,7 @@ class _CadastroSevState extends State<CadastroSev> {
             height: 5,
           ),
           TextFormField(
+            controller: confirmarsenha,
             keyboardType: TextInputType.text,
             obscureText: true,
             decoration: InputDecoration(
@@ -152,6 +191,7 @@ class _CadastroSevState extends State<CadastroSev> {
         title: Text('Dados Cadastrais'),
         content: Column(children: <Widget>[
           TextFormField(
+            controller: nome,
             keyboardType: TextInputType.emailAddress,
             decoration: InputDecoration(
               labelText: "Nome",
@@ -169,6 +209,7 @@ class _CadastroSevState extends State<CadastroSev> {
             height: 5,
           ),
           TextFormField(
+            controller: cpf,
             inputFormatters: [
               FilteringTextInputFormatter.digitsOnly,
               CpfInputFormatter()
@@ -190,6 +231,7 @@ class _CadastroSevState extends State<CadastroSev> {
             height: 10,
           ),
           TextFormField(
+            controller: telefone,
             inputFormatters: [
               FilteringTextInputFormatter.digitsOnly,
               TelefoneInputFormatter()
@@ -217,6 +259,7 @@ class _CadastroSevState extends State<CadastroSev> {
             ),
           ),
           TextFormField(
+            controller: cep,
             inputFormatters: [
               FilteringTextInputFormatter.digitsOnly,
               CepInputFormatter()
@@ -238,6 +281,7 @@ class _CadastroSevState extends State<CadastroSev> {
             height: 5,
           ),
           TextFormField(
+            controller: logradouro,
             keyboardType: TextInputType.text,
             decoration: InputDecoration(
               labelText: "Logradouro",
@@ -255,6 +299,7 @@ class _CadastroSevState extends State<CadastroSev> {
             height: 5,
           ),
           TextFormField(
+            controller: numero,
             keyboardType: TextInputType.text,
             decoration: InputDecoration(
               labelText: "Número",
@@ -272,6 +317,7 @@ class _CadastroSevState extends State<CadastroSev> {
             height: 5,
           ),
           TextFormField(
+            controller: bairro,
             keyboardType: TextInputType.text,
             decoration: InputDecoration(
               labelText: "Bairro",
@@ -289,6 +335,7 @@ class _CadastroSevState extends State<CadastroSev> {
             height: 5,
           ),
           TextFormField(
+            controller: cidade,
             keyboardType: TextInputType.text,
             decoration: InputDecoration(
               labelText: "Cidade",
@@ -306,6 +353,7 @@ class _CadastroSevState extends State<CadastroSev> {
             height: 5,
           ),
           TextFormField(
+            controller: estado,
             keyboardType: TextInputType.text,
             decoration: InputDecoration(
               labelText: "Estado",
@@ -323,6 +371,7 @@ class _CadastroSevState extends State<CadastroSev> {
             height: 5,
           ),
           TextFormField(
+            controller: complemento,
             keyboardType: TextInputType.text,
             decoration: InputDecoration(
               labelText: "Complemento",
@@ -346,6 +395,7 @@ class _CadastroSevState extends State<CadastroSev> {
         title: Text('Perfil Severino'),
         content: Column(children: <Widget>[
           TextFormField(
+            controller: razaosocial,
             decoration: InputDecoration(
               labelText: "Razão Social",
               labelStyle: TextStyle(
@@ -362,10 +412,7 @@ class _CadastroSevState extends State<CadastroSev> {
             height: 5,
           ),
           TextFormField(
-            inputFormatters: [
-              FilteringTextInputFormatter.digitsOnly,
-              CnpjInputFormatter()
-            ],
+            controller: nrocpfcnpj,
             keyboardType: TextInputType.number,
             decoration: InputDecoration(
               labelText: "CPF ou CNPJ",
@@ -383,6 +430,7 @@ class _CadastroSevState extends State<CadastroSev> {
             height: 10,
           ),
           TextFormField(
+            controller: nrotelcomercial,
             inputFormatters: [
               FilteringTextInputFormatter.digitsOnly,
               TelefoneInputFormatter()
@@ -404,6 +452,7 @@ class _CadastroSevState extends State<CadastroSev> {
             height: 10,
           ),
           TextFormField(
+            controller: linkwhatsapp,
             inputFormatters: [
               FilteringTextInputFormatter.digitsOnly,
               TelefoneInputFormatter()

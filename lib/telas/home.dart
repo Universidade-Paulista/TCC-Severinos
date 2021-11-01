@@ -29,6 +29,8 @@ class _HomeState extends State<Home> {
 
     return Scaffold(
       appBar: AppBar(
+        foregroundColor: Colors.black,
+        backgroundColor: Colors.grey.shade300,
         centerTitle: true,
         title: Image.asset(
           'assets/Logos/Logo-original.png',
