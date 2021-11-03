@@ -11,6 +11,7 @@ class HomeSev extends StatefulWidget {
 }
 
 class _HomeSevState extends State<HomeSev> {
+  bool _isButtonDisabled = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,8 +32,8 @@ class _HomeSevState extends State<HomeSev> {
         child: ListView(
           padding: EdgeInsets.only(
             top: 60,
-            left: 50,
-            right: 50,
+            left: 80,
+            right: 80,
           ),
           children: <Widget>[
             Container(
@@ -132,7 +133,7 @@ class _HomeSevState extends State<HomeSev> {
               height: 150,
             ),
             Container(
-              height: 65,
+              height: 60,
               alignment: Alignment.center,
               decoration: BoxDecoration(
                 color: Colors.cyan.shade300,
@@ -142,16 +143,51 @@ class _HomeSevState extends State<HomeSev> {
               ),
               child: SizedBox.expand(
                 child: TextButton(
-                  onPressed: () async {
-                    //Get.to(Cadastro());
+                  onPressed: () {
+                    _alternaButton();
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "Iniciar",
+                        (_isButtonDisabled ? "Iniciar" : "Aguardando"),
                         style: TextStyle(
-                          fontSize: 35,
+                          fontSize: 30,
+                          color: Colors.black,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Container(
+              height: 40,
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                color: Colors.red,
+                borderRadius: BorderRadius.all(
+                  Radius.circular(10),
+                ),
+              ),
+              child: SizedBox.expand(
+                child: TextButton(
+                  onPressed: _isButtonDisabled
+                      ? null
+                      : () {
+                          _alternaButton();
+                        },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        ("Encerrar"),
+                        style: TextStyle(
+                          fontSize: 20,
                           color: Colors.black,
                         ),
                         textAlign: TextAlign.center,
@@ -168,6 +204,10 @@ class _HomeSevState extends State<HomeSev> {
         ),
       ),
     );
+  }
+
+  _alternaButton() {
+    setState(() => _isButtonDisabled = !_isButtonDisabled);
   }
 
   _getContainerDrawer() {
