@@ -47,9 +47,13 @@ class _CadastroState extends State<Cadastro> {
         backgroundColor: Colors.grey.shade300,
         body: Theme(
             data: ThemeData(
-                accentColor: Colors.cyan,
-                primarySwatch: Colors.cyan,
-                colorScheme: ColorScheme.light(primary: Colors.cyan.shade400)),
+              colorScheme: ColorScheme.light(
+                primary: Colors.cyan.shade400,
+              ).copyWith(
+                onPrimary: Colors.cyan,
+                secondary: Colors.cyan,
+              ),
+            ),
             child: Stepper(
               controlsBuilder: (BuildContext context,
                   {VoidCallback onStepContinue, VoidCallback onStepCancel}) {

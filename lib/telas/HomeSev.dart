@@ -260,7 +260,7 @@ class _HomeSevState extends State<HomeSev> {
   final picker = ImagePicker();
 
   Future getFileFromGallery() async {
-    final file = await picker.getImage(source: ImageSource.gallery);
+    final file = await picker.pickImage(source: ImageSource.gallery);
 
     if (file != null) {
       setState(() => arquivo = File(file.path));
@@ -269,6 +269,14 @@ class _HomeSevState extends State<HomeSev> {
       List<int> imageBytes = imageFile.readAsBytesSync();
       String base64Img = base64.encode(imageBytes);
       var test = base64Img;
+    }
+  }
+
+  Future getImageFromBD() async {
+    Image imagem;
+
+    if ("RetornoBanco" != null) {
+      setState(() => imagem = Image.memory(base64.decode("base64Img")));
     }
   }
 
