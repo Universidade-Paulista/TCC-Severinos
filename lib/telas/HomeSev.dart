@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -11,7 +12,8 @@ class HomeSev extends StatefulWidget {
 }
 
 class _HomeSevState extends State<HomeSev> {
-  bool _isButtonDisabled = false;
+  bool _isButtonDisabled = true;
+  final txtNome = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,7 +60,7 @@ class _HomeSevState extends State<HomeSev> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    "*Nome do Prestador logado*",
+                    getLogin(txtNome.text).toString(),
                     style: TextStyle(
                       fontSize: 15,
                       color: Colors.black,
@@ -145,12 +147,23 @@ class _HomeSevState extends State<HomeSev> {
                 child: TextButton(
                   onPressed: () {
                     _alternaButton();
+                    // ScaffoldMessenger.of(context).showSnackBar(
+                    //   SnackBar(
+                    //     content: const Text('Gustavo precisa de  você!'),
+                    //     action: SnackBarAction(
+                    //       label: 'Aceitar',
+                    //       onPressed: () {
+                    //         // Code to execute.
+                    //       },
+                    //     ),
+                    //   ),
+                    // );
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        (_isButtonDisabled ? "Iniciar" : "Aguardando"),
+                        (_isButtonDisabled ? "Iniciar" : "-"),
                         style: TextStyle(
                           fontSize: 30,
                           color: Colors.black,
@@ -206,8 +219,18 @@ class _HomeSevState extends State<HomeSev> {
     );
   }
 
-  _alternaButton() {
-    setState(() => _isButtonDisabled = !_isButtonDisabled);
+  getLogin(String nome) async {
+    final dio = Dio();
+    var response = await dio
+        .get("https://apiseverinos.azurewebsites.net/api/Login/" + nome);
+
+    if (response.statusCode == 200) {
+      return response.data;
+    } else {
+      AlertDialog(
+        title: Text(response.statusMessage),
+      );
+    }
   }
 
   _getContainerDrawer() {
@@ -270,6 +293,10 @@ class _HomeSevState extends State<HomeSev> {
       String base64Img = base64.encode(imageBytes);
       var test = base64Img;
     }
+  }
+
+  _alternaButton() {
+    setState(() => _isButtonDisabled = !_isButtonDisabled);
   }
 
   // Future pickImage(ImageSource source) async {
