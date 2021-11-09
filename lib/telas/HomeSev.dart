@@ -283,7 +283,7 @@ class _HomeSevState extends State<HomeSev> {
   final picker = ImagePicker();
 
   Future getFileFromGallery() async {
-    final file = await picker.getImage(source: ImageSource.gallery);
+    final file = await picker.pickImage(source: ImageSource.gallery);
 
     if (file != null) {
       setState(() => arquivo = File(file.path));
