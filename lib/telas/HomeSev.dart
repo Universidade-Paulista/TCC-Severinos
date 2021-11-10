@@ -1,10 +1,12 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:typed_data';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
 
 class HomeSev extends StatefulWidget {
   @override
@@ -282,10 +284,16 @@ class _HomeSevState extends State<HomeSev> {
   }
 
   Future getImageFromBD() async {
-    Image imagem;
-
     if ("RetornoBanco" != null) {
-      setState(() => imagem = Image.memory(base64.decode("base64Img")));
+      Uint8List imageBytes = base64.decode("base64Img");
+
+      String dir = (await getApplicationDocumentsDirectory()).path;
+
+      File file = File(
+          "$dir/" + DateTime.now().millisecondsSinceEpoch.toString() + ".jpeg");
+      await file.writeAsBytes(imageBytes);
+
+      setState(() => arquivo = File(file.path));
     }
   }
 
