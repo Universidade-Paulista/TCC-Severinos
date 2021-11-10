@@ -219,20 +219,6 @@ class _HomeSevState extends State<HomeSev> {
     );
   }
 
-  getLogin(String nome) async {
-    final dio = Dio();
-    var response = await dio
-        .get("https://apiseverinos.azurewebsites.net/api/Login/" + nome);
-
-    if (response.statusCode == 200) {
-      return response.data;
-    } else {
-      AlertDialog(
-        title: Text(response.statusMessage),
-      );
-    }
-  }
-
   _getContainerDrawer() {
     return Container(
       decoration: BoxDecoration(color: Colors.white),
@@ -295,8 +281,30 @@ class _HomeSevState extends State<HomeSev> {
     }
   }
 
+  Future getImageFromBD() async {
+    Image imagem;
+
+    if ("RetornoBanco" != null) {
+      setState(() => imagem = Image.memory(base64.decode("base64Img")));
+    }
+  }
+
   _alternaButton() {
     setState(() => _isButtonDisabled = !_isButtonDisabled);
+  }
+
+  getLogin(String nome) async {
+    final dio = Dio();
+    var response = await dio
+        .get("https://apiseverinos.azurewebsites.net/api/Login/" + nome);
+
+    if (response.statusCode == 200) {
+      return response.data;
+    } else {
+      AlertDialog(
+        title: Text(response.statusMessage),
+      );
+    }
   }
 
   // Future pickImage(ImageSource source) async {
@@ -312,12 +320,12 @@ class _HomeSevState extends State<HomeSev> {
   //     print("Failed to pick image: $e");
   //   }
   // }
+
+  // Future<File> saveImagePermanently(String imagePath) async {
+  //   final directory = await getApplicationDocumentsDirectory();
+  //   final name = basename(imagePath);
+  //   final image = File('${directory.path}/$name');
+
+  //   return File(imagePath).copy(image.path);
+  // }
 }
-
-// Future<File> saveImagePermanently(String imagePath) async {
-//   final directory = await getApplicationDocumentsDirectory();
-//   final name = basename(imagePath);
-//   final image = File('${directory.path}/$name');
-
-//   return File(imagePath).copy(image.path);
-// }
