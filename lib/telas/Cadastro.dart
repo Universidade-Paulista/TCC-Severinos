@@ -26,10 +26,6 @@ class _CadastroState extends State<Cadastro> {
   final cep = TextEditingController();
   final estado = TextEditingController();
   final cidade = TextEditingController();
-  // final razaosocial = TextEditingController();
-  // final nrocpfcnpj = TextEditingController();
-  // final linkwhatsapp = TextEditingController();
-  // final nrotelcomercial = TextEditingController();
   final confirmarsenha = TextEditingController();
   final cadServ = new CadastroService();
 
@@ -107,10 +103,6 @@ class _CadastroState extends State<Cadastro> {
                         cep.text,
                         estado.text,
                         cidade.text);
-                    // razaosocial.text,
-                    // nrocpfcnpj.text,
-                    // linkwhatsapp.text,
-                    // nrotelcomercial.text);
                   }
                 });
               },

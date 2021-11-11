@@ -157,7 +157,7 @@ class _HomeSevState extends State<HomeSev> {
                     _alternaButton();
                     // ScaffoldMessenger.of(context).showSnackBar(
                     //   SnackBar(
-                    //     content: const Text('Gustavo precisa de  você!'),
+                    //     content: const Text('Gustavo precisa de você!'),
                     //     action: SnackBarAction(
                     //       label: 'Aceitar',
                     //       onPressed: () {

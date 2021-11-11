@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:dropdownfield/dropdownfield.dart';
 import 'package:severino/telas/ListPrestadores.dart';
+import 'package:severino/telas/PerfilSeverino.dart';
 
 class Home extends StatefulWidget {
   @override
