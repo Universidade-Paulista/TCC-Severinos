@@ -23,7 +23,6 @@ class _HomeSevState extends State<HomeSev> {
 
   @override
   Widget build(BuildContext context) {
-    String nome = getNome(email, senha, severino).toString();
     return Scaffold(
       appBar: AppBar(
         foregroundColor: Colors.black,
@@ -68,7 +67,7 @@ class _HomeSevState extends State<HomeSev> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    nome,
+                    getNome(email, senha).toString(),
                     style: TextStyle(
                       fontSize: 15,
                       color: Colors.black,
@@ -310,17 +309,13 @@ class _HomeSevState extends State<HomeSev> {
     setState(() => _isButtonDisabled = !_isButtonDisabled);
   }
 
-  getNome(String email, String senha, String severino) async {
-    //return 'teste';
+  getNome(String email, String senha) async {
     final dio = Dio();
-    var response = await dio.get("http://192.168.15.9:5000/api/Login/" +
-        email +
-        "/" +
-        senha +
-        "/" +
-        severino);
+    var response = await dio
+        .get("http://192.168.15.9:5000/api/Cadastro/" + email + "/" + senha);
 
     if (response.statusCode == 200) {
+      String test = response.data;
       return response.data;
     } else {
       AlertDialog(

@@ -14,7 +14,6 @@ class Login extends StatefulWidget {
 
 String email = '';
 String senha = '';
-String severino = '';
 
 class _LoginState extends State<Login> {
   final _txtEmail = TextEditingController();
@@ -113,13 +112,11 @@ class _LoginState extends State<Login> {
                     if (result == 'N') {
                       email = _txtEmail.text;
                       senha = _txtSenha.text;
-                      severino = 'N';
                       _getSalvar();
                       Get.to(Home());
                     } else if (result == 'S') {
                       email = _txtEmail.text;
                       senha = _txtSenha.text;
-                      severino = 'S';
                       _getSalvar();
                       Get.to(HomeSev());
                     } else {
