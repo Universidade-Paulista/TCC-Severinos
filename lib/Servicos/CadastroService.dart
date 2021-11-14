@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
@@ -26,13 +25,6 @@ class CadastroService {
       String cep,
       String estado,
       String cidade) async {
-    // String razaosocial,
-    // String nrocpfcnpj,
-    // String linkwhatsapp,
-    // String nrotelcomercial) async {
-
-    //final dio = Dio();
-
     String sbody = "{" +
         "\"nome\": \"" +
         nome +
@@ -81,10 +73,9 @@ class CadastroService {
 
     var headers = {'Content-Type': 'application/json'};
 
-    var request = http.Request('POST',
-        Uri.parse('https://apiseverinos.azurewebsites.net/api/Cadastro/'));
-    // request.body = jsonEncode(
-    //     '''"{    \r\n    \\"nome\\": \\"$nome\\",\r\n    \\"cpf\\": \\$cpf\\",\r\n    \\"email\\": \\"$email\\",\r\n\t\\"telefone\\": \\"$telefone\\",\r\n    \\"indseverino\\": \\"$indseverino\\",\r\n\t\\"senha\\": \\"$senha\\",\r\n\t\\"logradouro\\": \\"$logradouro\\",\r\n\t\\"complemento\\": \\"$complemento\\",\r\n\t\\"numero\\": \\"$numero\\",\r\n\t\\"bairro\\": \\"$bairro\\",\r\n\t\\"cep\\": \\"$cep\\",\r\n\t\\"estado\\": \\"$estado\\",\r\n    \\"cidade\\": \\"$cidade\\",\r\n\t\\"razaosocial\\": \\"Robert Teste LTDA\\",\r\n\t\\"nrocpfcnpj\\": \\"12.345.678/9101-11\\",\r\n\t\\"linkwhatsapp\\": null,\r\n\t\\"nrotelcomercial\\": \\"(16) 3615-9861\\"\r\n}"''');
+    var request = http.Request(
+        'POST', Uri.parse('http://192.168.15.9:5000/api/Cadastro/'));
+
     request.body = jsonEncode(sbody);
     request.headers.addAll(headers);
 

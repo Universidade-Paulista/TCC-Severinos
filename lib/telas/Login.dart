@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:severino/Servicos/LoginService.dart';
@@ -16,6 +17,7 @@ String email = '';
 String senha = '';
 
 class _LoginState extends State<Login> {
+  final _formKey = GlobalKey<FormState>();
   final _txtEmail = TextEditingController();
   final _txtSenha = TextEditingController();
   final log = new LoginService();
@@ -30,83 +32,105 @@ class _LoginState extends State<Login> {
           right: 40,
         ),
         color: Colors.grey.shade300,
-        child: ListView(
-          children: <Widget>[
-            SizedBox(
-              width: 250,
-              height: 250,
-              child: Image.asset('assets/Logos/LogoNome2.png'),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            TextFormField(
-              keyboardType: TextInputType.emailAddress,
-              controller: _txtEmail,
-              decoration: InputDecoration(
-                labelText: "E-mail",
-                labelStyle: TextStyle(
-                  color: Colors.black38,
-                  fontWeight: FontWeight.w400,
-                  fontSize: 20,
-                ),
+        child: _construirFormulario(context),
+      ),
+    );
+  }
+
+  Widget _construirFormulario(context) {
+    return Form(
+      key: _formKey,
+      child: ListView(
+        children: <Widget>[
+          SizedBox(
+            width: 250,
+            height: 250,
+            child: Image.asset('assets/Logos/LogoNome2.png'),
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          TextFormField(
+            keyboardType: TextInputType.emailAddress,
+            controller: _txtEmail,
+            decoration: InputDecoration(
+              labelText: "E-mail",
+              labelStyle: TextStyle(
+                color: Colors.black38,
+                fontWeight: FontWeight.w400,
+                fontSize: 20,
               ),
-              style: TextStyle(fontSize: 20),
             ),
-            SizedBox(
-              height: 10,
-            ),
-            TextFormField(
-              keyboardType: TextInputType.text,
-              controller: _txtSenha,
-              obscureText: true,
-              decoration: InputDecoration(
-                labelText: "Senha",
-                labelStyle: TextStyle(
-                  color: Colors.black38,
-                  fontWeight: FontWeight.w400,
-                  fontSize: 20,
-                ),
+            validator: (value) {
+              if (value.length == 0) return "Informe o E-mail";
+
+              if (!value.contains("@") || !value.contains("."))
+                return "Email inválido";
+
+              return null;
+            },
+            style: TextStyle(fontSize: 20),
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          TextFormField(
+            keyboardType: TextInputType.text,
+            controller: _txtSenha,
+            obscureText: true,
+            decoration: InputDecoration(
+              labelText: "Senha",
+              labelStyle: TextStyle(
+                color: Colors.black38,
+                fontWeight: FontWeight.w400,
+                fontSize: 20,
               ),
-              style: TextStyle(fontSize: 20),
             ),
-            SizedBox(
-              height: 10,
+            validator: (value) {
+              if (value.length == 0) return "Informe a Senha";
+
+              return null;
+            },
+            style: TextStyle(fontSize: 20),
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          Container(
+            height: 35,
+            alignment: Alignment.centerRight,
+            child: TextButton(
+              onPressed: () {},
+              child: Text(
+                "Recuperar senha",
+                style: TextStyle(fontSize: 10, color: Colors.black),
+              ),
             ),
-            Container(
-              height: 35,
-              alignment: Alignment.centerRight,
+          ),
+          SizedBox(
+            height: 40,
+          ),
+          Container(
+            height: 60,
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.bottomLeft,
+                end: Alignment.topRight,
+                stops: [0.3, 1],
+                colors: [
+                  Color(0xFF80DEEA),
+                  Color(0xFF4DD0E1),
+                ],
+              ),
+              borderRadius: BorderRadius.all(
+                Radius.circular(15),
+              ),
+            ),
+            child: SizedBox.expand(
               child: TextButton(
-                onPressed: () {},
-                child: Text(
-                  "Recuperar senha",
-                  style: TextStyle(fontSize: 10, color: Colors.black),
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 40,
-            ),
-            Container(
-              height: 60,
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.bottomLeft,
-                  end: Alignment.topRight,
-                  stops: [0.3, 1],
-                  colors: [
-                    Color(0xFF80DEEA),
-                    Color(0xFF4DD0E1),
-                  ],
-                ),
-                borderRadius: BorderRadius.all(
-                  Radius.circular(15),
-                ),
-              ),
-              child: SizedBox.expand(
-                child: TextButton(
-                  onPressed: () async {
+                onPressed: () async {
+                  if (_formKey.currentState.validate()) {
                     String result =
                         await log.getLogin(_txtEmail.text, _txtSenha.text);
                     if (result == 'N') {
@@ -120,45 +144,43 @@ class _LoginState extends State<Login> {
                       _getSalvar();
                       Get.to(HomeSev());
                     } else {
-                      _showMyDialog("E-mail e/ou senha inválidos");
+                      _showMyDialog("E-mail e/ou Senha inválidos.");
                     }
-                    // Get.to(Home());
-                    // Get.to(HomeSev());
-                  },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        "Acessar",
-                        style: TextStyle(
-                          fontSize: 25,
-                          color: Colors.black87,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 60,
-            ),
-            Container(
-              height: 35,
-              alignment: Alignment.center,
-              child: TextButton(
-                onPressed: () async {
-                  Get.to(PreCadastro());
+                  }
                 },
-                child: Text(
-                  "Cadastre-se",
-                  style: TextStyle(fontSize: 15, color: Colors.black),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Acessar",
+                      style: TextStyle(
+                        fontSize: 25,
+                        color: Colors.black87,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
                 ),
               ),
             ),
-          ],
-        ),
+          ),
+          SizedBox(
+            height: 60,
+          ),
+          Container(
+            height: 35,
+            alignment: Alignment.center,
+            child: TextButton(
+              onPressed: () async {
+                Get.to(PreCadastro());
+              },
+              child: Text(
+                "Cadastre-se",
+                style: TextStyle(fontSize: 15, color: Colors.black),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

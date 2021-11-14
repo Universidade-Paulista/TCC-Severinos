@@ -17,12 +17,16 @@ class HomeSev extends StatefulWidget {
 
 class _HomeSevState extends State<HomeSev> {
   bool _isButtonDisabled = true;
-  final txtNome = TextEditingController();
+  // final txtEmail = TextEditingController();
+  // final txtSenha = TextEditingController();
 
   final login = new Login();
 
+  String _snome = '';
+
   @override
   Widget build(BuildContext context) {
+    getNome(email, senha).toString();
     return Scaffold(
       appBar: AppBar(
         foregroundColor: Colors.black,
@@ -67,9 +71,9 @@ class _HomeSevState extends State<HomeSev> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    getNome(email, senha).toString(),
+                    _snome,
                     style: TextStyle(
-                      fontSize: 15,
+                      fontSize: 20,
                       color: Colors.black,
                     ),
                   ),
@@ -259,9 +263,11 @@ class _HomeSevState extends State<HomeSev> {
                 children: <Widget>[
                   Divider(),
                   ListTile(
-                    leading: Icon(Icons.help),
-                    title: Text("Central de ajuda"),
-                    onTap: () {},
+                    leading: Icon(Icons.logout),
+                    title: Text("Sair"),
+                    onTap: () {
+                      Get.to(Login());
+                    },
                   ),
                 ],
               ),
@@ -311,12 +317,14 @@ class _HomeSevState extends State<HomeSev> {
 
   getNome(String email, String senha) async {
     final dio = Dio();
-    var response = await dio
-        .get("http://192.168.15.9:5000/api/Cadastro/" + email + "/" + senha);
+    var response = await dio.get(
+        "https://apiseverinos.azurewebsites.net/api/Cadastro/" +
+            email +
+            "/" +
+            senha);
 
     if (response.statusCode == 200) {
-      String test = response.data;
-      return response.data;
+      _snome = response.data;
     } else {
       AlertDialog(
         title: Text(response.statusMessage),

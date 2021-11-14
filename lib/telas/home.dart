@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:dropdownfield/dropdownfield.dart';
 import 'package:severino/telas/ListPrestadores.dart';
+import 'package:severino/telas/Login.dart';
 import 'package:severino/telas/PerfilSeverino.dart';
 
 class Home extends StatefulWidget {
@@ -163,9 +164,11 @@ class _HomeState extends State<Home> {
                 children: <Widget>[
                   Divider(),
                   ListTile(
-                    leading: Icon(Icons.help),
-                    title: Text("Central de ajuda"),
-                    onTap: () {},
+                    leading: Icon(Icons.logout),
+                    title: Text("Sair"),
+                    onTap: () {
+                      Get.to(Login());
+                    },
                   ),
                 ],
               ),
