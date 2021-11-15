@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:brasil_fields/brasil_fields.dart';
-//import 'package:get/get.dart';
 import 'package:severino/Servicos/CadastroService.dart';
 
 class Cadastro extends StatefulWidget {
@@ -353,9 +352,8 @@ class _CadastroState extends State<Cadastro> {
               SizedBox(
                 height: 5,
               ),
-              TextFormField(
-                controller: estado,
-                keyboardType: TextInputType.text,
+              DropdownButtonFormField(
+                isExpanded: true,
                 decoration: InputDecoration(
                   labelText: "Estado",
                   labelStyle: TextStyle(
@@ -364,37 +362,20 @@ class _CadastroState extends State<Cadastro> {
                     fontSize: 10,
                   ),
                 ),
+                items: Estados.listaEstados.map((String estado) {
+                  return DropdownMenuItem(
+                    child: Text(estado),
+                    value: estado,
+                  );
+                }).toList(),
+                onChanged: (String novoEstadoSelecionado) {
+                  estado.text = novoEstadoSelecionado;
+                },
                 validator: (value) {
-                  if (value.length == 0) return "Preencha Senha";
-
-                  if (value.length < 3) return "Estado inválido";
-
+                  if (value == null) return "Selecione um estado";
                   return null;
                 },
-                style: TextStyle(
-                  fontSize: 25,
-                ),
               ),
-              SizedBox(
-                height: 5,
-              ),
-              // DropdownButtonFormField(
-              //   isExpanded: true,
-              //   decoration: InputDecoration(labelText: "Estado"),
-              //   items: Estados.listaEstados.map((String estado) {
-              //     return DropdownMenuItem(
-              //       child: Text(estado),
-              //       value: estado,
-              //     );
-              //   }).toList(),
-              //   onChanged: (String novoEstadoSelecionado) {
-              //     estado.text = novoEstadoSelecionado;
-              //   },
-              //   validator: (value) {
-              //     if (value == null) return "Selecione um estado";
-              //     return null;
-              //   },
-              // ),
               TextFormField(
                 controller: complemento,
                 keyboardType: TextInputType.text,
