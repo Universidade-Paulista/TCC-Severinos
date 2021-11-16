@@ -129,7 +129,7 @@ class _HomeSevState extends State<HomeSev> {
                   ),
                   label: Padding(
                     padding: const EdgeInsets.all(0.0),
-                    child: Text('Insira sua logo'),
+                    child: Text(''),
                   ),
                   style: ElevatedButton.styleFrom(
                       elevation: 0.0,

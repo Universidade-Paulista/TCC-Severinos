@@ -156,8 +156,8 @@ class _CadastroSevState extends State<CadastroSev> {
                   labelText: "Nome",
                   labelStyle: TextStyle(
                     color: Colors.black87,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 10,
+                    fontWeight: FontWeight.w400,
+                    fontSize: 12,
                   ),
                 ),
                 validator: (value) {
@@ -168,11 +168,8 @@ class _CadastroSevState extends State<CadastroSev> {
                   return null;
                 },
                 style: TextStyle(
-                  fontSize: 25,
+                  fontSize: 20,
                 ),
-              ),
-              SizedBox(
-                height: 5,
               ),
               TextFormField(
                 controller: cpf,
@@ -185,8 +182,8 @@ class _CadastroSevState extends State<CadastroSev> {
                   labelText: "CPF",
                   labelStyle: TextStyle(
                     color: Colors.black87,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 10,
+                    fontWeight: FontWeight.w400,
+                    fontSize: 12,
                   ),
                 ),
                 validator: (value) {
@@ -197,11 +194,8 @@ class _CadastroSevState extends State<CadastroSev> {
                   return null;
                 },
                 style: TextStyle(
-                  fontSize: 25,
+                  fontSize: 20,
                 ),
-              ),
-              SizedBox(
-                height: 10,
               ),
               TextFormField(
                 controller: telefone,
@@ -214,8 +208,8 @@ class _CadastroSevState extends State<CadastroSev> {
                   labelText: "Celular",
                   labelStyle: TextStyle(
                     color: Colors.black87,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 10,
+                    fontWeight: FontWeight.w400,
+                    fontSize: 12,
                   ),
                 ),
                 validator: (value) {
@@ -226,11 +220,11 @@ class _CadastroSevState extends State<CadastroSev> {
                   return null;
                 },
                 style: TextStyle(
-                  fontSize: 25,
+                  fontSize: 20,
                 ),
               ),
               SizedBox(
-                height: 40,
+                height: 20,
               ),
             ]),
           )),
@@ -251,8 +245,8 @@ class _CadastroSevState extends State<CadastroSev> {
                   labelText: "CEP",
                   labelStyle: TextStyle(
                     color: Colors.black87,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 10,
+                    fontWeight: FontWeight.w400,
+                    fontSize: 12,
                   ),
                 ),
                 validator: (value) {
@@ -263,11 +257,8 @@ class _CadastroSevState extends State<CadastroSev> {
                   return null;
                 },
                 style: TextStyle(
-                  fontSize: 25,
+                  fontSize: 20,
                 ),
-              ),
-              SizedBox(
-                height: 5,
               ),
               TextFormField(
                 controller: logradouro,
@@ -276,8 +267,8 @@ class _CadastroSevState extends State<CadastroSev> {
                   labelText: "Logradouro",
                   labelStyle: TextStyle(
                     color: Colors.black87,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 10,
+                    fontWeight: FontWeight.w400,
+                    fontSize: 12,
                   ),
                 ),
                 validator: (value) {
@@ -288,11 +279,8 @@ class _CadastroSevState extends State<CadastroSev> {
                   return null;
                 },
                 style: TextStyle(
-                  fontSize: 25,
+                  fontSize: 20,
                 ),
-              ),
-              SizedBox(
-                height: 5,
               ),
               TextFormField(
                 controller: numero,
@@ -301,16 +289,13 @@ class _CadastroSevState extends State<CadastroSev> {
                   labelText: "Número",
                   labelStyle: TextStyle(
                     color: Colors.black87,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 10,
+                    fontWeight: FontWeight.w400,
+                    fontSize: 12,
                   ),
                 ),
                 style: TextStyle(
-                  fontSize: 25,
+                  fontSize: 20,
                 ),
-              ),
-              SizedBox(
-                height: 5,
               ),
               TextFormField(
                 controller: bairro,
@@ -319,8 +304,8 @@ class _CadastroSevState extends State<CadastroSev> {
                   labelText: "Bairro",
                   labelStyle: TextStyle(
                     color: Colors.black87,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 10,
+                    fontWeight: FontWeight.w400,
+                    fontSize: 12,
                   ),
                 ),
                 validator: (value) {
@@ -331,11 +316,8 @@ class _CadastroSevState extends State<CadastroSev> {
                   return null;
                 },
                 style: TextStyle(
-                  fontSize: 25,
+                  fontSize: 20,
                 ),
-              ),
-              SizedBox(
-                height: 5,
               ),
               TextFormField(
                 controller: cidade,
@@ -344,8 +326,8 @@ class _CadastroSevState extends State<CadastroSev> {
                   labelText: "Cidade",
                   labelStyle: TextStyle(
                     color: Colors.black87,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 10,
+                    fontWeight: FontWeight.w400,
+                    fontSize: 12,
                   ),
                 ),
                 validator: (value) {
@@ -356,11 +338,8 @@ class _CadastroSevState extends State<CadastroSev> {
                   return null;
                 },
                 style: TextStyle(
-                  fontSize: 25,
+                  fontSize: 20,
                 ),
-              ),
-              SizedBox(
-                height: 5,
               ),
               DropdownButtonFormField(
                 isExpanded: true,
@@ -368,8 +347,8 @@ class _CadastroSevState extends State<CadastroSev> {
                   labelText: "Estado",
                   labelStyle: TextStyle(
                     color: Colors.black87,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 10,
+                    fontWeight: FontWeight.w400,
+                    fontSize: 12,
                   ),
                 ),
                 items: Estados.listaEstados.map((String estado) {
@@ -393,16 +372,16 @@ class _CadastroSevState extends State<CadastroSev> {
                   labelText: "Complemento",
                   labelStyle: TextStyle(
                     color: Colors.black87,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 10,
+                    fontWeight: FontWeight.w400,
+                    fontSize: 12,
                   ),
                 ),
                 style: TextStyle(
-                  fontSize: 25,
+                  fontSize: 20,
                 ),
               ),
               SizedBox(
-                height: 40,
+                height: 20,
               ),
             ]),
           )),
@@ -419,8 +398,8 @@ class _CadastroSevState extends State<CadastroSev> {
                   labelText: "E-mail",
                   labelStyle: TextStyle(
                     color: Colors.black87,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 10,
+                    fontWeight: FontWeight.w400,
+                    fontSize: 12,
                   ),
                 ),
                 validator: (value) {
@@ -432,11 +411,8 @@ class _CadastroSevState extends State<CadastroSev> {
                   return null;
                 },
                 style: TextStyle(
-                  fontSize: 25,
+                  fontSize: 20,
                 ),
-              ),
-              SizedBox(
-                height: 5,
               ),
               TextFormField(
                 controller: senha,
@@ -446,8 +422,8 @@ class _CadastroSevState extends State<CadastroSev> {
                   labelText: "Senha",
                   labelStyle: TextStyle(
                     color: Colors.black87,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 10,
+                    fontWeight: FontWeight.w400,
+                    fontSize: 12,
                   ),
                 ),
                 validator: (value) {
@@ -458,11 +434,8 @@ class _CadastroSevState extends State<CadastroSev> {
                   return null;
                 },
                 style: TextStyle(
-                  fontSize: 25,
+                  fontSize: 20,
                 ),
-              ),
-              SizedBox(
-                height: 5,
               ),
               TextFormField(
                 controller: confirmarsenha,
@@ -472,8 +445,8 @@ class _CadastroSevState extends State<CadastroSev> {
                   labelText: "Confirmar senha",
                   labelStyle: TextStyle(
                     color: Colors.black87,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 10,
+                    fontWeight: FontWeight.w400,
+                    fontSize: 12,
                   ),
                 ),
                 validator: (value) {
@@ -484,11 +457,11 @@ class _CadastroSevState extends State<CadastroSev> {
                   return null;
                 },
                 style: TextStyle(
-                  fontSize: 25,
+                  fontSize: 20,
                 ),
               ),
               SizedBox(
-                height: 40,
+                height: 20,
               ),
             ]),
           )),
@@ -504,8 +477,8 @@ class _CadastroSevState extends State<CadastroSev> {
                   labelText: "Razão Social",
                   labelStyle: TextStyle(
                     color: Colors.black87,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 10,
+                    fontWeight: FontWeight.w400,
+                    fontSize: 12,
                   ),
                 ),
                 // validator: (value) {
@@ -516,36 +489,34 @@ class _CadastroSevState extends State<CadastroSev> {
                 //   return null;
                 // },
                 style: TextStyle(
-                  fontSize: 25,
+                  fontSize: 20,
                 ),
-              ),
-              SizedBox(
-                height: 5,
               ),
               TextFormField(
                 controller: nrocpfcnpj,
+                inputFormatters: [
+                  FilteringTextInputFormatter.digitsOnly,
+                  CpfOuCnpjFormatter()
+                ],
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
                   labelText: "CPF ou CNPJ",
                   labelStyle: TextStyle(
                     color: Colors.black87,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 10,
+                    fontWeight: FontWeight.w400,
+                    fontSize: 12,
                   ),
                 ),
                 validator: (value) {
                   if (value.length == 0) return "Preencha este campo";
 
-                  if (value.length != 11) return "CPF/CNPJ inválido";
+                  if (value.length != 14) return "CPF/CNPJ inválido";
 
                   return null;
                 },
                 style: TextStyle(
-                  fontSize: 25,
+                  fontSize: 20,
                 ),
-              ),
-              SizedBox(
-                height: 10,
               ),
               TextFormField(
                 controller: nrotelcomercial,
@@ -558,8 +529,8 @@ class _CadastroSevState extends State<CadastroSev> {
                   labelText: "Número Comercial",
                   labelStyle: TextStyle(
                     color: Colors.black87,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 10,
+                    fontWeight: FontWeight.w400,
+                    fontSize: 12,
                   ),
                 ),
                 // validator: (value) {
@@ -570,11 +541,8 @@ class _CadastroSevState extends State<CadastroSev> {
                 //   return null;
                 // },
                 style: TextStyle(
-                  fontSize: 25,
+                  fontSize: 20,
                 ),
-              ),
-              SizedBox(
-                height: 10,
               ),
               TextFormField(
                 controller: linkwhatsapp,
@@ -587,8 +555,8 @@ class _CadastroSevState extends State<CadastroSev> {
                   labelText: "Número do WhatsApp",
                   labelStyle: TextStyle(
                     color: Colors.black87,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 10,
+                    fontWeight: FontWeight.w400,
+                    fontSize: 12,
                   ),
                   suffixIcon: Padding(
                     padding: EdgeInsets.all(0.0),
@@ -610,11 +578,11 @@ class _CadastroSevState extends State<CadastroSev> {
                 //   return null;
                 // },
                 style: TextStyle(
-                  fontSize: 25,
+                  fontSize: 20,
                 ),
               ),
               SizedBox(
-                height: 40,
+                height: 20,
               ),
             ]),
           ))
