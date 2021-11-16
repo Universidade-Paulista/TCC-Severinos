@@ -5,6 +5,7 @@ import 'package:severino/Servicos/LoginService.dart';
 import 'package:get/get.dart';
 import 'package:severino/telas/HomeSev.dart';
 import 'package:severino/telas/PreCadastro.dart';
+import 'package:severino/telas/NovaSenha.dart';
 import 'package:severino/telas/home.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -100,10 +101,12 @@ class _LoginState extends State<Login> {
             height: 35,
             alignment: Alignment.centerRight,
             child: TextButton(
-              onPressed: () {},
+              onPressed: () {
+                Get.to(NovaSenha());
+              },
               child: Text(
-                "Recuperar senha",
-                style: TextStyle(fontSize: 10, color: Colors.black),
+                "Esqueci minha senha",
+                style: TextStyle(fontSize: 12, color: Colors.black54),
               ),
             ),
           ),

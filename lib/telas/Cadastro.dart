@@ -146,8 +146,8 @@ class _CadastroState extends State<Cadastro> {
                   labelText: "Nome",
                   labelStyle: TextStyle(
                     color: Colors.black87,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 10,
+                    fontWeight: FontWeight.w400,
+                    fontSize: 12,
                   ),
                 ),
                 validator: (value) {
@@ -158,11 +158,8 @@ class _CadastroState extends State<Cadastro> {
                   return null;
                 },
                 style: TextStyle(
-                  fontSize: 25,
+                  fontSize: 20,
                 ),
-              ),
-              SizedBox(
-                height: 5,
               ),
               TextFormField(
                 controller: cpf,
@@ -175,8 +172,8 @@ class _CadastroState extends State<Cadastro> {
                   labelText: "CPF",
                   labelStyle: TextStyle(
                     color: Colors.black87,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 10,
+                    fontWeight: FontWeight.w400,
+                    fontSize: 12,
                   ),
                 ),
                 validator: (value) {
@@ -187,11 +184,8 @@ class _CadastroState extends State<Cadastro> {
                   return null;
                 },
                 style: TextStyle(
-                  fontSize: 25,
+                  fontSize: 20,
                 ),
-              ),
-              SizedBox(
-                height: 15,
               ),
               TextFormField(
                 controller: telefone,
@@ -204,8 +198,8 @@ class _CadastroState extends State<Cadastro> {
                   labelText: "Celular",
                   labelStyle: TextStyle(
                     color: Colors.black87,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 10,
+                    fontWeight: FontWeight.w400,
+                    fontSize: 12,
                   ),
                 ),
                 validator: (value) {
@@ -216,11 +210,11 @@ class _CadastroState extends State<Cadastro> {
                   return null;
                 },
                 style: TextStyle(
-                  fontSize: 25,
+                  fontSize: 20,
                 ),
               ),
               SizedBox(
-                height: 40,
+                height: 20,
               ),
             ]),
           )),
@@ -241,8 +235,8 @@ class _CadastroState extends State<Cadastro> {
                   labelText: "CEP",
                   labelStyle: TextStyle(
                     color: Colors.black87,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 10,
+                    fontWeight: FontWeight.w400,
+                    fontSize: 12,
                   ),
                 ),
                 validator: (value) {
@@ -253,11 +247,8 @@ class _CadastroState extends State<Cadastro> {
                   return null;
                 },
                 style: TextStyle(
-                  fontSize: 25,
+                  fontSize: 20,
                 ),
-              ),
-              SizedBox(
-                height: 5,
               ),
               TextFormField(
                 controller: logradouro,
@@ -266,8 +257,8 @@ class _CadastroState extends State<Cadastro> {
                   labelText: "Logradouro",
                   labelStyle: TextStyle(
                     color: Colors.black87,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 10,
+                    fontWeight: FontWeight.w400,
+                    fontSize: 12,
                   ),
                 ),
                 validator: (value) {
@@ -278,11 +269,8 @@ class _CadastroState extends State<Cadastro> {
                   return null;
                 },
                 style: TextStyle(
-                  fontSize: 25,
+                  fontSize: 20,
                 ),
-              ),
-              SizedBox(
-                height: 5,
               ),
               TextFormField(
                 controller: numero,
@@ -291,16 +279,13 @@ class _CadastroState extends State<Cadastro> {
                   labelText: "Número",
                   labelStyle: TextStyle(
                     color: Colors.black87,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 10,
+                    fontWeight: FontWeight.w400,
+                    fontSize: 12,
                   ),
                 ),
                 style: TextStyle(
-                  fontSize: 25,
+                  fontSize: 20,
                 ),
-              ),
-              SizedBox(
-                height: 5,
               ),
               TextFormField(
                 controller: bairro,
@@ -309,8 +294,8 @@ class _CadastroState extends State<Cadastro> {
                   labelText: "Bairro",
                   labelStyle: TextStyle(
                     color: Colors.black87,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 10,
+                    fontWeight: FontWeight.w400,
+                    fontSize: 12,
                   ),
                 ),
                 validator: (value) {
@@ -321,11 +306,8 @@ class _CadastroState extends State<Cadastro> {
                   return null;
                 },
                 style: TextStyle(
-                  fontSize: 25,
+                  fontSize: 20,
                 ),
-              ),
-              SizedBox(
-                height: 5,
               ),
               TextFormField(
                 controller: cidade,
@@ -334,8 +316,8 @@ class _CadastroState extends State<Cadastro> {
                   labelText: "Cidade",
                   labelStyle: TextStyle(
                     color: Colors.black87,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 10,
+                    fontWeight: FontWeight.w400,
+                    fontSize: 12,
                   ),
                 ),
                 validator: (value) {
@@ -346,11 +328,8 @@ class _CadastroState extends State<Cadastro> {
                   return null;
                 },
                 style: TextStyle(
-                  fontSize: 25,
+                  fontSize: 20,
                 ),
-              ),
-              SizedBox(
-                height: 5,
               ),
               DropdownButtonFormField(
                 isExpanded: true,
@@ -358,8 +337,8 @@ class _CadastroState extends State<Cadastro> {
                   labelText: "Estado",
                   labelStyle: TextStyle(
                     color: Colors.black87,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 10,
+                    fontWeight: FontWeight.w400,
+                    fontSize: 12,
                   ),
                 ),
                 items: Estados.listaEstados.map((String estado) {
@@ -383,16 +362,16 @@ class _CadastroState extends State<Cadastro> {
                   labelText: "Complemento",
                   labelStyle: TextStyle(
                     color: Colors.black87,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 10,
+                    fontWeight: FontWeight.w400,
+                    fontSize: 12,
                   ),
                 ),
                 style: TextStyle(
-                  fontSize: 25,
+                  fontSize: 20,
                 ),
               ),
               SizedBox(
-                height: 40,
+                height: 20,
               ),
             ]),
           )),
@@ -409,8 +388,8 @@ class _CadastroState extends State<Cadastro> {
                   labelText: "E-mail",
                   labelStyle: TextStyle(
                     color: Colors.black87,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 10,
+                    fontWeight: FontWeight.w400,
+                    fontSize: 12,
                   ),
                 ),
                 validator: (value) {
@@ -422,11 +401,8 @@ class _CadastroState extends State<Cadastro> {
                   return null;
                 },
                 style: TextStyle(
-                  fontSize: 25,
+                  fontSize: 20,
                 ),
-              ),
-              SizedBox(
-                height: 5,
               ),
               TextFormField(
                 controller: senha,
@@ -436,8 +412,8 @@ class _CadastroState extends State<Cadastro> {
                   labelText: "Senha",
                   labelStyle: TextStyle(
                     color: Colors.black87,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 10,
+                    fontWeight: FontWeight.w400,
+                    fontSize: 12,
                   ),
                 ),
                 validator: (value) {
@@ -448,11 +424,8 @@ class _CadastroState extends State<Cadastro> {
                   return null;
                 },
                 style: TextStyle(
-                  fontSize: 25,
+                  fontSize: 20,
                 ),
-              ),
-              SizedBox(
-                height: 5,
               ),
               TextFormField(
                 controller: confirmarsenha,
@@ -462,8 +435,8 @@ class _CadastroState extends State<Cadastro> {
                   labelText: "Confirmar senha",
                   labelStyle: TextStyle(
                     color: Colors.black87,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 10,
+                    fontWeight: FontWeight.w400,
+                    fontSize: 12,
                   ),
                 ),
                 validator: (value) {
@@ -474,11 +447,11 @@ class _CadastroState extends State<Cadastro> {
                   return null;
                 },
                 style: TextStyle(
-                  fontSize: 25,
+                  fontSize: 20,
                 ),
               ),
               SizedBox(
-                height: 40,
+                height: 20,
               ),
             ]),
           )),
