@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:ffi';
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:dio/dio.dart';
@@ -17,16 +18,18 @@ class HomeSev extends StatefulWidget {
 
 class _HomeSevState extends State<HomeSev> {
   bool _isButtonDisabled = true;
-  // final txtEmail = TextEditingController();
-  // final txtSenha = TextEditingController();
-
+  final txtNome = TextEditingController();
+  String _sNome = "";
   final login = new Login();
 
-  String _snome = '';
+  @override
+  Future<void> initState() async {
+    super.initState();
+    _sNome = await getNome(email, senha);
+  }
 
   @override
   Widget build(BuildContext context) {
-    getNome(email, senha).toString();
     return Scaffold(
       appBar: AppBar(
         foregroundColor: Colors.black,
@@ -71,9 +74,9 @@ class _HomeSevState extends State<HomeSev> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    _snome,
+                    _sNome,
                     style: TextStyle(
-                      fontSize: 20,
+                      fontSize: 15,
                       color: Colors.black,
                     ),
                   ),
@@ -129,7 +132,7 @@ class _HomeSevState extends State<HomeSev> {
                   ),
                   label: Padding(
                     padding: const EdgeInsets.all(0.0),
-                    child: Text(''),
+                    child: Text('Insira sua logo'),
                   ),
                   style: ElevatedButton.styleFrom(
                       elevation: 0.0,
@@ -263,11 +266,9 @@ class _HomeSevState extends State<HomeSev> {
                 children: <Widget>[
                   Divider(),
                   ListTile(
-                    leading: Icon(Icons.logout),
-                    title: Text("Sair"),
-                    onTap: () {
-                      Get.to(Login());
-                    },
+                    leading: Icon(Icons.help),
+                    title: Text("Central de ajuda"),
+                    onTap: () {},
                   ),
                 ],
               ),
@@ -317,14 +318,12 @@ class _HomeSevState extends State<HomeSev> {
 
   getNome(String email, String senha) async {
     final dio = Dio();
-    var response = await dio.get(
-        "https://apiseverinos.azurewebsites.net/api/Cadastro/" +
-            email +
-            "/" +
-            senha);
+    var response = await dio
+        .get("http://192.168.15.9:5000/api/Cadastro/" + email + "/" + senha);
 
     if (response.statusCode == 200) {
-      _snome = response.data;
+      String test = response.data;
+      return test;
     } else {
       AlertDialog(
         title: Text(response.statusMessage),

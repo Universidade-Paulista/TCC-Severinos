@@ -75,15 +75,18 @@ class _ListaPrestadoresState extends State<ListaPrestadores> {
                     height: 500.0,
                     width: 500.0,
                     child: Flexible(
-                      child: Text(
-                        titulo,
-                        maxLines: 5,
-                        style: TextStyle(
-                          fontSize: 15,
-                          color: Colors.black,
+                      child: TextButton(
+                        onPressed: () {},
+                        child: Text(
+                          titulo,
+                          maxLines: 5,
+                          style: TextStyle(
+                            fontSize: 15,
+                            color: Colors.black,
+                          ),
+                          textAlign: TextAlign.left,
+                          overflow: TextOverflow.ellipsis,
                         ),
-                        textAlign: TextAlign.left,
-                        overflow: TextOverflow.ellipsis,
                       ),
                     ),
                   )
