@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:ffi';
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:dio/dio.dart';
@@ -18,8 +19,14 @@ class HomeSev extends StatefulWidget {
 class _HomeSevState extends State<HomeSev> {
   bool _isButtonDisabled = true;
   final txtNome = TextEditingController();
-
+  String _sNome = "";
   final login = new Login();
+
+  @override
+  Future<void> initState() async {
+    super.initState();
+    _sNome = await getNome(email, senha);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +74,7 @@ class _HomeSevState extends State<HomeSev> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    getNome(email, senha).toString(),
+                    _sNome,
                     style: TextStyle(
                       fontSize: 15,
                       color: Colors.black,
@@ -316,7 +323,7 @@ class _HomeSevState extends State<HomeSev> {
 
     if (response.statusCode == 200) {
       String test = response.data;
-      return response.data;
+      return test;
     } else {
       AlertDialog(
         title: Text(response.statusMessage),
