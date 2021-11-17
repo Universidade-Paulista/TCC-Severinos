@@ -7,6 +7,8 @@ import 'package:severino/telas/HomeSev.dart';
 import 'package:severino/telas/PreCadastro.dart';
 import 'package:severino/telas/NovaSenha.dart';
 import 'package:severino/telas/home.dart';
+import 'package:severino/telas/teste.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Login extends StatefulWidget {

@@ -40,6 +40,7 @@ class _ListaPrestadoresState extends State<ListaPrestadores> {
                       _getCaixaDeInfo(_profissoes[i], 1)
                   ],
                 ),
+                color: Colors.grey.shade300,
               ),
             )
             .toList(),

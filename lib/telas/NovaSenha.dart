@@ -2,6 +2,7 @@ import 'package:brasil_fields/brasil_fields.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:severino/Servicos/LoginService.dart';
 import 'package:severino/telas/Login.dart';
 
 class NovaSenha extends StatefulWidget {
@@ -12,6 +13,10 @@ class NovaSenha extends StatefulWidget {
 class _NovaSenhaState extends State<NovaSenha> {
   final _formKey = GlobalKey<FormState>();
   final cpf = TextEditingController();
+  final senha = TextEditingController();
+  final confirmasenha = TextEditingController();
+
+  final log = new LoginService();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,7 +41,7 @@ class _NovaSenhaState extends State<NovaSenha> {
       key: _formKey,
       child: ListView(
           padding: EdgeInsets.only(
-            top: 100,
+            top: 150,
             left: 50,
             right: 50,
           ),
@@ -81,17 +86,22 @@ class _NovaSenhaState extends State<NovaSenha> {
               child: SizedBox.expand(
                 child: TextButton(
                   onPressed: () async {
-                    if (_formKey.currentState.validate()) {
-                      // String result =
-                      //     await log.getLogin(_txtEmail.text, _txtSenha.text);
-                      // if (result == 'N') {
-                      //   email = _txtEmail.text;
-                      //   senha = _txtSenha.text;
-                      //   _getSalvar();
-                      //   Get.to(Home());
-                      // } else {
-                      //   _showMyDialog("CPF inválido.");
-                      // }
+                    if (!_formKey.currentState.validate()) {
+                      String validacpf = await log.getCPF(cpf.text);
+                      if (validacpf == 'S') {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: const Text('CPF encontrado.'),
+                          ),
+                        );
+                      } else {
+                        _showMyDialog("CPF não cadastrado.");
+                        // ScaffoldMessenger.of(context).showSnackBar(
+                        //   SnackBar(
+                        //     content: const Text('CPF não cadastrado.'),
+                        //   ),
+                        // );
+                      }
                     }
                   },
                   child: Row(
@@ -111,12 +121,12 @@ class _NovaSenhaState extends State<NovaSenha> {
               ),
             ),
             SizedBox(
-              height: 100,
+              height: 50,
             ),
             TextFormField(
-              //controller: senha,
+              controller: senha,
               obscureText: true,
-              keyboardType: TextInputType.number,
+              keyboardType: TextInputType.text,
               decoration: InputDecoration(
                 labelText: "Nova Senha:",
                 labelStyle: TextStyle(
@@ -139,9 +149,9 @@ class _NovaSenhaState extends State<NovaSenha> {
               height: 10,
             ),
             TextFormField(
-              //controller: senha,
+              controller: confirmasenha,
               obscureText: true,
-              keyboardType: TextInputType.number,
+              keyboardType: TextInputType.text,
               decoration: InputDecoration(
                 labelText: "Confirmar Senha:",
                 labelStyle: TextStyle(
@@ -176,8 +186,20 @@ class _NovaSenhaState extends State<NovaSenha> {
                 child: TextButton(
                   onPressed: () async {
                     if (_formKey.currentState.validate()) {
-                      Get.to(Login());
+                      String altsenha =
+                          await log.putSenha(context, cpf.text, senha.text);
+                      if (altsenha == 'true') {
+                        _showMyDialog("Senha alterada com sucesso");
+                      } else {
+                        // ScaffoldMessenger.of(context).showSnackBar(
+                        //   SnackBar(
+                        //     content: const Text('Verifique o CPF.'),
+                        //   ),
+                        // );
+                        _showMyDialog("Verifique seu CPF.");
+                      }
                     }
+                    Get.to(Login());
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
