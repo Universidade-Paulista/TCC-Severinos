@@ -10,27 +10,38 @@ class CadastroSev extends StatefulWidget {
 }
 
 class _CadastroSevState extends State<CadastroSev> {
-  bool severino = false;
   int _currentStep = 0;
 
+  //Step 1
+  final _formUserData = GlobalKey<FormState>();
   final nome = TextEditingController();
   final cpf = TextEditingController();
-  final email = TextEditingController();
   final telefone = TextEditingController();
-  final indseverino = TextEditingController();
-  final senha = TextEditingController();
+
+  //Step 2
+  final _formUserAddress = GlobalKey<FormState>();
+  final cep = TextEditingController();
   final logradouro = TextEditingController();
-  final complemento = TextEditingController();
   final numero = TextEditingController();
   final bairro = TextEditingController();
-  final cep = TextEditingController();
-  final estado = TextEditingController();
   final cidade = TextEditingController();
+  final estado = TextEditingController();
+  final complemento = TextEditingController();
+
+  //Step 3
+  final _formUserAuth = GlobalKey<FormState>();
+  final email = TextEditingController();
+  final senha = TextEditingController();
+  final confirmarsenha = TextEditingController();
+
+  //Step 4
+  final _formUserSev = GlobalKey<FormState>();
   final razaosocial = TextEditingController();
   final nrocpfcnpj = TextEditingController();
-  final linkwhatsapp = TextEditingController();
   final nrotelcomercial = TextEditingController();
-  final confirmarsenha = TextEditingController();
+  final linkwhatsapp = TextEditingController();
+
+  final indseverino = TextEditingController();
   final cadSevServ = new CadastroSevService();
 
   Widget build(BuildContext context) {
@@ -91,6 +102,9 @@ class _CadastroSevState extends State<CadastroSev> {
                 setState(() {
                   if (this._currentStep < this._mySteps().length - 1) {
                     this._currentStep = this._currentStep + 1;
+                    _formUserData.currentState.validate();
+                    _formUserAddress.currentState.validate();
+                    _formUserAuth.currentState.validate();
                   } else {
                     cadSevServ.postCadastroSev(
                         context,
@@ -111,6 +125,7 @@ class _CadastroSevState extends State<CadastroSev> {
                         nrocpfcnpj.text,
                         linkwhatsapp.text,
                         nrotelcomercial.text);
+                    _formUserSev.currentState.validate();
                   }
                 });
               },
@@ -129,370 +144,448 @@ class _CadastroSevState extends State<CadastroSev> {
   List<Step> _mySteps() {
     List<Step> _steps = [
       Step(
-        title: Text('Login'),
-        content: Column(children: <Widget>[
-          TextFormField(
-            controller: email,
-            keyboardType: TextInputType.emailAddress,
-            decoration: InputDecoration(
-              labelText: "E-mail",
-              labelStyle: TextStyle(
-                color: Colors.black87,
-                fontWeight: FontWeight.bold,
-                fontSize: 10,
-              ),
-            ),
-            style: TextStyle(
-              fontSize: 25,
-            ),
-          ),
-          SizedBox(
-            height: 5,
-          ),
-          TextFormField(
-            controller: senha,
-            keyboardType: TextInputType.text,
-            obscureText: true,
-            decoration: InputDecoration(
-              labelText: "Senha",
-              labelStyle: TextStyle(
-                color: Colors.black87,
-                fontWeight: FontWeight.bold,
-                fontSize: 10,
-              ),
-            ),
-            style: TextStyle(
-              fontSize: 25,
-            ),
-          ),
-          SizedBox(
-            height: 5,
-          ),
-          TextFormField(
-            controller: confirmarsenha,
-            keyboardType: TextInputType.text,
-            obscureText: true,
-            decoration: InputDecoration(
-              labelText: "Confirmar senha",
-              labelStyle: TextStyle(
-                color: Colors.black87,
-                fontWeight: FontWeight.bold,
-                fontSize: 10,
-              ),
-            ),
-            style: TextStyle(
-              fontSize: 25,
-            ),
-          ),
-          SizedBox(
-            height: 40,
-          ),
-        ]),
-        isActive: _currentStep >= 0,
-      ),
-      Step(
-        title: Text('Dados Cadastrais'),
-        content: Column(children: <Widget>[
-          TextFormField(
-            controller: nome,
-            keyboardType: TextInputType.emailAddress,
-            decoration: InputDecoration(
-              labelText: "Nome",
-              labelStyle: TextStyle(
-                color: Colors.black87,
-                fontWeight: FontWeight.bold,
-                fontSize: 10,
-              ),
-            ),
-            style: TextStyle(
-              fontSize: 25,
-            ),
-          ),
-          SizedBox(
-            height: 5,
-          ),
-          TextFormField(
-            controller: cpf,
-            inputFormatters: [
-              FilteringTextInputFormatter.digitsOnly,
-              CpfInputFormatter()
-            ],
-            keyboardType: TextInputType.number,
-            decoration: InputDecoration(
-              labelText: "CPF",
-              labelStyle: TextStyle(
-                color: Colors.black87,
-                fontWeight: FontWeight.bold,
-                fontSize: 10,
-              ),
-            ),
-            style: TextStyle(
-              fontSize: 25,
-            ),
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          TextFormField(
-            controller: telefone,
-            inputFormatters: [
-              FilteringTextInputFormatter.digitsOnly,
-              TelefoneInputFormatter()
-            ],
-            keyboardType: TextInputType.number,
-            decoration: InputDecoration(
-              labelText: "Celular",
-              labelStyle: TextStyle(
-                color: Colors.black87,
-                fontWeight: FontWeight.bold,
-                fontSize: 10,
-              ),
-            ),
-            style: TextStyle(
-              fontSize: 25,
-            ),
-          ),
-          SizedBox(
-            height: 40,
-          ),
-          Text(
-            "Endereço",
-            style: TextStyle(
-              color: Colors.black87,
-            ),
-          ),
-          TextFormField(
-            controller: cep,
-            inputFormatters: [
-              FilteringTextInputFormatter.digitsOnly,
-              CepInputFormatter()
-            ],
-            keyboardType: TextInputType.number,
-            decoration: InputDecoration(
-              labelText: "CEP",
-              labelStyle: TextStyle(
-                color: Colors.black87,
-                fontWeight: FontWeight.bold,
-                fontSize: 10,
-              ),
-            ),
-            style: TextStyle(
-              fontSize: 25,
-            ),
-          ),
-          SizedBox(
-            height: 5,
-          ),
-          TextFormField(
-            controller: logradouro,
-            keyboardType: TextInputType.text,
-            decoration: InputDecoration(
-              labelText: "Logradouro",
-              labelStyle: TextStyle(
-                color: Colors.black87,
-                fontWeight: FontWeight.bold,
-                fontSize: 10,
-              ),
-            ),
-            style: TextStyle(
-              fontSize: 25,
-            ),
-          ),
-          SizedBox(
-            height: 5,
-          ),
-          TextFormField(
-            controller: numero,
-            keyboardType: TextInputType.text,
-            decoration: InputDecoration(
-              labelText: "Número",
-              labelStyle: TextStyle(
-                color: Colors.black87,
-                fontWeight: FontWeight.bold,
-                fontSize: 10,
-              ),
-            ),
-            style: TextStyle(
-              fontSize: 25,
-            ),
-          ),
-          SizedBox(
-            height: 5,
-          ),
-          TextFormField(
-            controller: bairro,
-            keyboardType: TextInputType.text,
-            decoration: InputDecoration(
-              labelText: "Bairro",
-              labelStyle: TextStyle(
-                color: Colors.black87,
-                fontWeight: FontWeight.bold,
-                fontSize: 10,
-              ),
-            ),
-            style: TextStyle(
-              fontSize: 25,
-            ),
-          ),
-          SizedBox(
-            height: 5,
-          ),
-          TextFormField(
-            controller: cidade,
-            keyboardType: TextInputType.text,
-            decoration: InputDecoration(
-              labelText: "Cidade",
-              labelStyle: TextStyle(
-                color: Colors.black87,
-                fontWeight: FontWeight.bold,
-                fontSize: 10,
-              ),
-            ),
-            style: TextStyle(
-              fontSize: 25,
-            ),
-          ),
-          SizedBox(
-            height: 5,
-          ),
-          TextFormField(
-            controller: estado,
-            keyboardType: TextInputType.text,
-            decoration: InputDecoration(
-              labelText: "Estado",
-              labelStyle: TextStyle(
-                color: Colors.black87,
-                fontWeight: FontWeight.bold,
-                fontSize: 10,
-              ),
-            ),
-            style: TextStyle(
-              fontSize: 25,
-            ),
-          ),
-          SizedBox(
-            height: 5,
-          ),
-          TextFormField(
-            controller: complemento,
-            keyboardType: TextInputType.text,
-            decoration: InputDecoration(
-              labelText: "Complemento",
-              labelStyle: TextStyle(
-                color: Colors.black87,
-                fontWeight: FontWeight.bold,
-                fontSize: 10,
-              ),
-            ),
-            style: TextStyle(
-              fontSize: 25,
-            ),
-          ),
-          SizedBox(
-            height: 40,
-          ),
-        ]),
-        isActive: _currentStep >= 1,
-      ),
-      Step(
-        title: Text('Perfil Severino'),
-        content: Column(children: <Widget>[
-          TextFormField(
-            controller: razaosocial,
-            decoration: InputDecoration(
-              labelText: "Razão Social",
-              labelStyle: TextStyle(
-                color: Colors.black87,
-                fontWeight: FontWeight.bold,
-                fontSize: 10,
-              ),
-            ),
-            style: TextStyle(
-              fontSize: 25,
-            ),
-          ),
-          SizedBox(
-            height: 5,
-          ),
-          TextFormField(
-            controller: nrocpfcnpj,
-            keyboardType: TextInputType.number,
-            decoration: InputDecoration(
-              labelText: "CPF ou CNPJ",
-              labelStyle: TextStyle(
-                color: Colors.black87,
-                fontWeight: FontWeight.bold,
-                fontSize: 10,
-              ),
-            ),
-            style: TextStyle(
-              fontSize: 25,
-            ),
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          TextFormField(
-            controller: nrotelcomercial,
-            inputFormatters: [
-              FilteringTextInputFormatter.digitsOnly,
-              TelefoneInputFormatter()
-            ],
-            keyboardType: TextInputType.number,
-            decoration: InputDecoration(
-              labelText: "Número Comercial",
-              labelStyle: TextStyle(
-                color: Colors.black87,
-                fontWeight: FontWeight.bold,
-                fontSize: 10,
-              ),
-            ),
-            style: TextStyle(
-              fontSize: 25,
-            ),
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          TextFormField(
-            controller: linkwhatsapp,
-            inputFormatters: [
-              FilteringTextInputFormatter.digitsOnly,
-              TelefoneInputFormatter()
-            ],
-            keyboardType: TextInputType.number,
-            decoration: InputDecoration(
-              labelText: "Número do WhatsApp",
-              //deixar 55 fixo
-              //hintText: "55 DDD 999999999",
-              //https://api.whatsapp.com/send?phone=55 + DDDTelefone
-              labelStyle: TextStyle(
-                color: Colors.black87,
-                fontWeight: FontWeight.bold,
-                fontSize: 10,
-              ),
-              suffixIcon: Padding(
-                padding: EdgeInsets.all(0.0),
-                child: IconButton(
-                  icon: Icon(Icons.help_outline),
-                  color: Colors.grey.shade400,
-                  onPressed: () {
-                    _showMyDialog(
-                        "Será gerado um link de integração com o WhatsApp a partir do número disponibilizado, para que os clientes possam entrar em contato através do seu perfil.");
-                  },
+          title: Text('Seus Dados'),
+          isActive: _currentStep >= 0,
+          content: Form(
+            key: _formUserData,
+            child: Column(children: <Widget>[
+              TextFormField(
+                controller: nome,
+                keyboardType: TextInputType.emailAddress,
+                decoration: InputDecoration(
+                  labelText: "Nome",
+                  labelStyle: TextStyle(
+                    color: Colors.black87,
+                    fontWeight: FontWeight.w400,
+                    fontSize: 12,
+                  ),
+                ),
+                validator: (value) {
+                  if (value.length == 0) return "Preencha Nome";
+
+                  if (value.length < 3) return "Nome inválido";
+
+                  return null;
+                },
+                style: TextStyle(
+                  fontSize: 20,
                 ),
               ),
-            ),
-            style: TextStyle(
-              fontSize: 25,
-            ),
-          ),
-          SizedBox(
-            height: 40,
-          ),
-        ]),
-        isActive: _currentStep >= 2,
-      )
+              TextFormField(
+                controller: cpf,
+                inputFormatters: [
+                  FilteringTextInputFormatter.digitsOnly,
+                  CpfInputFormatter()
+                ],
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(
+                  labelText: "CPF",
+                  labelStyle: TextStyle(
+                    color: Colors.black87,
+                    fontWeight: FontWeight.w400,
+                    fontSize: 12,
+                  ),
+                ),
+                validator: (value) {
+                  if (value.length == 0) return "Preencha CPF";
+
+                  if (value.length != 14) return "CPF inválido";
+
+                  return null;
+                },
+                style: TextStyle(
+                  fontSize: 20,
+                ),
+              ),
+              TextFormField(
+                controller: telefone,
+                inputFormatters: [
+                  FilteringTextInputFormatter.digitsOnly,
+                  TelefoneInputFormatter()
+                ],
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(
+                  labelText: "Celular",
+                  labelStyle: TextStyle(
+                    color: Colors.black87,
+                    fontWeight: FontWeight.w400,
+                    fontSize: 12,
+                  ),
+                ),
+                validator: (value) {
+                  if (value.length == 0) return "Preencha Celular";
+
+                  if (value.length < 11) return "Celular inválido";
+
+                  return null;
+                },
+                style: TextStyle(
+                  fontSize: 20,
+                ),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+            ]),
+          )),
+      Step(
+          title: Text('Endereço'),
+          isActive: _currentStep >= 1,
+          content: Form(
+            key: _formUserAddress,
+            child: Column(children: <Widget>[
+              TextFormField(
+                controller: cep,
+                inputFormatters: [
+                  FilteringTextInputFormatter.digitsOnly,
+                  CepInputFormatter()
+                ],
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(
+                  labelText: "CEP",
+                  labelStyle: TextStyle(
+                    color: Colors.black87,
+                    fontWeight: FontWeight.w400,
+                    fontSize: 12,
+                  ),
+                ),
+                validator: (value) {
+                  if (value.length == 0) return "Preencha CEP";
+
+                  if (value.length < 10) return "CEP inválido";
+
+                  return null;
+                },
+                style: TextStyle(
+                  fontSize: 20,
+                ),
+              ),
+              TextFormField(
+                controller: logradouro,
+                keyboardType: TextInputType.text,
+                decoration: InputDecoration(
+                  labelText: "Logradouro",
+                  labelStyle: TextStyle(
+                    color: Colors.black87,
+                    fontWeight: FontWeight.w400,
+                    fontSize: 12,
+                  ),
+                ),
+                validator: (value) {
+                  if (value.length == 0) return "Preencha Logradouro";
+
+                  if (value.length < 3) return "Logradouro inválido";
+
+                  return null;
+                },
+                style: TextStyle(
+                  fontSize: 20,
+                ),
+              ),
+              TextFormField(
+                controller: numero,
+                keyboardType: TextInputType.text,
+                decoration: InputDecoration(
+                  labelText: "Número",
+                  labelStyle: TextStyle(
+                    color: Colors.black87,
+                    fontWeight: FontWeight.w400,
+                    fontSize: 12,
+                  ),
+                ),
+                style: TextStyle(
+                  fontSize: 20,
+                ),
+              ),
+              TextFormField(
+                controller: bairro,
+                keyboardType: TextInputType.text,
+                decoration: InputDecoration(
+                  labelText: "Bairro",
+                  labelStyle: TextStyle(
+                    color: Colors.black87,
+                    fontWeight: FontWeight.w400,
+                    fontSize: 12,
+                  ),
+                ),
+                validator: (value) {
+                  if (value.length == 0) return "Preencha Bairro";
+
+                  if (value.length < 3) return "Bairro inválido";
+
+                  return null;
+                },
+                style: TextStyle(
+                  fontSize: 20,
+                ),
+              ),
+              TextFormField(
+                controller: cidade,
+                keyboardType: TextInputType.text,
+                decoration: InputDecoration(
+                  labelText: "Cidade",
+                  labelStyle: TextStyle(
+                    color: Colors.black87,
+                    fontWeight: FontWeight.w400,
+                    fontSize: 12,
+                  ),
+                ),
+                validator: (value) {
+                  if (value.length == 0) return "Preencha Cidade";
+
+                  if (value.length < 3) return "Cidade inválida";
+
+                  return null;
+                },
+                style: TextStyle(
+                  fontSize: 20,
+                ),
+              ),
+              DropdownButtonFormField(
+                isExpanded: true,
+                decoration: InputDecoration(
+                  labelText: "Estado",
+                  labelStyle: TextStyle(
+                    color: Colors.black87,
+                    fontWeight: FontWeight.w400,
+                    fontSize: 12,
+                  ),
+                ),
+                items: Estados.listaEstados.map((String estado) {
+                  return DropdownMenuItem(
+                    child: Text(estado),
+                    value: estado,
+                  );
+                }).toList(),
+                onChanged: (String novoEstadoSelecionado) {
+                  estado.text = novoEstadoSelecionado;
+                },
+                validator: (value) {
+                  if (value == null) return "Selecione um estado";
+                  return null;
+                },
+              ),
+              TextFormField(
+                controller: complemento,
+                keyboardType: TextInputType.text,
+                decoration: InputDecoration(
+                  labelText: "Complemento",
+                  labelStyle: TextStyle(
+                    color: Colors.black87,
+                    fontWeight: FontWeight.w400,
+                    fontSize: 12,
+                  ),
+                ),
+                style: TextStyle(
+                  fontSize: 20,
+                ),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+            ]),
+          )),
+      Step(
+          title: Text('Login'),
+          isActive: _currentStep >= 2,
+          content: Form(
+            key: _formUserAuth,
+            child: Column(children: <Widget>[
+              TextFormField(
+                controller: email,
+                keyboardType: TextInputType.emailAddress,
+                decoration: InputDecoration(
+                  labelText: "E-mail",
+                  labelStyle: TextStyle(
+                    color: Colors.black87,
+                    fontWeight: FontWeight.w400,
+                    fontSize: 12,
+                  ),
+                ),
+                validator: (value) {
+                  if (value.length == 0) return "Preencha E-mail";
+
+                  if (!value.contains("@") || !value.contains("."))
+                    return "Email inválido";
+
+                  return null;
+                },
+                style: TextStyle(
+                  fontSize: 20,
+                ),
+              ),
+              TextFormField(
+                controller: senha,
+                keyboardType: TextInputType.text,
+                obscureText: true,
+                decoration: InputDecoration(
+                  labelText: "Senha",
+                  labelStyle: TextStyle(
+                    color: Colors.black87,
+                    fontWeight: FontWeight.w400,
+                    fontSize: 12,
+                  ),
+                ),
+                validator: (value) {
+                  if (value.length == 0) return "Preencha Senha";
+
+                  // if (value.length < 7) return "Senha muito curta";
+
+                  return null;
+                },
+                style: TextStyle(
+                  fontSize: 20,
+                ),
+              ),
+              TextFormField(
+                controller: confirmarsenha,
+                keyboardType: TextInputType.text,
+                obscureText: true,
+                decoration: InputDecoration(
+                  labelText: "Confirmar senha",
+                  labelStyle: TextStyle(
+                    color: Colors.black87,
+                    fontWeight: FontWeight.w400,
+                    fontSize: 12,
+                  ),
+                ),
+                validator: (value) {
+                  if (value.length == 0) return "Preencha Senha igual anterior";
+
+                  // if (value.length != senha) return "Senhas diferentes";
+
+                  return null;
+                },
+                style: TextStyle(
+                  fontSize: 20,
+                ),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+            ]),
+          )),
+      Step(
+          title: Text('Perfil Severino'),
+          isActive: _currentStep >= 3,
+          content: Form(
+            key: _formUserSev,
+            child: Column(children: <Widget>[
+              TextFormField(
+                controller: razaosocial,
+                decoration: InputDecoration(
+                  labelText: "Razão Social",
+                  labelStyle: TextStyle(
+                    color: Colors.black87,
+                    fontWeight: FontWeight.w400,
+                    fontSize: 12,
+                  ),
+                ),
+                // validator: (value) {
+                //   if (value.length == 0) return "Preencha Razão Social";
+
+                //   if (value.length < 3) return "Cidade inválida";
+
+                //   return null;
+                // },
+                style: TextStyle(
+                  fontSize: 20,
+                ),
+              ),
+              TextFormField(
+                controller: nrocpfcnpj,
+                inputFormatters: [
+                  FilteringTextInputFormatter.digitsOnly,
+                  CpfOuCnpjFormatter()
+                ],
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(
+                  labelText: "CPF ou CNPJ",
+                  labelStyle: TextStyle(
+                    color: Colors.black87,
+                    fontWeight: FontWeight.w400,
+                    fontSize: 12,
+                  ),
+                ),
+                validator: (value) {
+                  if (value.length == 0) return "Preencha este campo";
+
+                  if (value.length != 14) return "CPF/CNPJ inválido";
+
+                  return null;
+                },
+                style: TextStyle(
+                  fontSize: 20,
+                ),
+              ),
+              TextFormField(
+                controller: nrotelcomercial,
+                inputFormatters: [
+                  FilteringTextInputFormatter.digitsOnly,
+                  TelefoneInputFormatter()
+                ],
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(
+                  labelText: "Número Comercial",
+                  labelStyle: TextStyle(
+                    color: Colors.black87,
+                    fontWeight: FontWeight.w400,
+                    fontSize: 12,
+                  ),
+                ),
+                // validator: (value) {
+                //   if (value.length == 0) return "Preencha Número Comercial ";
+
+                //   if (value.length < 11) return "Celular inválido";
+
+                //   return null;
+                // },
+                style: TextStyle(
+                  fontSize: 20,
+                ),
+              ),
+              TextFormField(
+                controller: linkwhatsapp,
+                inputFormatters: [
+                  FilteringTextInputFormatter.digitsOnly,
+                  TelefoneInputFormatter()
+                ],
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(
+                  labelText: "Número do WhatsApp",
+                  labelStyle: TextStyle(
+                    color: Colors.black87,
+                    fontWeight: FontWeight.w400,
+                    fontSize: 12,
+                  ),
+                  suffixIcon: Padding(
+                    padding: EdgeInsets.all(0.0),
+                    child: IconButton(
+                      icon: Icon(Icons.help_outline),
+                      color: Colors.grey.shade400,
+                      onPressed: () {
+                        _showMyDialog(
+                            "Será gerado um link de integração com o WhatsApp a partir do número disponibilizado, para que os clientes possam entrar em contato através do seu perfil.");
+                      },
+                    ),
+                  ),
+                ),
+                // validator: (value) {
+                //   if (value.length == 0) return "Preencha Celular";
+
+                //   if (value.length < 11) return "Celular inválido";
+
+                //   return null;
+                // },
+                style: TextStyle(
+                  fontSize: 20,
+                ),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+            ]),
+          ))
     ];
     return _steps;
   }
