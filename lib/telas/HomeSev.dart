@@ -23,13 +23,9 @@ class _HomeSevState extends State<HomeSev> {
   final login = new Login();
 
   @override
-  Future<void> initState() async {
-    super.initState();
-    _sNome = await getNome(email, senha);
-  }
-
   @override
   Widget build(BuildContext context) {
+    getNome(email, senha);
     return Scaffold(
       appBar: AppBar(
         foregroundColor: Colors.black,
@@ -319,7 +315,7 @@ class _HomeSevState extends State<HomeSev> {
   getNome(String email, String senha) async {
     final dio = Dio();
     var response = await dio
-        .get("http://192.168.15.9:5000/api/Cadastro/" + email + "/" + senha);
+        .get("http://192.168.15.4:5000/api/Cadastro/" + email + "/" + senha);
 
     if (response.statusCode == 200) {
       String test = response.data;

@@ -20,37 +20,26 @@ class _PreCadastroState extends State<PreCadastro> {
           height: 40,
         ),
       ),
-      body: Container(
-        color: Colors.grey.shade300,
-        child: ListView(
-          padding: EdgeInsets.only(
-            top: 200,
-            left: 50,
-            right: 50,
-          ),
-          children: <Widget>[
-            Container(
-              child: Text(
-                "Escolha a opção que deseja fazer parte:",
-                style: TextStyle(fontSize: 25, color: Colors.black),
-              ),
-            ),
-            SizedBox(
-              height: 60,
-            ),
+      body: _preCadastro(),
+    );
+  }
+
+  _preCadastro() {
+    return Container(
+      color: Colors.grey.shade300,
+      child: ListView(
+        padding: EdgeInsets.only(
+          top: 100,
+          left: 32,
+        ),
+        children: <Widget>[
+          _destaqueFundo(
+            "Escolha a opção que deseja fazer parte:",
             Container(
               height: 60,
               alignment: Alignment.center,
               decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.bottomLeft,
-                  end: Alignment.topRight,
-                  stops: [0.3, 1],
-                  colors: [
-                    Color(0xFF80DEEA),
-                    Color(0xFF4DD0E1),
-                  ],
-                ),
+                color: Colors.cyan.shade50,
                 borderRadius: BorderRadius.all(
                   Radius.circular(15),
                 ),
@@ -76,22 +65,11 @@ class _PreCadastroState extends State<PreCadastro> {
                 ),
               ),
             ),
-            SizedBox(
-              height: 40,
-            ),
             Container(
               height: 60,
               alignment: Alignment.center,
               decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.bottomLeft,
-                  end: Alignment.topRight,
-                  stops: [0.3, 1],
-                  colors: [
-                    Color(0xFF80DEEA),
-                    Color(0xFF4DD0E1),
-                  ],
-                ),
+                color: Colors.cyan.shade50,
                 borderRadius: BorderRadius.all(
                   Radius.circular(15),
                 ),
@@ -117,7 +95,79 @@ class _PreCadastroState extends State<PreCadastro> {
                 ),
               ),
             ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  _destaqueFundo(String tituloEsq, Container botao1, Container botao2) {
+    return Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            _getCaixaTexto(500, 330, tituloEsq, botao1, botao2),
           ],
+        )
+      ],
+    );
+  }
+
+  _getCaixaTexto(double altura, double largura, String titulo, Container botao1,
+      Container botao2) {
+    return Align(
+      child: Container(
+        width: largura,
+        height: altura,
+        child: Container(
+          alignment: Alignment.topLeft,
+          padding: EdgeInsets.only(
+            top: 20,
+            left: 30,
+            right: 25,
+          ),
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              stops: [0.3, 1],
+              colors: [
+                Color(0xFF80DEEA),
+                Colors.lightGreenAccent,
+              ],
+            ),
+            borderRadius: BorderRadius.all(
+              Radius.circular(15),
+            ),
+          ),
+          child: SizedBox.expand(
+            child: TextButton(
+              onPressed: () {},
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  SizedBox(
+                    height: 100,
+                  ),
+                  Text(
+                    titulo,
+                    style: TextStyle(fontSize: 25, color: Colors.black),
+                    textAlign: TextAlign.left,
+                  ),
+                  SizedBox(
+                    height: 60,
+                  ),
+                  botao1,
+                  SizedBox(
+                    height: 20,
+                  ),
+                  botao2,
+                ],
+              ),
+            ),
+          ),
         ),
       ),
     );
