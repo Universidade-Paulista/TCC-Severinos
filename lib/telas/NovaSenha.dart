@@ -189,17 +189,16 @@ class _NovaSenhaState extends State<NovaSenha> {
                       String altsenha =
                           await log.putSenha(context, cpf.text, senha.text);
                       if (altsenha == 'true') {
-                        _showMyDialog("Senha alterada com sucesso");
+                        // _showMyDialog("Senha alterada com sucesso");
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: const Text('Senha alterada com sucesso.'),
+                          ),
+                        );
                       } else {
-                        // ScaffoldMessenger.of(context).showSnackBar(
-                        //   SnackBar(
-                        //     content: const Text('Verifique o CPF.'),
-                        //   ),
-                        // );
                         _showMyDialog("Verifique seu CPF.");
                       }
                     }
-                    Get.to(Login());
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,

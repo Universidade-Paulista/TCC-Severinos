@@ -1,3 +1,4 @@
+import 'package:dropdownfield/dropdownfield.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -40,9 +41,20 @@ class _CadastroSevState extends State<CadastroSev> {
   final nrocpfcnpj = TextEditingController();
   final nrotelcomercial = TextEditingController();
   final linkwhatsapp = TextEditingController();
+  final tipoprof = TextEditingController();
 
   final indseverino = TextEditingController();
   final cadSevServ = new CadastroSevService();
+
+  String listprof = "";
+  static List<String> profissoes = [
+    "Encanador",
+    "Marceneiro",
+    "Eletricista",
+    "Mecanico",
+    "Motorista",
+    "Outras"
+  ];
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -568,6 +580,52 @@ class _CadastroSevState extends State<CadastroSev> {
                             "Será gerado um link de integração com o WhatsApp a partir do número disponibilizado, para que os clientes possam entrar em contato através do seu perfil.");
                       },
                     ),
+                  ),
+                ),
+                // validator: (value) {
+                //   if (value.length == 0) return "Preencha Celular";
+
+                //   if (value.length < 11) return "Celular inválido";
+
+                //   return null;
+                // },
+                style: TextStyle(
+                  fontSize: 20,
+                ),
+              ),
+              DropdownButtonFormField(
+                isExpanded: true,
+                decoration: InputDecoration(
+                  labelText: "Serviço prestado",
+                  labelStyle: TextStyle(
+                    color: Colors.black87,
+                    fontWeight: FontWeight.w400,
+                    fontSize: 12,
+                  ),
+                ),
+                items: _CadastroSevState.profissoes.map((String profissao) {
+                  return DropdownMenuItem(
+                    child: Text(profissao),
+                    value: profissao,
+                  );
+                }).toList(),
+                onChanged: (String novaProfissaoSelecionada) {
+                  tipoprof.text = novaProfissaoSelecionada;
+                },
+                // validator: (value) {
+                //   if (value == null) return "Selecione um estado";
+                //   return null;
+                // },
+              ),
+              TextFormField(
+                // controller: linkwhatsapp,
+                keyboardType: TextInputType.text,
+                decoration: InputDecoration(
+                  labelText: "Outros Serviços: ",
+                  labelStyle: TextStyle(
+                    color: Colors.black87,
+                    fontWeight: FontWeight.w400,
+                    fontSize: 12,
                   ),
                 ),
                 // validator: (value) {
