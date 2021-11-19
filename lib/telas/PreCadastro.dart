@@ -34,12 +34,15 @@ class _PreCadastroState extends State<PreCadastro> {
         ),
         children: <Widget>[
           _destaqueFundo(
-            "Escolha a opção que deseja fazer parte:",
+            Text(
+              "Escolha a opção que deseja fazer parte:",
+              style: TextStyle(fontSize: 25, color: Colors.black),
+            ),
             Container(
-              height: 60,
+              height: 50,
               alignment: Alignment.center,
               decoration: BoxDecoration(
-                color: Colors.cyan.shade50,
+                color: Colors.cyan.shade300,
                 borderRadius: BorderRadius.all(
                   Radius.circular(15),
                 ),
@@ -66,10 +69,10 @@ class _PreCadastroState extends State<PreCadastro> {
               ),
             ),
             Container(
-              height: 60,
+              height: 50,
               alignment: Alignment.center,
               decoration: BoxDecoration(
-                color: Colors.cyan.shade50,
+                color: Colors.cyan.shade300,
                 borderRadius: BorderRadius.all(
                   Radius.circular(15),
                 ),
@@ -101,20 +104,20 @@ class _PreCadastroState extends State<PreCadastro> {
     );
   }
 
-  _destaqueFundo(String tituloEsq, Container botao1, Container botao2) {
+  _destaqueFundo(Text titulo, Container botao1, Container botao2) {
     return Column(
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            _getCaixaTexto(500, 330, tituloEsq, botao1, botao2),
+            _destaqueFrente(500, 330, titulo, botao1, botao2),
           ],
         )
       ],
     );
   }
 
-  _getCaixaTexto(double altura, double largura, String titulo, Container botao1,
+  _destaqueFrente(double altura, double largura, Text titulo, Container botao1,
       Container botao2) {
     return Align(
       child: Container(
@@ -151,11 +154,7 @@ class _PreCadastroState extends State<PreCadastro> {
                   SizedBox(
                     height: 100,
                   ),
-                  Text(
-                    titulo,
-                    style: TextStyle(fontSize: 25, color: Colors.black),
-                    textAlign: TextAlign.left,
-                  ),
+                  titulo,
                   SizedBox(
                     height: 60,
                   ),

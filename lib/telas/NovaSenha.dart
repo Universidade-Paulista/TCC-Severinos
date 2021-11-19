@@ -41,177 +41,167 @@ class _NovaSenhaState extends State<NovaSenha> {
       key: _formKey,
       child: ListView(
           padding: EdgeInsets.only(
-            top: 150,
-            left: 50,
-            right: 50,
+            top: 110,
+            left: 32,
           ),
           children: <Widget>[
-            TextFormField(
-              inputFormatters: [
-                FilteringTextInputFormatter.digitsOnly,
-                CpfInputFormatter()
-              ],
-              controller: cpf,
-              keyboardType: TextInputType.number,
-              decoration: InputDecoration(
-                labelText: "Informe seu CPF:",
-                labelStyle: TextStyle(
-                  color: Colors.black87,
-                  fontSize: 20,
+            _destaqueFundo(
+              TextFormField(
+                inputFormatters: [
+                  FilteringTextInputFormatter.digitsOnly,
+                  CpfInputFormatter()
+                ],
+                controller: cpf,
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(
+                  labelText: "Informe seu CPF:",
+                  labelStyle: TextStyle(
+                    color: Colors.black87,
+                    fontSize: 20,
+                  ),
+                ),
+                validator: (value) {
+                  if (value.length == 0) return "Preencha CPF";
+
+                  if (value.length != 14) return "CPF inválido";
+
+                  return null;
+                },
+                style: TextStyle(
+                  fontSize: 25,
                 ),
               ),
-              validator: (value) {
-                if (value.length == 0) return "Preencha CPF";
-
-                if (value.length != 14) return "CPF inválido";
-
-                return null;
-              },
-              style: TextStyle(
-                fontSize: 25,
-              ),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Container(
-              height: 30,
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: Colors.cyan.shade300,
-                borderRadius: BorderRadius.all(
-                  Radius.circular(15),
+              Container(
+                height: 30,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  color: Colors.cyan.shade300,
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(15),
+                  ),
                 ),
-              ),
-              child: SizedBox.expand(
-                child: TextButton(
-                  onPressed: () async {
-                    if (!_formKey.currentState.validate()) {
-                      String validacpf = await log.getCPF(cpf.text);
-                      if (validacpf == 'S') {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: const Text('CPF encontrado.'),
-                          ),
-                        );
-                      } else {
-                        _showMyDialog("CPF não cadastrado.");
-                        // ScaffoldMessenger.of(context).showSnackBar(
-                        //   SnackBar(
-                        //     content: const Text('CPF não cadastrado.'),
-                        //   ),
-                        // );
+                child: SizedBox.expand(
+                  child: TextButton(
+                    onPressed: () async {
+                      if (!_formKey.currentState.validate()) {
+                        String validacpf = await log.getCPF(cpf.text);
+                        if (validacpf == 'S') {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: const Text('CPF encontrado.'),
+                            ),
+                          );
+                        } else {
+                          _showMyDialog("CPF não cadastrado.");
+                          // ScaffoldMessenger.of(context).showSnackBar(
+                          //   SnackBar(
+                          //     content: const Text('CPF não cadastrado.'),
+                          //   ),
+                          // );
+                        }
                       }
-                    }
-                  },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        "OK",
-                        style: TextStyle(
-                          fontSize: 15,
-                          color: Colors.black87,
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "OK",
+                          style: TextStyle(
+                            fontSize: 15,
+                            color: Colors.black87,
+                          ),
+                          textAlign: TextAlign.center,
                         ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),
-            ),
-            SizedBox(
-              height: 50,
-            ),
-            TextFormField(
-              controller: senha,
-              obscureText: true,
-              keyboardType: TextInputType.text,
-              decoration: InputDecoration(
-                labelText: "Nova Senha:",
-                labelStyle: TextStyle(
-                  color: Colors.black87,
-                  fontSize: 20,
+              TextFormField(
+                controller: senha,
+                obscureText: true,
+                keyboardType: TextInputType.text,
+                decoration: InputDecoration(
+                  labelText: "Nova Senha:",
+                  labelStyle: TextStyle(
+                    color: Colors.black87,
+                    fontSize: 20,
+                  ),
+                ),
+                validator: (value) {
+                  if (value.length == 0) return "Preencha Senha";
+
+                  // if (value.length < 7) return "Senha muito curta";
+
+                  return null;
+                },
+                style: TextStyle(
+                  fontSize: 25,
                 ),
               ),
-              validator: (value) {
-                if (value.length == 0) return "Preencha Senha";
+              TextFormField(
+                controller: confirmasenha,
+                obscureText: true,
+                keyboardType: TextInputType.text,
+                decoration: InputDecoration(
+                  labelText: "Confirmar Senha:",
+                  labelStyle: TextStyle(
+                    color: Colors.black87,
+                    fontSize: 20,
+                  ),
+                ),
+                validator: (value) {
+                  if (value.length == 0) return "Preencha Senha igual anterior";
 
-                // if (value.length < 7) return "Senha muito curta";
+                  // if (value.length != senha) return "Senhas diferentes";
 
-                return null;
-              },
-              style: TextStyle(
-                fontSize: 25,
-              ),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            TextFormField(
-              controller: confirmasenha,
-              obscureText: true,
-              keyboardType: TextInputType.text,
-              decoration: InputDecoration(
-                labelText: "Confirmar Senha:",
-                labelStyle: TextStyle(
-                  color: Colors.black87,
-                  fontSize: 20,
+                  return null;
+                },
+                style: TextStyle(
+                  fontSize: 25,
                 ),
               ),
-              validator: (value) {
-                if (value.length == 0) return "Preencha Senha igual anterior";
-
-                // if (value.length != senha) return "Senhas diferentes";
-
-                return null;
-              },
-              style: TextStyle(
-                fontSize: 25,
-              ),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Container(
-              height: 30,
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: Colors.cyan.shade300,
-                borderRadius: BorderRadius.all(
-                  Radius.circular(15),
+              Container(
+                height: 30,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  color: Colors.cyan.shade300,
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(15),
+                  ),
                 ),
-              ),
-              child: SizedBox.expand(
-                child: TextButton(
-                  onPressed: () async {
-                    if (_formKey.currentState.validate()) {
-                      String altsenha =
-                          await log.putSenha(context, cpf.text, senha.text);
-                      if (altsenha == 'true') {
-                        // _showMyDialog("Senha alterada com sucesso");
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: const Text('Senha alterada com sucesso.'),
-                          ),
-                        );
-                      } else {
-                        _showMyDialog("Verifique seu CPF.");
+                child: SizedBox.expand(
+                  child: TextButton(
+                    onPressed: () async {
+                      if (_formKey.currentState.validate()) {
+                        String altsenha =
+                            await log.putSenha(context, cpf.text, senha.text);
+                        if (altsenha == 'true') {
+                          // _showMyDialog("Senha alterada com sucesso");
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content:
+                                  const Text('Senha alterada com sucesso.'),
+                            ),
+                          );
+                        } else {
+                          _showMyDialog("Verifique seu CPF.");
+                        }
                       }
-                    }
-                  },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        "Alterar",
-                        style: TextStyle(
-                          fontSize: 15,
-                          color: Colors.black87,
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "Alterar",
+                          style: TextStyle(
+                            fontSize: 15,
+                            color: Colors.black87,
+                          ),
+                          textAlign: TextAlign.center,
                         ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -222,55 +212,6 @@ class _NovaSenhaState extends State<NovaSenha> {
           ]),
     );
   }
-
-  // Widget _recuperar() {
-  //   return Scaffold(
-  //     body: Container(
-  //       child: ListView(
-  //         children: <Widget>[
-  //           TextFormField(
-  //             keyboardType: TextInputType.text,
-  //             //controller: _txtSenha,
-  //             obscureText: true,
-  //             decoration: InputDecoration(
-  //               labelText: "Senha",
-  //               labelStyle: TextStyle(
-  //                 color: Colors.black38,
-  //                 fontWeight: FontWeight.w400,
-  //                 fontSize: 20,
-  //               ),
-  //             ),
-  //             validator: (value) {
-  //               if (value.length == 0) return "Informe a Senha";
-
-  //               return null;
-  //             },
-  //             style: TextStyle(fontSize: 20),
-  //           ),
-  //           SizedBox(
-  //             height: 10,
-  //           ),
-  //           Container(
-  //             height: 35,
-  //             alignment: Alignment.centerRight,
-  //             child: TextButton(
-  //               onPressed: () {
-  //                 Get.to(NovaSenha());
-  //               },
-  //               child: Text(
-  //                 "Recuperar senha",
-  //                 style: TextStyle(fontSize: 10, color: Colors.black),
-  //               ),
-  //             ),
-  //           ),
-  //           SizedBox(
-  //             height: 40,
-  //           ),
-  //         ],
-  //       ),
-  //     ),
-  //   );
-  // }
 
   Future<void> _showMyDialog(sMensagem) async {
     return showDialog<void>(
@@ -296,6 +237,88 @@ class _NovaSenhaState extends State<NovaSenha> {
           ],
         );
       },
+    );
+  }
+
+  _destaqueFundo(TextFormField cpf, Container confirma, TextFormField senha,
+      TextFormField senha2, Container alterar) {
+    return Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            _destaqueFrente(500, 330, cpf, confirma, senha, senha2, alterar),
+          ],
+        )
+      ],
+    );
+  }
+
+  _destaqueFrente(
+      double altura,
+      double largura,
+      TextFormField cpf,
+      Container confirma,
+      TextFormField senha,
+      TextFormField senha2,
+      Container alterar) {
+    return Align(
+      child: Container(
+        width: largura,
+        height: altura,
+        child: Container(
+          alignment: Alignment.topLeft,
+          padding: EdgeInsets.only(
+            left: 30,
+            right: 25,
+          ),
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              stops: [0.3, 1],
+              colors: [
+                Color(0xFF80DEEA),
+                Colors.lightGreenAccent,
+              ],
+            ),
+            borderRadius: BorderRadius.all(
+              Radius.circular(15),
+            ),
+          ),
+          child: SizedBox.expand(
+            child: TextButton(
+              onPressed: () {},
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  SizedBox(
+                    height: 40,
+                  ),
+                  cpf,
+                  SizedBox(
+                    height: 10,
+                  ),
+                  confirma,
+                  SizedBox(
+                    height: 50,
+                  ),
+                  senha,
+                  SizedBox(
+                    height: 10,
+                  ),
+                  senha2,
+                  SizedBox(
+                    height: 10,
+                  ),
+                  alterar
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

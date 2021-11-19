@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:ffi';
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:dio/dio.dart';
@@ -8,7 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:severino/Servicos/LoginService.dart';
+import 'package:provider/provider.dart';
+import 'package:severino/Models/CadastroMod.dart';
 import 'package:severino/telas/Login.dart';
 
 class HomeSev extends StatefulWidget {
@@ -18,11 +18,13 @@ class HomeSev extends StatefulWidget {
 
 class _HomeSevState extends State<HomeSev> {
   bool _isButtonDisabled = true;
-  final txtNome = TextEditingController();
-  String _sNome = "";
-  final login = new Login();
 
-  @override
+  final txtNome = TextEditingController();
+
+  String _sNome = "";
+
+  final log = new Login();
+
   @override
   Widget build(BuildContext context) {
     getNome(email, senha);
@@ -76,6 +78,26 @@ class _HomeSevState extends State<HomeSev> {
                       color: Colors.black,
                     ),
                   ),
+
+                  // Consumer<CadastroMod>(builder: (context, CadastroMod, child) {
+                  //   if (CadastroMod.nome != null) {
+                  //     return Text(
+                  //       ' ${CadastroMod.nome.split(" ")}',
+                  //       style: TextStyle(
+                  //         fontSize: 15,
+                  //         color: Colors.black,
+                  //       ),
+                  //     );
+                  //   }
+
+                  //   return Text(
+                  //     'Severino',
+                  //     style: TextStyle(
+                  //       fontSize: 15,
+                  //       color: Colors.black,
+                  //     ),
+                  //   );
+                  // }),
                 ],
               ),
             ),
@@ -315,11 +337,10 @@ class _HomeSevState extends State<HomeSev> {
   getNome(String email, String senha) async {
     final dio = Dio();
     var response = await dio
-        .get("http://192.168.15.4:5000/api/Cadastro/" + email + "/" + senha);
+        .get("http://192.168.15.7:5000/api/Cadastro/" + email + "/" + senha);
 
     if (response.statusCode == 200) {
-      String test = response.data;
-      return test;
+      _sNome = response.data;
     } else {
       AlertDialog(
         title: Text(response.statusMessage),

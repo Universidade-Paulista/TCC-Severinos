@@ -1,13 +1,14 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:severino/Models/CadastroMod.dart';
 import 'package:severino/Servicos/LoginService.dart';
 import 'package:get/get.dart';
 import 'package:severino/telas/HomeSev.dart';
 import 'package:severino/telas/PreCadastro.dart';
 import 'package:severino/telas/NovaSenha.dart';
 import 'package:severino/telas/home.dart';
-import 'package:severino/telas/teste.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -23,6 +24,7 @@ class _LoginState extends State<Login> {
   final _formKey = GlobalKey<FormState>();
   final _txtEmail = TextEditingController();
   final _txtSenha = TextEditingController();
+
   final log = new LoginService();
 
   @override
@@ -139,14 +141,15 @@ class _LoginState extends State<Login> {
                     String result =
                         await log.getLogin(_txtEmail.text, _txtSenha.text);
                     if (result == 'N') {
-                      email = _txtEmail.text;
-                      senha = _txtSenha.text;
+                      // email = _txtEmail.text;
+                      // senha = _txtSenha.text;
                       _getSalvar();
                       Get.to(Home());
                     } else if (result == 'S') {
-                      email = _txtEmail.text;
-                      senha = _txtSenha.text;
+                      // email = _txtEmail.text;
+                      // senha = _txtSenha.text;
                       _getSalvar();
+                      // _salvar(context);
                       Get.to(HomeSev());
                     } else {
                       _showMyDialog("E-mail e/ou Senha inválidos.");
@@ -223,4 +226,8 @@ class _LoginState extends State<Login> {
       },
     );
   }
+
+  // void _salvar(context) {
+  //   Provider.of<CadastroMod>(context).nome = _txtEmail.text;
+  // }
 }

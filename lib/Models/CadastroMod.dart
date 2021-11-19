@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class CadastroMod extends ChangeNotifier {
   String _nome;
@@ -31,6 +31,8 @@ class CadastroMod extends ChangeNotifier {
 
   set nome(String value) {
     _nome = value;
+
+    //notifyListeners();
   }
 
   set cpf(String value) {
