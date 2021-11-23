@@ -4,6 +4,7 @@ import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:dropdownfield/dropdownfield.dart';
+import 'package:severino/Servicos/HomeService.dart';
 import 'package:severino/telas/ListPrestadores.dart';
 import 'package:severino/telas/Login.dart';
 import 'package:severino/telas/PerfilSeverino.dart';
@@ -16,18 +17,13 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   final _txtEndereco = TextEditingController();
   String _servicoId = '';
-  List<String> _profissoes = [
-    "Encanador",
-    "Marceneiro",
-    "Eletricista",
-    "Mecanico",
-    "Garota de aluguel",
-    "Motorista"
-  ];
+  final service = new HomeService();
+  List<dynamic> _profissoes;
 
   @override
   Widget build(BuildContext context) {
     _getCurrentPosition();
+    _prencherListaPrestadores();
 
     return Scaffold(
       appBar: AppBar(
@@ -207,6 +203,7 @@ class _HomeState extends State<Home> {
           child: SizedBox.expand(
             child: TextButton(
               onPressed: () {
+                var teste = titulo;
                 Get.to(ListaPrestadores());
               },
               child: Column(
@@ -296,5 +293,9 @@ class _HomeState extends State<Home> {
     } else {
       return "No address available";
     }
+  }
+
+  _prencherListaPrestadores() async {
+    _profissoes = await service.getListProfissoes();
   }
 }
