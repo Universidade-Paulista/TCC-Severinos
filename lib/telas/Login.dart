@@ -141,13 +141,13 @@ class _LoginState extends State<Login> {
                     String result =
                         await log.getLogin(_txtEmail.text, _txtSenha.text);
                     if (result == 'N') {
-                      // email = _txtEmail.text;
-                      // senha = _txtSenha.text;
+                      email = _txtEmail.text;
+                      senha = _txtSenha.text;
                       _getSalvar();
                       Get.to(Home());
                     } else if (result == 'S') {
-                      // email = _txtEmail.text;
-                      // senha = _txtSenha.text;
+                      email = _txtEmail.text;
+                      senha = _txtSenha.text;
                       _getSalvar();
                       // _salvar(context);
                       Get.to(HomeSev());

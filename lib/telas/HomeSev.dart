@@ -9,6 +9,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:severino/Models/CadastroMod.dart';
+import 'package:severino/Servicos/LoginService.dart';
 import 'package:severino/telas/Login.dart';
 
 class HomeSev extends StatefulWidget {
@@ -24,6 +25,7 @@ class _HomeSevState extends State<HomeSev> {
   String _sNome = "";
 
   final log = new Login();
+  final logS = new LoginService();
 
   @override
   Widget build(BuildContext context) {
@@ -284,9 +286,11 @@ class _HomeSevState extends State<HomeSev> {
                 children: <Widget>[
                   Divider(),
                   ListTile(
-                    leading: Icon(Icons.help),
-                    title: Text("Central de ajuda"),
-                    onTap: () {},
+                    leading: Icon(Icons.logout),
+                    title: Text("Sair"),
+                    onTap: () {
+                      Get.to(Login());
+                    },
                   ),
                 ],
               ),
@@ -295,6 +299,11 @@ class _HomeSevState extends State<HomeSev> {
         ],
       ),
     );
+  }
+
+  //iniciar e encerrar s
+  _alternaButton() {
+    setState(() => _isButtonDisabled = !_isButtonDisabled);
   }
 
   File arquivo;
@@ -328,10 +337,6 @@ class _HomeSevState extends State<HomeSev> {
 
       setState(() => arquivo = File(file.path));
     }
-  }
-
-  _alternaButton() {
-    setState(() => _isButtonDisabled = !_isButtonDisabled);
   }
 
   getNome(String email, String senha) async {

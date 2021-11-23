@@ -46,14 +46,12 @@ class _CadastroSevState extends State<CadastroSev> {
   final indseverino = TextEditingController();
   final cadSevServ = new CadastroSevService();
 
-  String listprof = "";
   static List<String> profissoes = [
     "Encanador",
     "Marceneiro",
     "Eletricista",
     "Mecanico",
     "Motorista",
-    "Outras"
   ];
 
   Widget build(BuildContext context) {
@@ -603,12 +601,14 @@ class _CadastroSevState extends State<CadastroSev> {
                     fontSize: 12,
                   ),
                 ),
+
                 items: _CadastroSevState.profissoes.map((String profissao) {
                   return DropdownMenuItem(
                     child: Text(profissao),
                     value: profissao,
                   );
                 }).toList(),
+
                 onChanged: (String novaProfissaoSelecionada) {
                   tipoprof.text = novaProfissaoSelecionada;
                 },
@@ -617,28 +617,28 @@ class _CadastroSevState extends State<CadastroSev> {
                 //   return null;
                 // },
               ),
-              TextFormField(
-                // controller: linkwhatsapp,
-                keyboardType: TextInputType.text,
-                decoration: InputDecoration(
-                  labelText: "Outros Serviços: ",
-                  labelStyle: TextStyle(
-                    color: Colors.black87,
-                    fontWeight: FontWeight.w400,
-                    fontSize: 12,
-                  ),
-                ),
-                // validator: (value) {
-                //   if (value.length == 0) return "Preencha Celular";
+              // TextFormField(
+              //   // controller: linkwhatsapp,
+              //   keyboardType: TextInputType.text,
+              //   decoration: InputDecoration(
+              //     labelText: "Outros Serviços: ",
+              //     labelStyle: TextStyle(
+              //       color: Colors.black87,
+              //       fontWeight: FontWeight.w400,
+              //       fontSize: 12,
+              //     ),
+              //   ),
+              //   // validator: (value) {
+              //   //   if (value.length == 0) return "Preencha Celular";
 
-                //   if (value.length < 11) return "Celular inválido";
+              //   //   if (value.length < 11) return "Celular inválido";
 
-                //   return null;
-                // },
-                style: TextStyle(
-                  fontSize: 20,
-                ),
-              ),
+              //   //   return null;
+              //   // },
+              //   style: TextStyle(
+              //     fontSize: 20,
+              //   ),
+              // ),
               SizedBox(
                 height: 20,
               ),

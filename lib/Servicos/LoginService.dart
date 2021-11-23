@@ -26,7 +26,7 @@ class LoginService {
   getCPF(String cpf) async {
     final dio = Dio();
     Response response =
-        await dio.get("http://192.168.15.7:5000/api/Cadastro/" + cpf);
+        await dio.get("http://192.168.15.7:5000/api/ValidacoesCPF/" + cpf);
 
     if (response.statusCode == 200) {
       return response.data;

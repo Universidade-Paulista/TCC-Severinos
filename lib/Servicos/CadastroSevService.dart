@@ -112,4 +112,18 @@ class CadastroSevService {
       );
     }
   }
+
+  getProfissao() async {
+    final dio = Dio();
+    Response response =
+        await dio.get("http://192.168.15.7:5000/api/Profissao/");
+
+    if (response.statusCode == 200) {
+      return response.data;
+    } else {
+      AlertDialog(
+        title: Text(response.statusMessage),
+      );
+    }
+  }
 }
