@@ -11,7 +11,8 @@ class HomeService {
         await dio.get("https://apiseverinos.azurewebsites.net/api/profissao/");
 
     if (response.statusCode == 200) {
-      return response.data;
+      var lista = response.data as List;
+      return lista;
     } else {
       AlertDialog(
         title: Text(response.statusMessage),

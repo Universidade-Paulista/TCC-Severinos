@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
@@ -19,11 +21,25 @@ class _HomeState extends State<Home> {
   String _servicoId = '';
   final service = new HomeService();
   List<dynamic> _profissoes;
-
   @override
   Widget build(BuildContext context) {
     _getCurrentPosition();
-    _prencherListaPrestadores();
+    FutureBuilder(
+      future: _prencherListaPrestadores(),
+      builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+        switch (snapshot.connectionState) {
+          case ConnectionState.none:
+            return new Text('Press button to start');
+          case ConnectionState.waiting:
+            return new Text('Awaiting result...');
+          default:
+            if (snapshot.hasError)
+              return new Text('Error: ${snapshot.error}');
+            else
+              return new Text('Result: ${snapshot.data}');
+        }
+      },
+    );
 
     return Scaffold(
       appBar: AppBar(
@@ -291,7 +307,7 @@ class _HomeState extends State<Home> {
       final Placemark place = places.first;
       _txtEndereco.text = "${place.street} ${place.name}, ${place.subLocality}";
     } else {
-      return "No address available";
+      return "Nenhum endereço encontrado!";
     }
   }
 
