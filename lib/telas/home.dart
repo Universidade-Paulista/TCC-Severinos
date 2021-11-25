@@ -1,12 +1,15 @@
+import 'dart:async';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
-import 'package:severino/Servicos/CadastroSevService.dart';
-import 'package:severino/telas/EditCad.dart';
+import 'package:dropdownfield/dropdownfield.dart';
+import 'package:severino/Servicos/HomeService.dart';
 import 'package:severino/telas/ListPrestadores.dart';
 import 'package:severino/telas/Login.dart';
+import 'package:severino/telas/PerfilSeverino.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -15,19 +18,15 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   final _txtEndereco = TextEditingController();
-  final tipoprof = TextEditingController();
-
-  final service = new CadastroSevService();
-
-  List<dynamic> profPrest = [];
-
-  prencherListaPrestadores() async {
-    profPrest = await service.getProfissao();
-  }
+  String _servicoId = '';
+  final service = new HomeService();
+  List<String> _profissoes = [];
 
   @override
   Widget build(BuildContext context) {
     _getCurrentPosition();
+    getListProfissoes();
+
     return Scaffold(
       appBar: AppBar(
         foregroundColor: Colors.black,
@@ -145,14 +144,14 @@ class _HomeState extends State<Home> {
                   leading: Icon(Icons.edit),
                   title: Text("Editar perfil"),
                   onTap: () {
-                    Get.to(EditCad());
+                    navigator.pop();
                   },
                 ),
-                // ListTile(
-                //   leading: Icon(Icons.history),
-                //   title: Text("Histórico de serviços"),
-                //   onTap: () {},
-                // ),
+                ListTile(
+                  leading: Icon(Icons.history),
+                  title: Text("Histórico de serviços"),
+                  onTap: () {},
+                ),
               ],
             ),
           ),
@@ -254,26 +253,15 @@ class _HomeState extends State<Home> {
   }
 
   _getDropDownField() {
-    prencherListaPrestadores();
-    return DropdownButtonFormField(
-      isExpanded: true,
-      decoration: InputDecoration(
-        labelText: "Serviço prestado",
-        labelStyle: TextStyle(
-          color: Colors.black87,
-          fontWeight: FontWeight.w400,
-          fontSize: 12,
-        ),
-      ),
-      items: profPrest.map((dynamic profissao) {
-        return DropdownMenuItem(
-          child: Text(profissao),
-          value: profissao,
-        );
-      }).toList(),
-      onChanged: (dynamic novaProfissaoSelecionada) {
-        tipoprof.text = novaProfissaoSelecionada;
+    return DropDownField(
+      onValueChanged: (dynamic value) {
+        _servicoId = value;
       },
+      value: _servicoId,
+      required: false,
+      hintText: 'Pesquisar um serviço',
+      hintStyle: TextStyle(fontSize: 16, color: Colors.black),
+      items: _profissoes,
     );
   }
 
@@ -306,6 +294,26 @@ class _HomeState extends State<Home> {
       _txtEndereco.text = "${place.street} ${place.name}, ${place.subLocality}";
     } else {
       return "Nenhum endereço encontrado!";
+    }
+  }
+
+  _prencherListaPrestadores() async {
+    _profissoes = await service.getListProfissoes();
+    return _profissoes;
+  }
+
+  getListProfissoes() async {
+    final dio = Dio();
+    var response =
+        await dio.get("https://apiseverinos.azurewebsites.net/api/profissao/");
+
+    if (response.statusCode == 200) {
+      var lista = List<String>.from(response.data);
+      setState(() => _profissoes = lista);
+    } else {
+      AlertDialog(
+        title: Text(response.statusMessage),
+      );
     }
   }
 }

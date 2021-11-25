@@ -8,8 +8,11 @@ class LoginService {
 
   getLogin(String email, String senha) async {
     final dio = Dio();
-    Response response = await dio
-        .get("http://192.168.15.7:5000/api/Login/" + email + "/" + senha);
+    Response response = await dio.get(
+        "https://apiseverinos.azurewebsites.net/api/Login/" +
+            email +
+            "/" +
+            senha);
 
     if (response.statusCode == 200) {
       return response.data;
@@ -22,8 +25,8 @@ class LoginService {
 
   getCPF(String cpf) async {
     final dio = Dio();
-    Response response =
-        await dio.get("http://192.168.15.7:5000/api/ValidacoesCPF/" + cpf);
+    Response response = await dio
+        .get("https://apiseverinos.azurewebsites.net/api/ValidacoesCPF/" + cpf);
 
     if (response.statusCode == 200) {
       return response.data;
@@ -35,8 +38,11 @@ class LoginService {
   }
 
   putSenha(final context, String cpf, String senha) async {
-    final response = await http.put(
-        Uri.parse('http://192.168.15.7:5000/api/Login/' + cpf + "/" + senha));
+    final response = await http.put(Uri.parse(
+        'https://apiseverinos.azurewebsites.net/api/Login/' +
+            cpf +
+            "/" +
+            senha));
 
     if (response.statusCode == 200) {
       return response.body;
