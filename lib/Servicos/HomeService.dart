@@ -25,7 +25,8 @@ class HomeService {
         .get("http://192.168.15.7:5000/api/Cadastro/" + email + "/" + senha);
 
     if (response.statusCode == 200) {
-      return response.data;
+      var lista = response.data as List;
+      return lista;
     } else {
       AlertDialog(
         title: Text(response.statusMessage),
