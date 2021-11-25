@@ -4,12 +4,12 @@ import 'package:flutter/services.dart';
 import 'package:brasil_fields/brasil_fields.dart';
 import 'package:severino/Servicos/CadastroService.dart';
 
-class Cadastro extends StatefulWidget {
+class EditCad extends StatefulWidget {
   @override
-  _CadastroState createState() => _CadastroState();
+  _EditCadState createState() => _EditCadState();
 }
 
-class _CadastroState extends State<Cadastro> {
+class _EditCadState extends State<EditCad> {
   int _currentStep = 0;
 
   //Step1
@@ -27,12 +27,6 @@ class _CadastroState extends State<Cadastro> {
   final cidade = TextEditingController();
   final estado = TextEditingController();
   final complemento = TextEditingController();
-
-  //Step3
-  final _formUserAuth = GlobalKey<FormState>();
-  final email = TextEditingController();
-  final senha = TextEditingController();
-  final confirmarsenha = TextEditingController();
 
   final indseverino = TextEditingController();
   final cadServ = new CadastroService();
@@ -97,23 +91,20 @@ class _CadastroState extends State<Cadastro> {
                   this._currentStep = this._currentStep + 1;
                   _formUserData.currentState.validate();
                 } else {
-                  cadServ.postCadastro(
-                      context,
-                      nome.text,
-                      cpf.text,
-                      email.text,
-                      telefone.text,
-                      indseverino.text == "S" ? true : false,
-                      senha.text,
-                      logradouro.text,
-                      complemento.text,
-                      numero.text,
-                      bairro.text,
-                      cep.text,
-                      estado.text,
-                      cidade.text);
-                  _formUserAddress.currentState.validate();
-                  _formUserAuth.currentState.validate();
+                  // cadServ.putCadastro(
+                  //     context,
+                  //     nome.text,
+                  //     cpf.text,
+                  //     telefone.text,
+                  //     indseverino.text == "S" ? true : false,
+                  //     logradouro.text,
+                  //     complemento.text,
+                  //     numero.text,
+                  //     bairro.text,
+                  //     cep.text,
+                  //     estado.text,
+                  //     cidade.text);
+                  // _formUserAddress.currentState.validate();
                 }
               });
             },
@@ -374,86 +365,6 @@ class _CadastroState extends State<Cadastro> {
               ),
             ]),
           )),
-      Step(
-          title: Text('Login'),
-          isActive: _currentStep >= 2,
-          content: Form(
-            key: _formUserAuth,
-            child: Column(children: <Widget>[
-              TextFormField(
-                controller: email,
-                keyboardType: TextInputType.emailAddress,
-                decoration: InputDecoration(
-                  labelText: "E-mail",
-                  labelStyle: TextStyle(
-                    color: Colors.black87,
-                    fontWeight: FontWeight.w400,
-                    fontSize: 12,
-                  ),
-                ),
-                validator: (value) {
-                  if (value.length == 0) return "Preencha E-mail";
-
-                  if (!value.contains("@") || !value.contains("."))
-                    return "Email inválido";
-
-                  return null;
-                },
-                style: TextStyle(
-                  fontSize: 20,
-                ),
-              ),
-              TextFormField(
-                controller: senha,
-                keyboardType: TextInputType.text,
-                obscureText: true,
-                decoration: InputDecoration(
-                  labelText: "Senha",
-                  labelStyle: TextStyle(
-                    color: Colors.black87,
-                    fontWeight: FontWeight.w400,
-                    fontSize: 12,
-                  ),
-                ),
-                validator: (value) {
-                  if (value.length == 0) return "Preencha Senha";
-
-                  // if (value.length < 7) return "Senha muito curta";
-
-                  return null;
-                },
-                style: TextStyle(
-                  fontSize: 20,
-                ),
-              ),
-              TextFormField(
-                controller: confirmarsenha,
-                keyboardType: TextInputType.text,
-                obscureText: true,
-                decoration: InputDecoration(
-                  labelText: "Confirmar senha",
-                  labelStyle: TextStyle(
-                    color: Colors.black87,
-                    fontWeight: FontWeight.w400,
-                    fontSize: 12,
-                  ),
-                ),
-                validator: (value) {
-                  if (value.length == 0) return "Preencha Senha igual anterior";
-
-                  // if (value.length != senha) return "Senhas diferentes";
-
-                  return null;
-                },
-                style: TextStyle(
-                  fontSize: 20,
-                ),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-            ]),
-          )),
     ];
     return _steps;
   }
@@ -461,7 +372,7 @@ class _CadastroState extends State<Cadastro> {
   Future<void> showMyDialog(sMensagem) async {
     return showDialog<void>(
       context: context,
-      barrierDismissible: false,
+      barrierDismissible: false, // user must tap button!
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text('Atenção'),

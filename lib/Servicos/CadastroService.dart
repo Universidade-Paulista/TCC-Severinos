@@ -71,8 +71,8 @@ class CadastroService {
 
     var headers = {'Content-Type': 'application/json'};
 
-    var request = http.Request('POST',
-        Uri.parse('https://apiseverinos.azurewebsites.net/api/Cadastro/'));
+    var request = http.Request(
+        'POST', Uri.parse('http://192.168.15.7:5000/api/Cadastro/'));
 
     request.body = jsonEncode(sbody);
     request.headers.addAll(headers);

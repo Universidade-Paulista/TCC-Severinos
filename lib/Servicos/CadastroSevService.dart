@@ -28,7 +28,8 @@ class CadastroSevService {
       String razaosocial,
       String nrocpfcnpj,
       String linkwhatsapp,
-      String nrotelcomercial) async {
+      String nrotelcomercial,
+      String tipoprof) async {
     final bool indseverino = true;
     final String link = 'https://api.whatsapp.com/send?phone=55' +
         linkwhatsapp.replaceAll('(', '').replaceAll(')', '');
@@ -85,12 +86,15 @@ class CadastroSevService {
         "	  \"nrotelcomercial\": \"" +
         nrotelcomercial +
         "\", " +
+        "	  \"NomeProfissao\": \"" +
+        tipoprof +
+        "\", " +
         "}                                                       ";
 
     var headers = {'Content-Type': 'application/json'};
 
-    var request = http.Request('POST',
-        Uri.parse('https://apiseverinos.azurewebsites.net/api/Cadastro/'));
+    var request = http.Request(
+        'POST', Uri.parse('http://192.168.15.7:5000/api/Cadastro/'));
 
     request.body = jsonEncode(sbody);
     request.headers.addAll(headers);
@@ -113,13 +117,13 @@ class CadastroSevService {
     }
   }
 
-  getProfissao() async {
+  Future<dynamic> getProfissao() async {
     final dio = Dio();
-    Response response =
-        await dio.get("http://192.168.15.7:5000/api/Profissao/");
+    Response response = await dio.get("http://192.168.15.7:5000/api/Profissao");
 
     if (response.statusCode == 200) {
-      return response.data;
+      var lista = response.data as List;
+      return lista;
     } else {
       AlertDialog(
         title: Text(response.statusMessage),

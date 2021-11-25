@@ -7,9 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:provider/provider.dart';
-import 'package:severino/Models/CadastroMod.dart';
-import 'package:severino/Servicos/LoginService.dart';
+import 'package:severino/Servicos/HomeService.dart';
+//import 'package:provider/provider.dart';
+import 'package:severino/telas/EditCadSev.dart';
 import 'package:severino/telas/Login.dart';
 
 class HomeSev extends StatefulWidget {
@@ -24,12 +24,11 @@ class _HomeSevState extends State<HomeSev> {
 
   String _sNome = "";
 
-  final log = new Login();
-  final logS = new LoginService();
+  final hs = new HomeService();
 
   @override
   Widget build(BuildContext context) {
-    getNome(email, senha);
+    hs.getNome(email, senha);
     return Scaffold(
       appBar: AppBar(
         foregroundColor: Colors.black,
@@ -76,11 +75,12 @@ class _HomeSevState extends State<HomeSev> {
                   Text(
                     _sNome,
                     style: TextStyle(
-                      fontSize: 15,
+                      fontSize: 20,
                       color: Colors.black,
                     ),
                   ),
 
+                  //trazer do model
                   // Consumer<CadastroMod>(builder: (context, CadastroMod, child) {
                   //   if (CadastroMod.nome != null) {
                   //     return Text(
@@ -132,7 +132,7 @@ class _HomeSevState extends State<HomeSev> {
                       style: ElevatedButton.styleFrom(
                         shape: CircleBorder(),
                         padding: EdgeInsets.all(20),
-                        primary: Colors.grey.shade400, // <-- Button color
+                        primary: Colors.grey.shade400,
                       ),
                     )),
                   ),
@@ -166,10 +166,10 @@ class _HomeSevState extends State<HomeSev> {
               ),
             ),
             SizedBox(
-              height: 150,
+              height: 130,
             ),
             Container(
-              height: 60,
+              height: 50,
               alignment: Alignment.center,
               decoration: BoxDecoration(
                 color: Colors.cyan.shade300,
@@ -181,25 +181,21 @@ class _HomeSevState extends State<HomeSev> {
                 child: TextButton(
                   onPressed: () {
                     _alternaButton();
-                    // ScaffoldMessenger.of(context).showSnackBar(
-                    //   SnackBar(
-                    //     content: const Text('Gustavo precisa de você!'),
-                    //     action: SnackBarAction(
-                    //       label: 'Aceitar',
-                    //       onPressed: () {
-                    //         // Code to execute.
-                    //       },
-                    //     ),
-                    //   ),
-                    // );
+
+                    //pop up
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: const Text('Aguardando Serviços'),
+                      ),
+                    );
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        (_isButtonDisabled ? "Iniciar" : "-"),
+                        (_isButtonDisabled ? "Iniciar" : "Aguardando"),
                         style: TextStyle(
-                          fontSize: 30,
+                          fontSize: 25,
                           color: Colors.black,
                         ),
                         textAlign: TextAlign.center,
@@ -227,6 +223,12 @@ class _HomeSevState extends State<HomeSev> {
                       ? null
                       : () {
                           _alternaButton();
+
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: const Text('Serviço Encerrado'),
+                            ),
+                          );
                         },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -268,14 +270,14 @@ class _HomeSevState extends State<HomeSev> {
                   leading: Icon(Icons.edit),
                   title: Text("Editar perfil"),
                   onTap: () {
-                    navigator.pop();
+                    Get.to(EditCadSev());
                   },
                 ),
-                ListTile(
-                  leading: Icon(Icons.history),
-                  title: Text("Histórico de serviços"),
-                  onTap: () {},
-                ),
+                // ListTile(
+                //   leading: Icon(Icons.history),
+                //   title: Text("Histórico de serviços"),
+                //   onTap: () {},
+                // ),
               ],
             ),
           ),
@@ -301,11 +303,12 @@ class _HomeSevState extends State<HomeSev> {
     );
   }
 
-  //iniciar e encerrar s
+  //iniciar e encerrar serviço - botões
   _alternaButton() {
     setState(() => _isButtonDisabled = !_isButtonDisabled);
   }
 
+  //imagem
   File arquivo;
   final picker = ImagePicker();
 
@@ -336,20 +339,6 @@ class _HomeSevState extends State<HomeSev> {
       await file.writeAsBytes(imageBytes);
 
       setState(() => arquivo = File(file.path));
-    }
-  }
-
-  getNome(String email, String senha) async {
-    final dio = Dio();
-    var response = await dio
-        .get("http://192.168.15.7:5000/api/Cadastro/" + email + "/" + senha);
-
-    if (response.statusCode == 200) {
-      _sNome = response.data;
-    } else {
-      AlertDialog(
-        title: Text(response.statusMessage),
-      );
     }
   }
 

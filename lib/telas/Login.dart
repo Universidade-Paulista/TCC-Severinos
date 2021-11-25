@@ -1,7 +1,6 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+//import 'package:provider/provider.dart';
 import 'package:severino/Models/CadastroMod.dart';
 import 'package:severino/Servicos/LoginService.dart';
 import 'package:get/get.dart';
@@ -9,7 +8,6 @@ import 'package:severino/telas/HomeSev.dart';
 import 'package:severino/telas/PreCadastro.dart';
 import 'package:severino/telas/NovaSenha.dart';
 import 'package:severino/telas/home.dart';
-
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Login extends StatefulWidget {
@@ -26,6 +24,7 @@ class _LoginState extends State<Login> {
   final _txtSenha = TextEditingController();
 
   final log = new LoginService();
+  final cad = new CadastroMod();
 
   @override
   Widget build(BuildContext context) {
@@ -140,6 +139,7 @@ class _LoginState extends State<Login> {
                   if (_formKey.currentState.validate()) {
                     String result =
                         await log.getLogin(_txtEmail.text, _txtSenha.text);
+
                     if (result == 'N') {
                       email = _txtEmail.text;
                       senha = _txtSenha.text;
@@ -149,6 +149,7 @@ class _LoginState extends State<Login> {
                       email = _txtEmail.text;
                       senha = _txtSenha.text;
                       _getSalvar();
+                      _modelCad(cad);
                       // _salvar(context);
                       Get.to(HomeSev());
                     } else {
@@ -203,7 +204,7 @@ class _LoginState extends State<Login> {
   Future<void> _showMyDialog(sMensagem) async {
     return showDialog<void>(
       context: context,
-      barrierDismissible: false, // user must tap button!
+      barrierDismissible: false,
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text('Atenção'),
@@ -225,6 +226,10 @@ class _LoginState extends State<Login> {
         );
       },
     );
+  }
+
+  _modelCad(CadastroMod cadastro) {
+    cadastro.nome = log.getLogin(email, senha).toString();
   }
 
   // void _salvar(context) {

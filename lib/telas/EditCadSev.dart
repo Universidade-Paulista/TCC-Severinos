@@ -1,15 +1,17 @@
+import 'package:dropdownfield/dropdownfield.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:brasil_fields/brasil_fields.dart';
 import 'package:severino/Servicos/CadastroSevService.dart';
+import 'package:severino/Servicos/HomeService.dart';
 
-class CadastroSev extends StatefulWidget {
+class EditCadSev extends StatefulWidget {
   @override
-  _CadastroSevState createState() => _CadastroSevState();
+  _EditCadSevState createState() => _EditCadSevState();
 }
 
-class _CadastroSevState extends State<CadastroSev> {
+class _EditCadSevState extends State<EditCadSev> {
   int _currentStep = 0;
 
   //Step 1
@@ -28,12 +30,6 @@ class _CadastroSevState extends State<CadastroSev> {
   final estado = TextEditingController();
   final complemento = TextEditingController();
 
-  //Step 3
-  final _formUserAuth = GlobalKey<FormState>();
-  final email = TextEditingController();
-  final senha = TextEditingController();
-  final confirmarsenha = TextEditingController();
-
   //Step 4
   final _formUserSev = GlobalKey<FormState>();
   final razaosocial = TextEditingController();
@@ -45,11 +41,13 @@ class _CadastroSevState extends State<CadastroSev> {
   final indseverino = TextEditingController();
   final cadSevServ = new CadastroSevService();
 
-  List<dynamic> profissoes = [];
-
-  prencherLista() async {
-    profissoes = await cadSevServ.getProfissao();
-  }
+  static List<String> profissoes = [
+    "Encanador",
+    "Marceneiro",
+    "Eletricista",
+    "Mecanico",
+    "Motorista",
+  ];
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -110,30 +108,26 @@ class _CadastroSevState extends State<CadastroSev> {
                   if (this._currentStep < this._mySteps().length - 1) {
                     this._currentStep = this._currentStep + 1;
                     _formUserData.currentState.validate();
-                  } else {
-                    cadSevServ.postCadastroSev(
-                        context,
-                        nome.text,
-                        cpf.text,
-                        email.text,
-                        telefone.text,
-                        indseverino.text == "N" ? true : false,
-                        senha.text,
-                        logradouro.text,
-                        complemento.text,
-                        numero.text,
-                        bairro.text,
-                        cep.text,
-                        estado.text,
-                        cidade.text,
-                        razaosocial.text,
-                        nrocpfcnpj.text,
-                        linkwhatsapp.text,
-                        nrotelcomercial.text,
-                        tipoprof.text);
                     _formUserAddress.currentState.validate();
-                    _formUserAuth.currentState.validate();
-                    _formUserSev.currentState.validate();
+                  } else {
+                    // cadSevServ.putCadastroSev(
+                    //     context,
+                    //     nome.text,
+                    //     cpf.text,
+                    //     telefone.text,
+                    //     indseverino.text == "N" ? true : false,
+                    //     logradouro.text,
+                    //     complemento.text,
+                    //     numero.text,
+                    //     bairro.text,
+                    //     cep.text,
+                    //     estado.text,
+                    //     cidade.text,
+                    //     razaosocial.text,
+                    //     nrocpfcnpj.text,
+                    //     linkwhatsapp.text,
+                    //     nrotelcomercial.text);
+                    // _formUserSev.currentState.validate();
                   }
                 });
               },
@@ -394,86 +388,6 @@ class _CadastroSevState extends State<CadastroSev> {
             ]),
           )),
       Step(
-          title: Text('Login'),
-          isActive: _currentStep >= 2,
-          content: Form(
-            key: _formUserAuth,
-            child: Column(children: <Widget>[
-              TextFormField(
-                controller: email,
-                keyboardType: TextInputType.emailAddress,
-                decoration: InputDecoration(
-                  labelText: "E-mail",
-                  labelStyle: TextStyle(
-                    color: Colors.black87,
-                    fontWeight: FontWeight.w400,
-                    fontSize: 12,
-                  ),
-                ),
-                validator: (value) {
-                  if (value.length == 0) return "Preencha E-mail";
-
-                  if (!value.contains("@") || !value.contains("."))
-                    return "Email inválido";
-
-                  return null;
-                },
-                style: TextStyle(
-                  fontSize: 20,
-                ),
-              ),
-              TextFormField(
-                controller: senha,
-                keyboardType: TextInputType.text,
-                obscureText: true,
-                decoration: InputDecoration(
-                  labelText: "Senha",
-                  labelStyle: TextStyle(
-                    color: Colors.black87,
-                    fontWeight: FontWeight.w400,
-                    fontSize: 12,
-                  ),
-                ),
-                validator: (value) {
-                  if (value.length == 0) return "Preencha Senha";
-
-                  // if (value.length < 7) return "Senha muito curta";
-
-                  return null;
-                },
-                style: TextStyle(
-                  fontSize: 20,
-                ),
-              ),
-              TextFormField(
-                controller: confirmarsenha,
-                keyboardType: TextInputType.text,
-                obscureText: true,
-                decoration: InputDecoration(
-                  labelText: "Confirmar senha",
-                  labelStyle: TextStyle(
-                    color: Colors.black87,
-                    fontWeight: FontWeight.w400,
-                    fontSize: 12,
-                  ),
-                ),
-                validator: (value) {
-                  if (value.length == 0) return "Preencha Senha igual anterior";
-
-                  // if (value.length != senha) return "Senhas diferentes";
-
-                  return null;
-                },
-                style: TextStyle(
-                  fontSize: 20,
-                ),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-            ]),
-          )),
-      Step(
           title: Text('Perfil Severino'),
           isActive: _currentStep >= 3,
           content: Form(
@@ -589,32 +503,53 @@ class _CadastroSevState extends State<CadastroSev> {
                   fontSize: 20,
                 ),
               ),
-              _getDropDown(),
-              // DropdownButtonFormField(
-              //   isExpanded: true,
+              DropdownButtonFormField(
+                isExpanded: true,
+                decoration: InputDecoration(
+                  labelText: "Serviço prestado",
+                  labelStyle: TextStyle(
+                    color: Colors.black87,
+                    fontWeight: FontWeight.w400,
+                    fontSize: 12,
+                  ),
+                ),
+
+                items: _EditCadSevState.profissoes.map((String profissao) {
+                  return DropdownMenuItem(
+                    child: Text(profissao),
+                    value: profissao,
+                  );
+                }).toList(),
+
+                onChanged: (String novaProfissaoSelecionada) {
+                  tipoprof.text = novaProfissaoSelecionada;
+                },
+                // validator: (value) {
+                //   if (value == null) return "Selecione um estado";
+                //   return null;
+                // },
+              ),
+              // TextFormField(
+              //   // controller: linkwhatsapp,
+              //   keyboardType: TextInputType.text,
               //   decoration: InputDecoration(
-              //     labelText: "Serviço prestado",
+              //     labelText: "Outros Serviços: ",
               //     labelStyle: TextStyle(
               //       color: Colors.black87,
               //       fontWeight: FontWeight.w400,
               //       fontSize: 12,
               //     ),
               //   ),
-
-              //   items: profissoes.map((dynamic profissao) {
-              //     return DropdownMenuItem(
-              //       child: Text(profissao),
-              //       value: profissao,
-              //     );
-              //   }).toList(),
-
-              //   onChanged: (dynamic novaProfissaoSelecionada) {
-              //     tipoprof.text = novaProfissaoSelecionada;
-              //   },
               //   // validator: (value) {
-              //   //   if (value == null) return "Selecione um estado";
+              //   //   if (value.length == 0) return "Preencha Celular";
+
+              //   //   if (value.length < 11) return "Celular inválido";
+
               //   //   return null;
               //   // },
+              //   style: TextStyle(
+              //     fontSize: 20,
+              //   ),
               // ),
               SizedBox(
                 height: 20,
@@ -648,36 +583,6 @@ class _CadastroSevState extends State<CadastroSev> {
           ],
         );
       },
-    );
-  }
-
-  _getDropDown() {
-    prencherLista();
-    return DropdownButtonFormField(
-      isExpanded: true,
-      decoration: InputDecoration(
-        labelText: "Serviço prestado",
-        labelStyle: TextStyle(
-          color: Colors.black87,
-          fontWeight: FontWeight.w400,
-          fontSize: 12,
-        ),
-      ),
-
-      items: profissoes.map((dynamic profissao) {
-        return DropdownMenuItem(
-          child: Text(profissao),
-          value: profissao,
-        );
-      }).toList(),
-
-      onChanged: (dynamic novaProfissaoSelecionada) {
-        tipoprof.text = novaProfissaoSelecionada;
-      },
-      // validator: (value) {
-      //   if (value == null) return "Selecione um estado";
-      //   return null;
-      // },
     );
   }
 }

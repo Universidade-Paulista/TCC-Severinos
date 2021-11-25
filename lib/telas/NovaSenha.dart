@@ -1,9 +1,7 @@
 import 'package:brasil_fields/brasil_fields.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:get/get.dart';
 import 'package:severino/Servicos/LoginService.dart';
-import 'package:severino/telas/Login.dart';
 
 class NovaSenha extends StatefulWidget {
   @override
@@ -17,6 +15,7 @@ class _NovaSenhaState extends State<NovaSenha> {
   final confirmasenha = TextEditingController();
 
   final log = new LoginService();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -93,11 +92,6 @@ class _NovaSenhaState extends State<NovaSenha> {
                           );
                         } else {
                           _showMyDialog("CPF não cadastrado.");
-                          // ScaffoldMessenger.of(context).showSnackBar(
-                          //   SnackBar(
-                          //     content: const Text('CPF não cadastrado.'),
-                          //   ),
-                          // );
                         }
                       }
                     },
@@ -216,7 +210,7 @@ class _NovaSenhaState extends State<NovaSenha> {
   Future<void> _showMyDialog(sMensagem) async {
     return showDialog<void>(
       context: context,
-      barrierDismissible: false, // user must tap button!
+      barrierDismissible: false,
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text('Atenção'),

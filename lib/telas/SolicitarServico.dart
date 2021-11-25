@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -56,7 +55,7 @@ class _SolicitarServicoState extends State<SolicitarServico> {
                         style: ElevatedButton.styleFrom(
                           shape: CircleBorder(),
                           padding: EdgeInsets.all(20),
-                          primary: Colors.grey.shade400, // <-- Button color
+                          primary: Colors.grey.shade400,
                         ),
                       )),
                     ),

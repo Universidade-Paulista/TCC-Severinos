@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:severino/telas/SolicitarServico.dart';
@@ -57,7 +56,7 @@ class _PerfilSeverinoState extends State<PerfilSeverino> {
                         style: ElevatedButton.styleFrom(
                           shape: CircleBorder(),
                           padding: EdgeInsets.all(20),
-                          primary: Colors.grey.shade400, // <-- Button color
+                          primary: Colors.grey.shade400,
                         ),
                       )),
                     ),
