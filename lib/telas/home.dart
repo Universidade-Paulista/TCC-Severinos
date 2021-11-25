@@ -1,12 +1,9 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
-import 'package:dropdownfield/dropdownfield.dart';
 import 'package:severino/Servicos/CadastroSevService.dart';
-import 'package:severino/Servicos/HomeService.dart';
 import 'package:severino/telas/EditCad.dart';
 import 'package:severino/telas/ListPrestadores.dart';
 import 'package:severino/telas/Login.dart';
@@ -18,19 +15,19 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   final _txtEndereco = TextEditingController();
-  String _servicoId = '';
+  final tipoprof = TextEditingController();
+
   final service = new CadastroSevService();
-  List<dynamic> profissoes = [];
+
+  List<dynamic> profPrest = [];
 
   prencherListaPrestadores() async {
-    profissoes = await service.getProfissao();
+    profPrest = await service.getProfissao();
   }
 
   @override
   Widget build(BuildContext context) {
     _getCurrentPosition();
-    prencherListaPrestadores();
-
     return Scaffold(
       appBar: AppBar(
         foregroundColor: Colors.black,
@@ -75,16 +72,7 @@ class _HomeState extends State<Home> {
             height: 15,
           ),
           Container(
-            child: DropDownField(
-              onValueChanged: (dynamic value) {
-                _servicoId = value;
-              },
-              value: _servicoId,
-              required: false,
-              hintText: 'Pesquisar um serviço',
-              hintStyle: TextStyle(fontSize: 16, color: Colors.black),
-              items: profissoes,
-            ),
+            child: _getDropDownField(),
           ),
           SizedBox(
             height: 30,
@@ -265,19 +253,29 @@ class _HomeState extends State<Home> {
     );
   }
 
-  // _getDropDownField() {
-  //   prencherListaPrestadores();
-  //   return DropDownField(
-  //     onValueChanged: (dynamic value) {
-  //       _servicoId = value;
-  //     },
-  //     value: _servicoId,
-  //     required: false,
-  //     hintText: 'Pesquisar um serviço',
-  //     hintStyle: TextStyle(fontSize: 16, color: Colors.black),
-  //     items: profissoes,
-  //   );
-  // }
+  _getDropDownField() {
+    prencherListaPrestadores();
+    return DropdownButtonFormField(
+      isExpanded: true,
+      decoration: InputDecoration(
+        labelText: "Serviço prestado",
+        labelStyle: TextStyle(
+          color: Colors.black87,
+          fontWeight: FontWeight.w400,
+          fontSize: 12,
+        ),
+      ),
+      items: profPrest.map((dynamic profissao) {
+        return DropdownMenuItem(
+          child: Text(profissao),
+          value: profissao,
+        );
+      }).toList(),
+      onChanged: (dynamic novaProfissaoSelecionada) {
+        tipoprof.text = novaProfissaoSelecionada;
+      },
+    );
+  }
 
   Future<void> _getCurrentPosition() async {
     // verify permissions
@@ -310,18 +308,4 @@ class _HomeState extends State<Home> {
       return "Nenhum endereço encontrado!";
     }
   }
-
-  // Future<dynamic> getProfissao() async {
-  //   final dio = Dio();
-  //   var response = await dio.get("http://192.168.15.7:5000/api/Profissao");
-
-  //   if (response.statusCode == 200) {
-  //     var lista = response.data as List;
-  //     setState(() => profissoes = lista);
-  //   } else {
-  //     AlertDialog(
-  //       title: Text(response.statusMessage),
-  //     );
-  //   }
-  // }
 }

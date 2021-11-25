@@ -590,32 +590,6 @@ class _CadastroSevState extends State<CadastroSev> {
                 ),
               ),
               _getDropDown(),
-              // DropdownButtonFormField(
-              //   isExpanded: true,
-              //   decoration: InputDecoration(
-              //     labelText: "Serviço prestado",
-              //     labelStyle: TextStyle(
-              //       color: Colors.black87,
-              //       fontWeight: FontWeight.w400,
-              //       fontSize: 12,
-              //     ),
-              //   ),
-
-              //   items: profissoes.map((dynamic profissao) {
-              //     return DropdownMenuItem(
-              //       child: Text(profissao),
-              //       value: profissao,
-              //     );
-              //   }).toList(),
-
-              //   onChanged: (dynamic novaProfissaoSelecionada) {
-              //     tipoprof.text = novaProfissaoSelecionada;
-              //   },
-              //   // validator: (value) {
-              //   //   if (value == null) return "Selecione um estado";
-              //   //   return null;
-              //   // },
-              // ),
               SizedBox(
                 height: 20,
               ),
@@ -663,21 +637,19 @@ class _CadastroSevState extends State<CadastroSev> {
           fontSize: 12,
         ),
       ),
-
       items: profissoes.map((dynamic profissao) {
         return DropdownMenuItem(
           child: Text(profissao),
           value: profissao,
         );
       }).toList(),
-
       onChanged: (dynamic novaProfissaoSelecionada) {
         tipoprof.text = novaProfissaoSelecionada;
       },
-      // validator: (value) {
-      //   if (value == null) return "Selecione um estado";
-      //   return null;
-      // },
+      validator: (value) {
+        if (value == null) return "Selecione um serviço";
+        return null;
+      },
     );
   }
 }
