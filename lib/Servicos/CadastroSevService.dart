@@ -88,7 +88,7 @@ class CadastroSevService {
         "\", " +
         "	  \"NomeProfissao\": \"" +
         tipoprof +
-        "\", " +
+        "\" " +
         "}                                                       ";
 
     var headers = {'Content-Type': 'application/json'};
@@ -117,17 +117,18 @@ class CadastroSevService {
     }
   }
 
-  Future<dynamic> getProfissao() async {
-    final dio = Dio();
-    Response response = await dio.get("http://192.168.15.7:5000/api/Profissao");
+  // Future<dynamic> getProfissao() async {
+  //   final dio = Dio();
+  //   Response response =
+  //       await dio.get("https://apiseverinos.azurewebsites.net/api/Profissao");
 
-    if (response.statusCode == 200) {
-      var lista = response.data as List;
-      return lista;
-    } else {
-      AlertDialog(
-        title: Text(response.statusMessage),
-      );
-    }
-  }
+  //   if (response.statusCode == 200) {
+  //     var lista = response.data as List;
+  //     return lista;
+  //   } else {
+  //     AlertDialog(
+  //       title: Text(response.statusMessage),
+  //     );
+  //   }
+  // }
 }

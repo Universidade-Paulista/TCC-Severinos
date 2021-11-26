@@ -7,9 +7,9 @@ import 'package:get/get.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:dropdownfield/dropdownfield.dart';
 import 'package:severino/Servicos/HomeService.dart';
+import 'package:severino/telas/EditCad.dart';
 import 'package:severino/telas/ListPrestadores.dart';
 import 'package:severino/telas/Login.dart';
-import 'package:severino/telas/PerfilSeverino.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -144,13 +144,8 @@ class _HomeState extends State<Home> {
                   leading: Icon(Icons.edit),
                   title: Text("Editar perfil"),
                   onTap: () {
-                    navigator.pop();
+                    Get.to(EditCad());
                   },
-                ),
-                ListTile(
-                  leading: Icon(Icons.history),
-                  title: Text("Histórico de serviços"),
-                  onTap: () {},
                 ),
               ],
             ),
@@ -297,10 +292,10 @@ class _HomeState extends State<Home> {
     }
   }
 
-  _prencherListaPrestadores() async {
-    _profissoes = await service.getListProfissoes();
-    return _profissoes;
-  }
+  // _prencherListaPrestadores() async {
+  //   _profissoes = await service.getListProfissoes();
+  //   return _profissoes;
+  // }
 
   getListProfissoes() async {
     final dio = Dio();

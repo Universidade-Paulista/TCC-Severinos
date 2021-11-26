@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -45,13 +46,14 @@ class _CadastroSevState extends State<CadastroSev> {
   final indseverino = TextEditingController();
   final cadSevServ = new CadastroSevService();
 
-  List<dynamic> profissoes = [];
+  List<String> profissoes = [];
 
-  prencherLista() async {
-    profissoes = await cadSevServ.getProfissao();
-  }
+  // prencherLista() async {
+  //   profissoes = await cadSevServ.getProfissao();
+  // }
 
   Widget build(BuildContext context) {
+    getListProfissoes();
     return Scaffold(
         appBar: AppBar(
           foregroundColor: Colors.black,
@@ -626,7 +628,6 @@ class _CadastroSevState extends State<CadastroSev> {
   }
 
   _getDropDown() {
-    prencherLista();
     return DropdownButtonFormField(
       isExpanded: true,
       decoration: InputDecoration(
@@ -651,5 +652,22 @@ class _CadastroSevState extends State<CadastroSev> {
         return null;
       },
     );
+  }
+
+  getListProfissoes() async {
+    try {
+      final dio = Dio();
+      var response = await dio
+          .get("https://apiseverinos.azurewebsites.net/api/profissao/");
+
+      if (response.statusCode == 200) {
+        var lista = List<String>.from(response.data);
+        setState(() => profissoes = lista);
+      } else {
+        AlertDialog(
+          title: Text(response.statusMessage),
+        );
+      }
+    } on DioError catch (error) {}
   }
 }

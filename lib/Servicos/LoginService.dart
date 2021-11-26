@@ -8,6 +8,7 @@ class LoginService {
 
   getLogin(String email, String senha) async {
     final dio = Dio();
+
     Response response = await dio.get(
         "https://apiseverinos.azurewebsites.net/api/Login/" +
             email +
