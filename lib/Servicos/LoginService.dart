@@ -7,35 +7,38 @@ class LoginService {
   Dio dio = new Dio();
 
   getLogin(String email, String senha) async {
-    final dio = Dio();
+    try {
+      final dio = Dio();
+      var response = await dio.get(
+          "https://apiseverinos.azurewebsites.net/api/Login/" +
+              email +
+              "/" +
+              senha);
 
-    Response response = await dio.get(
-        "https://apiseverinos.azurewebsites.net/api/Login/" +
-            email +
-            "/" +
-            senha);
-
-    if (response.statusCode == 200) {
-      return response.data;
-    } else {
-      AlertDialog(
-        title: Text(response.statusMessage),
-      );
-    }
+      if (response.statusCode == 200) {
+        return response.data;
+      } else {
+        AlertDialog(
+          title: Text(response.statusMessage),
+        );
+      }
+    } on DioError catch (error) {}
   }
 
   getCPF(String cpf) async {
-    final dio = Dio();
-    Response response = await dio
-        .get("https://apiseverinos.azurewebsites.net/api/ValidacoesCPF/" + cpf);
+    try {
+      final dio = Dio();
+      var response = await dio.get(
+          "https://apiseverinos.azurewebsites.net/api/ValidacoesCPF/" + cpf);
 
-    if (response.statusCode == 200) {
-      return response.data;
-    } else {
-      AlertDialog(
-        title: Text(response.statusMessage),
-      );
-    }
+      if (response.statusCode == 200) {
+        return response.data;
+      } else {
+        AlertDialog(
+          title: Text(response.statusMessage),
+        );
+      }
+    } on DioError catch (error) {}
   }
 
   putSenha(final context, String cpf, String senha) async {

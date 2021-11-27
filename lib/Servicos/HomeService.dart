@@ -19,21 +19,21 @@ class HomeService {
     }
   }
 
-  getNome(String email, String senha) async {
-    final dio = Dio();
-    var response = await dio.get(
-        "https://apiseverinos.azurewebsites.net/api/Cadastro/" +
-            email +
-            "/" +
-            senha);
+  // getNome(String email, String senha) async {
+  //   final dio = Dio();
+  //   var response = await dio.get(
+  //       "https://apiseverinos.azurewebsites.net/api/Cadastro/" +
+  //           email +
+  //           "/" +
+  //           senha);
 
-    if (response.statusCode == 200) {
-      var lista = response.data as List;
-      return lista;
-    } else {
-      AlertDialog(
-        title: Text(response.statusMessage),
-      );
-    }
-  }
+  //   if (response.statusCode == 200) {
+  //     var lista = response.data as List;
+  //     return lista;
+  //   } else {
+  //     AlertDialog(
+  //       title: Text(response.statusMessage),
+  //     );
+  //   }
+  // }
 }

@@ -298,17 +298,19 @@ class _HomeState extends State<Home> {
   // }
 
   getListProfissoes() async {
-    final dio = Dio();
-    var response =
-        await dio.get("https://apiseverinos.azurewebsites.net/api/profissao/");
+    try {
+      final dio = Dio();
+      var response = await dio
+          .get("https://apiseverinos.azurewebsites.net/api/profissao/");
 
-    if (response.statusCode == 200) {
-      var lista = List<String>.from(response.data);
-      setState(() => _profissoes = lista);
-    } else {
-      AlertDialog(
-        title: Text(response.statusMessage),
-      );
-    }
+      if (response.statusCode == 200) {
+        var lista = List<String>.from(response.data);
+        setState(() => _profissoes = lista);
+      } else {
+        AlertDialog(
+          title: Text(response.statusMessage),
+        );
+      }
+    } on DioError catch (error) {}
   }
 }

@@ -89,21 +89,21 @@ class _EditCadState extends State<EditCad> {
               setState(() {
                 if (this._currentStep < this._mySteps().length - 1) {
                   this._currentStep = this._currentStep + 1;
-                  _formUserData.currentState.validate();
+                  // _formUserData.currentState.validate();
                 } else {
-                  // cadServ.putCadastro(
-                  //     context,
-                  //     nome.text,
-                  //     cpf.text,
-                  //     telefone.text,
-                  //     indseverino.text == "S" ? true : false,
-                  //     logradouro.text,
-                  //     complemento.text,
-                  //     numero.text,
-                  //     bairro.text,
-                  //     cep.text,
-                  //     estado.text,
-                  //     cidade.text);
+                  cadServ.putCadastro(
+                      context,
+                      nome.text,
+                      cpf.text,
+                      telefone.text,
+                      indseverino.text == "S" ? true : false,
+                      logradouro.text,
+                      complemento.text,
+                      numero.text,
+                      bairro.text,
+                      cep.text,
+                      estado.text,
+                      cidade.text);
                   // _formUserAddress.currentState.validate();
                 }
               });
@@ -140,13 +140,11 @@ class _EditCadState extends State<EditCad> {
                     fontSize: 12,
                   ),
                 ),
-                validator: (value) {
-                  if (value.length == 0) return "Preencha Nome";
+                // validator: (value) {
+                //   if (value.length < 3) return "Nome inválido";
 
-                  if (value.length < 3) return "Nome inválido";
-
-                  return null;
-                },
+                //   return null;
+                // },
                 style: TextStyle(
                   fontSize: 20,
                 ),
@@ -166,13 +164,11 @@ class _EditCadState extends State<EditCad> {
                     fontSize: 12,
                   ),
                 ),
-                validator: (value) {
-                  if (value.length == 0) return "Preencha CPF";
+                // validator: (value) {
+                //   if (value.length != 14) return "CPF inválido";
 
-                  if (value.length != 14) return "CPF inválido";
-
-                  return null;
-                },
+                //   return null;
+                // },
                 style: TextStyle(
                   fontSize: 20,
                 ),
@@ -192,13 +188,11 @@ class _EditCadState extends State<EditCad> {
                     fontSize: 12,
                   ),
                 ),
-                validator: (value) {
-                  if (value.length == 0) return "Preencha Celular";
+                // validator: (value) {
+                //   if (value.length < 11) return "Celular inválido";
 
-                  if (value.length < 11) return "Celular inválido";
-
-                  return null;
-                },
+                //   return null;
+                // },
                 style: TextStyle(
                   fontSize: 20,
                 ),
@@ -229,13 +223,11 @@ class _EditCadState extends State<EditCad> {
                     fontSize: 12,
                   ),
                 ),
-                validator: (value) {
-                  if (value.length == 0) return "Preencha CEP";
+                // validator: (value) {
+                //   if (value.length < 10) return "CEP inválido";
 
-                  if (value.length < 10) return "CEP inválido";
-
-                  return null;
-                },
+                //   return null;
+                // },
                 style: TextStyle(
                   fontSize: 20,
                 ),
@@ -251,13 +243,11 @@ class _EditCadState extends State<EditCad> {
                     fontSize: 12,
                   ),
                 ),
-                validator: (value) {
-                  if (value.length == 0) return "Preencha Logradouro";
+                // validator: (value) {
+                //   if (value.length < 3) return "Logradouro inválido";
 
-                  if (value.length < 3) return "Logradouro inválido";
-
-                  return null;
-                },
+                //   return null;
+                // },
                 style: TextStyle(
                   fontSize: 20,
                 ),
@@ -288,13 +278,11 @@ class _EditCadState extends State<EditCad> {
                     fontSize: 12,
                   ),
                 ),
-                validator: (value) {
-                  if (value.length == 0) return "Preencha Bairro";
+                // validator: (value) {
+                //   if (value.length < 3) return "Bairro inválido";
 
-                  if (value.length < 3) return "Bairro inválido";
-
-                  return null;
-                },
+                //   return null;
+                // },
                 style: TextStyle(
                   fontSize: 20,
                 ),
@@ -310,13 +298,11 @@ class _EditCadState extends State<EditCad> {
                     fontSize: 12,
                   ),
                 ),
-                validator: (value) {
-                  if (value.length == 0) return "Preencha Cidade";
+                // validator: (value) {
+                //   if (value.length < 3) return "Cidade inválida";
 
-                  if (value.length < 3) return "Cidade inválida";
-
-                  return null;
-                },
+                //   return null;
+                // },
                 style: TextStyle(
                   fontSize: 20,
                 ),
@@ -340,10 +326,10 @@ class _EditCadState extends State<EditCad> {
                 onChanged: (String novoEstadoSelecionado) {
                   estado.text = novoEstadoSelecionado;
                 },
-                validator: (value) {
-                  if (value == null) return "Selecione um estado";
-                  return null;
-                },
+                // validator: (value) {
+                //   if (value == null) return "Selecione um estado";
+                //   return null;
+                // },
               ),
               TextFormField(
                 controller: complemento,
@@ -369,30 +355,30 @@ class _EditCadState extends State<EditCad> {
     return _steps;
   }
 
-  Future<void> showMyDialog(sMensagem) async {
-    return showDialog<void>(
-      context: context,
-      barrierDismissible: false, // user must tap button!
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('Atenção'),
-          content: SingleChildScrollView(
-            child: ListBody(
-              children: <Widget>[
-                Text(sMensagem),
-              ],
-            ),
-          ),
-          actions: <Widget>[
-            TextButton(
-              child: Text('Ok'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
+  // Future<void> showMyDialog(sMensagem) async {
+  //   return showDialog<void>(
+  //     context: context,
+  //     barrierDismissible: false, // user must tap button!
+  //     builder: (BuildContext context) {
+  //       return AlertDialog(
+  //         title: Text('Atenção'),
+  //         content: SingleChildScrollView(
+  //           child: ListBody(
+  //             children: <Widget>[
+  //               Text(sMensagem),
+  //             ],
+  //           ),
+  //         ),
+  //         actions: <Widget>[
+  //           TextButton(
+  //             child: Text('Ok'),
+  //             onPressed: () {
+  //               Navigator.of(context).pop();
+  //             },
+  //           ),
+  //         ],
+  //       );
+  //     },
+  //   );
+  // }
 }

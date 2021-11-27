@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -23,11 +24,9 @@ class _HomeSevState extends State<HomeSev> {
 
   String _sNome = "";
 
-  final hs = new HomeService();
-
   @override
   Widget build(BuildContext context) {
-    hs.getNome(email, senha);
+    getNome(email, senha);
     return Scaffold(
       appBar: AppBar(
         foregroundColor: Colors.black,
@@ -55,9 +54,9 @@ class _HomeSevState extends State<HomeSev> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    "Bem-Vindo !",
+                    "Bem-Vindo \n" + _sNome + " !",
                     style: TextStyle(
-                      fontSize: 35,
+                      fontSize: 25,
                       color: Colors.black,
                     ),
                   ),
@@ -67,41 +66,41 @@ class _HomeSevState extends State<HomeSev> {
             SizedBox(
               height: 10,
             ),
-            Container(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    _sNome,
-                    style: TextStyle(
-                      fontSize: 20,
-                      color: Colors.black,
-                    ),
-                  ),
+            // Container(
+            //   child: Row(
+            //     mainAxisAlignment: MainAxisAlignment.center,
+            //     children: [
+            //       Text(
+            //         _sNome,
+            //         style: TextStyle(
+            //           fontSize: 20,
+            //           color: Colors.black,
+            //         ),
+            //       ),
 
-                  //trazer do model
-                  // Consumer<CadastroMod>(builder: (context, CadastroMod, child) {
-                  //   if (CadastroMod.nome != null) {
-                  //     return Text(
-                  //       ' ${CadastroMod.nome.split(" ")}',
-                  //       style: TextStyle(
-                  //         fontSize: 15,
-                  //         color: Colors.black,
-                  //       ),
-                  //     );
-                  //   }
+            //       //trazer do model
+            //       // Consumer<CadastroMod>(builder: (context, CadastroMod, child) {
+            //       //   if (CadastroMod.nome != null) {
+            //       //     return Text(
+            //       //       ' ${CadastroMod.nome.split(" ")}',
+            //       //       style: TextStyle(
+            //       //         fontSize: 15,
+            //       //         color: Colors.black,
+            //       //       ),
+            //       //     );
+            //       //   }
 
-                  //   return Text(
-                  //     'Severino',
-                  //     style: TextStyle(
-                  //       fontSize: 15,
-                  //       color: Colors.black,
-                  //     ),
-                  //   );
-                  // }),
-                ],
-              ),
-            ),
+            //       //   return Text(
+            //       //     'Severino',
+            //       //     style: TextStyle(
+            //       //       fontSize: 15,
+            //       //       color: Colors.black,
+            //       //     ),
+            //       //   );
+            //       // }),
+            //     ],
+            //   ),
+            // ),
             SizedBox(
               height: 70,
             ),
@@ -340,6 +339,44 @@ class _HomeSevState extends State<HomeSev> {
       setState(() => arquivo = File(file.path));
     }
   }
+
+  getNome(String email, String senha) async {
+    try {
+      final dio = Dio();
+      var response = await dio.get(
+          "https://apiseverinos.azurewebsites.net/api/Cadastro/" +
+              email +
+              "/" +
+              senha);
+
+      if (response.statusCode == 200) {
+        var nome = response.data;
+        setState(() => _sNome = nome);
+      } else {
+        AlertDialog(
+          title: Text(response.statusMessage),
+        );
+      }
+    } on DioError catch (error) {}
+  }
+
+  // getNome(String email, String senha) async {
+  //   final dio = Dio();
+  //   var response = await dio.get(
+  //       "https://apiseverinos.azurewebsites.net/api/Cadastro/" +
+  //           email +
+  //           "/" +
+  //           senha);
+
+  //   if (response.statusCode == 200) {
+  //     var lista = response.data as List;
+  //     return lista;
+  //   } else {
+  //     AlertDialog(
+  //       title: Text(response.statusMessage),
+  //     );
+  //   }
+  // }
 
   // Future pickImage(ImageSource source) async {
   //   try {
