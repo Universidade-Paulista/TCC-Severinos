@@ -110,29 +110,55 @@ class CadastroService {
       String cep,
       String estado,
       String cidade) async {
-    final response = await http.put(Uri.parse(
-        'https://apiseverinos.azurewebsites.net/api/Cadastro/' +
-            nome +
-            "/" +
-            cpf +
-            "/" +
-            celular +
-            "/" +
-            indseverino.toString() +
-            "/" +
-            logradouro +
-            "/" +
-            complemento +
-            "/" +
-            numero +
-            "/" +
-            bairro +
-            "/" +
-            cep +
-            "/" +
-            estado +
-            "/" +
-            cidade));
+    String sbody = "{" +
+        "\"nome\": \"" +
+        nome +
+        "\",                          " +
+        "   \"cpf\": \"" +
+        cpf +
+        "\",                            " +
+        "	  \"telefone\": \"" +
+        celular +
+        "\",                  " +
+        "   \"indseverino\": \"" +
+        indseverino.toString() +
+        "\", " +
+        "	  \"logradouro\": \"" +
+        logradouro +
+        "\",              " +
+        "	  \"complemento\": \"" +
+        complemento +
+        "\",                " +
+        "	  \"numero\": \"" +
+        numero +
+        "\",                      " +
+        "	  \"bairro\": \"" +
+        bairro +
+        "\",                      " +
+        "	  \"cep\": \"" +
+        cep +
+        "\",                            " +
+        "	  \"estado\": \"" +
+        estado +
+        "\",                      " +
+        "   \"cidade\": \"" +
+        cidade +
+        "\",                    " +
+        "	  \"razaosocial\": \"Null\",              " +
+        "	  \"nrocpfcnpj\": \"Null\",              " +
+        "	  \"linkwhatsapp\": \"Null\",                              " +
+        "	  \"nrotelcomercial\": \"Null\"              " +
+        "}  ";
+
+    var headers = {'Content-Type': 'application/json'};
+
+    var request = http.Request(
+        'PUT', Uri.parse('http://192.168.15.7:5000/api/Cadastro/100'));
+
+    request.body = jsonEncode(sbody);
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
 
     if (response.statusCode == 200) {
       Navigator.push(

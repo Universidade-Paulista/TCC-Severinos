@@ -9,11 +9,8 @@ class LoginService {
   getLogin(String email, String senha) async {
     try {
       final dio = Dio();
-      var response = await dio.get(
-          "https://apiseverinos.azurewebsites.net/api/Login/" +
-              email +
-              "/" +
-              senha);
+      var response = await dio
+          .get("http://192.168.15.7:5000/api/Login/" + email + "/" + senha);
 
       if (response.statusCode == 200) {
         return response.data;
