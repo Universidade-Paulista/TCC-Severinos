@@ -176,4 +176,96 @@ class CadastroService {
       );
     }
   }
+
+  getCadastro(
+      String seqPessoa,
+      String nome,
+      String cpf,
+      String email,
+      String celular,
+      bool indseverino,
+      String senha,
+      String logradouro,
+      String complemento,
+      String numero,
+      String bairro,
+      String cep,
+      String estado,
+      String cidade,
+      String razaosocial,
+      String nrocpfcnpj,
+      String linkwhatsapp,
+      String nrotelcomercial) async {
+    String sbody = "{" +
+        "\"nome\": \"" +
+        nome +
+        "\",                          " +
+        "   \"cpf\": \"" +
+        cpf +
+        "\",                            " +
+        "   \"email\": \"" +
+        email +
+        "\",                        " +
+        "	  \"telefone\": \"" +
+        celular +
+        "\",                  " +
+        "   \"indseverino\": \"" +
+        indseverino.toString() +
+        "\", " +
+        "	  \"senha\": \"" +
+        senha +
+        "\",                        " +
+        "	  \"logradouro\": \"" +
+        logradouro +
+        "\",              " +
+        "	  \"complemento\": \"" +
+        complemento +
+        "\",                " +
+        "	  \"numero\": \"" +
+        numero +
+        "\",                      " +
+        "	  \"bairro\": \"" +
+        bairro +
+        "\",                      " +
+        "	  \"cep\": \"" +
+        cep +
+        "\",                            " +
+        "	  \"estado\": \"" +
+        estado +
+        "\",                      " +
+        "   \"cidade\": \"" +
+        cidade +
+        "\",                      " +
+        "	  \"razaosocial\": \"" +
+        razaosocial +
+        "\",                      " +
+        "   \"nrocpfcnpj\": \"" +
+        nrocpfcnpj +
+        "\",                      " +
+        "	  \"linkwhatsapp\": \"" +
+        linkwhatsapp +
+        "\",                      " +
+        "	  \"nrotelcomercial\": \"" +
+        nrotelcomercial +
+        "\", " +
+        "}                                                       ";
+
+    var headers = {'Content-Type': 'application/json'};
+
+    var request = http.Request(
+        'GET', Uri.parse('http://192.168.15.7:5000/api/Cadastro/'));
+
+    request.body = jsonEncode(sbody);
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      return sbody;
+    } else {
+      AlertDialog(
+        title: Text(response.reasonPhrase),
+      );
+    }
+  }
 }

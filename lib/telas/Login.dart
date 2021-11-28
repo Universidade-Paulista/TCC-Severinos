@@ -24,7 +24,6 @@ class _LoginState extends State<Login> {
   final _txtSenha = TextEditingController();
 
   final log = new LoginService();
-  final cad = new CadastroMod();
 
   @override
   Widget build(BuildContext context) {

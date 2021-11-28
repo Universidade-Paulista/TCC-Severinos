@@ -1,6 +1,9 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class CadastroMod extends ChangeNotifier {
+  String _seqPessoa;
   String _nome;
   String _cpf;
   String _email;
@@ -14,7 +17,12 @@ class CadastroMod extends ChangeNotifier {
   String _cep;
   String _estado;
   String _cidade;
+  String _razaosocial;
+  String _nrocpfcnpj;
+  String _linkwhatsapp;
+  String _nrotelcomercial;
 
+  String get seqPessoa => _seqPessoa;
   String get nome => _nome;
   String get cpf => _cpf;
   String get email => _email;
@@ -28,6 +36,14 @@ class CadastroMod extends ChangeNotifier {
   String get cep => _cep;
   String get estado => _estado;
   String get cidade => _cidade;
+  String get razaosocial => _razaosocial;
+  String get nrocpfcnpj => _nrocpfcnpj;
+  String get linkwhatsapp => _linkwhatsapp;
+  String get nrotelcomercial => _nrotelcomercial;
+
+  set seqPessoa(String value) {
+    _seqPessoa = value;
+  }
 
   set nome(String value) {
     _nome = value;
@@ -81,5 +97,21 @@ class CadastroMod extends ChangeNotifier {
 
   set cidade(String value) {
     _cidade = value;
+  }
+
+  set razaosocial(String value) {
+    _razaosocial = value;
+  }
+
+  set nrocpfcnpj(String value) {
+    _nrocpfcnpj = value;
+  }
+
+  set linkwhatsapp(String value) {
+    _linkwhatsapp = value;
+  }
+
+  set nrotelcomercial(String value) {
+    _nrotelcomercial = value;
   }
 }
