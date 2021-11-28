@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:severino/telas/Cadastro.dart';
+import 'package:severino/telas/CadastroSev.dart';
+import 'package:severino/telas/HomeSev.dart';
 import 'package:severino/telas/Login.dart';
 
 class CadastroSevService {
@@ -93,8 +95,8 @@ class CadastroSevService {
 
     var headers = {'Content-Type': 'application/json'};
 
-    var request = http.Request('POST',
-        Uri.parse('https://apiseverinos.azurewebsites.net/api/Cadastro/'));
+    var request = http.Request(
+        'POST', Uri.parse('http://192.168.15.7:5000/api/Cadastro/'));
 
     request.body = jsonEncode(sbody);
     request.headers.addAll(headers);
@@ -117,10 +119,105 @@ class CadastroSevService {
     }
   }
 
+  putCadastro(
+    final context,
+    String nome,
+    String cpf,
+    String celular,
+    bool indseverino,
+    String logradouro,
+    String complemento,
+    String numero,
+    String bairro,
+    String cep,
+    String estado,
+    String cidade,
+    String razaosocial,
+    String nrocpfcnpj,
+    String linkwhatsapp,
+    String nrotelcomercial,
+  ) async {
+    final bool indseverino = true;
+    final String link = 'https://api.whatsapp.com/send?phone=55' +
+        linkwhatsapp.replaceAll('(', '').replaceAll(')', '');
+    String sbody = "{" +
+        "\"nome\": \"" +
+        nome +
+        "\",                          " +
+        "   \"cpf\": \"" +
+        cpf +
+        "\",                            " +
+        "	  \"telefone\": \"" +
+        celular +
+        "\",                  " +
+        "   \"indseverino\": \"" +
+        indseverino.toString() +
+        "\", " +
+        "	  \"logradouro\": \"" +
+        logradouro +
+        "\",              " +
+        "	  \"complemento\": \"" +
+        complemento +
+        "\",                " +
+        "	  \"numero\": \"" +
+        numero +
+        "\",                      " +
+        "	  \"bairro\": \"" +
+        bairro +
+        "\",                      " +
+        "	  \"cep\": \"" +
+        cep +
+        "\",                            " +
+        "	  \"estado\": \"" +
+        estado +
+        "\",                      " +
+        "   \"cidade\": \"" +
+        cidade +
+        "\",                    " +
+        "	  \"razaosocial\": \"" +
+        razaosocial +
+        "\",                      " +
+        "   \"nrocpfcnpj\": \"" +
+        nrocpfcnpj +
+        "\",                      " +
+        "	  \"linkwhatsapp\": \"" +
+        link +
+        "\",                      " +
+        "	  \"nrotelcomercial\": \"" +
+        nrotelcomercial +
+        "\" " +
+        "} ";
+
+    var headers = {'Content-Type': 'application/json'};
+
+    var request = http.Request(
+        'PUT', Uri.parse('http://192.168.15.7:5000/api/Cadastro/39'));
+
+    request.body = jsonEncode(sbody);
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) {
+            return HomeSev();
+          },
+        ),
+      );
+    } else {
+      AlertDialog(
+        title: Text(response.reasonPhrase),
+      );
+    }
+  }
+
   // Future<dynamic> getProfissao() async {
   //   final dio = Dio();
   //   Response response =
-  //       await dio.get("https://apiseverinos.azurewebsites.net/api/Profissao");
+  //       await dio.get("http://192.168.15.7:5000/api/Profissao");
 
   //   if (response.statusCode == 200) {
   //     var lista = response.data as List;

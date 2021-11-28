@@ -149,7 +149,7 @@ class _LoginState extends State<Login> {
                       email = _txtEmail.text;
                       senha = _txtSenha.text;
                       _getSalvar();
-                      _modelCad(cad);
+                      // _modelCad(cad);
                       // _salvar(context);
                       Get.to(HomeSev());
                     } else {
@@ -228,9 +228,9 @@ class _LoginState extends State<Login> {
     );
   }
 
-  _modelCad(CadastroMod cadastro) {
-    cadastro.nome = log.getLogin(email, senha).toString();
-  }
+  // _modelCad(CadastroMod cadastro) {
+  //   cadastro.nome = log.getLogin(email, senha).toString();
+  // }
 
   // void _salvar(context) {
   //   Provider.of<CadastroMod>(context).nome = _txtEmail.text;

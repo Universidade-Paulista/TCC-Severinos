@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:severino/telas/Cadastro.dart';
 import 'package:severino/telas/Login.dart';
+import 'package:severino/telas/home.dart';
 
 class CadastroService {
   Dio dio = new Dio();
@@ -73,8 +74,8 @@ class CadastroService {
 
     var headers = {'Content-Type': 'application/json'};
 
-    var request = http.Request('POST',
-        Uri.parse('https://apiseverinos.azurewebsites.net/api/Cadastro/'));
+    var request = http.Request(
+        'POST', Uri.parse('http://192.168.15.7:5000/api/Cadastro/'));
 
     request.body = jsonEncode(sbody);
     request.headers.addAll(headers);
@@ -165,7 +166,7 @@ class CadastroService {
         context,
         MaterialPageRoute(
           builder: (context) {
-            return Cadastro();
+            return Home();
           },
         ),
       );

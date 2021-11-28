@@ -41,14 +41,6 @@ class _EditCadSevState extends State<EditCadSev> {
   final indseverino = TextEditingController();
   final cadSevServ = new CadastroSevService();
 
-  static List<String> profissoes = [
-    "Encanador",
-    "Marceneiro",
-    "Eletricista",
-    "Mecanico",
-    "Motorista",
-  ];
-
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
@@ -107,27 +99,26 @@ class _EditCadSevState extends State<EditCadSev> {
                 setState(() {
                   if (this._currentStep < this._mySteps().length - 1) {
                     this._currentStep = this._currentStep + 1;
-                    _formUserData.currentState.validate();
-                    _formUserAddress.currentState.validate();
+                    //  _formUserData.currentState.validate();
                   } else {
-                    // cadSevServ.putCadastroSev(
-                    //     context,
-                    //     nome.text,
-                    //     cpf.text,
-                    //     telefone.text,
-                    //     indseverino.text == "N" ? true : false,
-                    //     logradouro.text,
-                    //     complemento.text,
-                    //     numero.text,
-                    //     bairro.text,
-                    //     cep.text,
-                    //     estado.text,
-                    //     cidade.text,
-                    //     razaosocial.text,
-                    //     nrocpfcnpj.text,
-                    //     linkwhatsapp.text,
-                    //     nrotelcomercial.text);
-                    // _formUserSev.currentState.validate();
+                    cadSevServ.putCadastro(
+                        context,
+                        nome.text,
+                        cpf.text,
+                        telefone.text,
+                        indseverino.text == "S",
+                        logradouro.text,
+                        complemento.text,
+                        numero.text,
+                        bairro.text,
+                        cep.text,
+                        estado.text,
+                        cidade.text,
+                        razaosocial.text,
+                        nrocpfcnpj.text,
+                        linkwhatsapp.text,
+                        nrotelcomercial.text);
+                    // _formUserAddress.currentState.validate();
                   }
                 });
               },
@@ -163,8 +154,6 @@ class _EditCadSevState extends State<EditCadSev> {
                   ),
                 ),
                 validator: (value) {
-                  if (value.length == 0) return "Preencha Nome";
-
                   if (value.length < 3) return "Nome inválido";
 
                   return null;
@@ -189,8 +178,6 @@ class _EditCadSevState extends State<EditCadSev> {
                   ),
                 ),
                 validator: (value) {
-                  if (value.length == 0) return "Preencha CPF";
-
                   if (value.length != 14) return "CPF inválido";
 
                   return null;
@@ -215,8 +202,6 @@ class _EditCadSevState extends State<EditCadSev> {
                   ),
                 ),
                 validator: (value) {
-                  if (value.length == 0) return "Preencha Celular";
-
                   if (value.length < 11) return "Celular inválido";
 
                   return null;
@@ -252,8 +237,6 @@ class _EditCadSevState extends State<EditCadSev> {
                   ),
                 ),
                 validator: (value) {
-                  if (value.length == 0) return "Preencha CEP";
-
                   if (value.length < 10) return "CEP inválido";
 
                   return null;
@@ -274,8 +257,6 @@ class _EditCadSevState extends State<EditCadSev> {
                   ),
                 ),
                 validator: (value) {
-                  if (value.length == 0) return "Preencha Logradouro";
-
                   if (value.length < 3) return "Logradouro inválido";
 
                   return null;
@@ -311,8 +292,6 @@ class _EditCadSevState extends State<EditCadSev> {
                   ),
                 ),
                 validator: (value) {
-                  if (value.length == 0) return "Preencha Bairro";
-
                   if (value.length < 3) return "Bairro inválido";
 
                   return null;
@@ -333,8 +312,6 @@ class _EditCadSevState extends State<EditCadSev> {
                   ),
                 ),
                 validator: (value) {
-                  if (value.length == 0) return "Preencha Cidade";
-
                   if (value.length < 3) return "Cidade inválida";
 
                   return null;
@@ -361,10 +338,6 @@ class _EditCadSevState extends State<EditCadSev> {
                 }).toList(),
                 onChanged: (String novoEstadoSelecionado) {
                   estado.text = novoEstadoSelecionado;
-                },
-                validator: (value) {
-                  if (value == null) return "Selecione um estado";
-                  return null;
                 },
               ),
               TextFormField(
@@ -430,8 +403,6 @@ class _EditCadSevState extends State<EditCadSev> {
                   ),
                 ),
                 validator: (value) {
-                  if (value.length == 0) return "Preencha este campo";
-
                   if (value.length != 14) return "CPF/CNPJ inválido";
 
                   return null;
@@ -480,77 +451,16 @@ class _EditCadSevState extends State<EditCadSev> {
                     fontWeight: FontWeight.w400,
                     fontSize: 12,
                   ),
-                  suffixIcon: Padding(
-                    padding: EdgeInsets.all(0.0),
-                    child: IconButton(
-                      icon: Icon(Icons.help_outline),
-                      color: Colors.grey.shade400,
-                      onPressed: () {
-                        _showMyDialog(
-                            "Será gerado um link de integração com o WhatsApp a partir do número disponibilizado, para que os clientes possam entrar em contato através do seu perfil.");
-                      },
-                    ),
-                  ),
                 ),
-                // validator: (value) {
-                //   if (value.length == 0) return "Preencha Celular";
+                validator: (value) {
+                  if (value.length < 11) return "Celular inválido";
 
-                //   if (value.length < 11) return "Celular inválido";
-
-                //   return null;
-                // },
+                  return null;
+                },
                 style: TextStyle(
                   fontSize: 20,
                 ),
               ),
-              DropdownButtonFormField(
-                isExpanded: true,
-                decoration: InputDecoration(
-                  labelText: "Serviço prestado",
-                  labelStyle: TextStyle(
-                    color: Colors.black87,
-                    fontWeight: FontWeight.w400,
-                    fontSize: 12,
-                  ),
-                ),
-
-                items: _EditCadSevState.profissoes.map((String profissao) {
-                  return DropdownMenuItem(
-                    child: Text(profissao),
-                    value: profissao,
-                  );
-                }).toList(),
-
-                onChanged: (String novaProfissaoSelecionada) {
-                  tipoprof.text = novaProfissaoSelecionada;
-                },
-                // validator: (value) {
-                //   if (value == null) return "Selecione um estado";
-                //   return null;
-                // },
-              ),
-              // TextFormField(
-              //   // controller: linkwhatsapp,
-              //   keyboardType: TextInputType.text,
-              //   decoration: InputDecoration(
-              //     labelText: "Outros Serviços: ",
-              //     labelStyle: TextStyle(
-              //       color: Colors.black87,
-              //       fontWeight: FontWeight.w400,
-              //       fontSize: 12,
-              //     ),
-              //   ),
-              //   // validator: (value) {
-              //   //   if (value.length == 0) return "Preencha Celular";
-
-              //   //   if (value.length < 11) return "Celular inválido";
-
-              //   //   return null;
-              //   // },
-              //   style: TextStyle(
-              //     fontSize: 20,
-              //   ),
-              // ),
               SizedBox(
                 height: 20,
               ),
@@ -558,31 +468,5 @@ class _EditCadSevState extends State<EditCadSev> {
           ))
     ];
     return _steps;
-  }
-
-  Future<void> _showMyDialog(sMensagem) async {
-    return showDialog<void>(
-      context: context,
-      barrierDismissible: false, // user must tap button!
-      builder: (BuildContext context) {
-        return AlertDialog(
-          content: SingleChildScrollView(
-            child: ListBody(
-              children: <Widget>[
-                Text(sMensagem),
-              ],
-            ),
-          ),
-          actions: <Widget>[
-            TextButton(
-              child: Text('Ok'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
   }
 }

@@ -63,8 +63,39 @@ class _PerfilSeverinoState extends State<PerfilSeverino> {
               SizedBox(
                 height: 150,
               ),
+              // Container(
+              //   height: 40,
+              //   alignment: Alignment.center,
+              //   decoration: BoxDecoration(
+              //     color: Colors.greenAccent[700],
+              //     borderRadius: BorderRadius.all(
+              //       Radius.circular(10),
+              //     ),
+              //   ),
+              //   child: SizedBox.expand(
+              //     child: TextButton(
+              //       onPressed: () {},
+              //       child: Row(
+              //         mainAxisAlignment: MainAxisAlignment.center,
+              //         children: [
+              //           Text(
+              //             ("WhatsApp"),
+              //             style: TextStyle(
+              //               fontSize: 15,
+              //               color: Colors.white,
+              //             ),
+              //             textAlign: TextAlign.center,
+              //           ),
+              //         ],
+              //       ),
+              //     ),
+              //   ),
+              // ),
+              SizedBox(
+                height: 200,
+              ),
               Container(
-                height: 40,
+                height: 60,
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
                   color: Colors.greenAccent[700],
@@ -79,44 +110,9 @@ class _PerfilSeverinoState extends State<PerfilSeverino> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          ("WhatsApp"),
-                          style: TextStyle(
-                            fontSize: 15,
-                            color: Colors.white,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 200,
-              ),
-              Container(
-                height: 60,
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(10),
-                  ),
-                  border: Border.all(
-                    color: Colors.green.shade500,
-                  ),
-                ),
-                child: SizedBox.expand(
-                  child: TextButton(
-                    onPressed: () {
-                      Get.to(SolicitarServico());
-                    },
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
                           ("Solicitar Serviço"),
                           style: TextStyle(
-                            fontSize: 15,
+                            fontSize: 25,
                             color: Colors.black,
                           ),
                           textAlign: TextAlign.center,

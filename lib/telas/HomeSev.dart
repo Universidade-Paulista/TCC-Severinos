@@ -54,7 +54,8 @@ class _HomeSevState extends State<HomeSev> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    "Bem-Vindo \n" + _sNome + " !",
+                    // "Bem-Vindo \n" + _sNome + " !",
+                    "Bem-Vindo !",
                     style: TextStyle(
                       fontSize: 25,
                       color: Colors.black,
@@ -66,17 +67,18 @@ class _HomeSevState extends State<HomeSev> {
             SizedBox(
               height: 10,
             ),
-            // Container(
-            //   child: Row(
-            //     mainAxisAlignment: MainAxisAlignment.center,
-            //     children: [
-            //       Text(
-            //         _sNome,
-            //         style: TextStyle(
-            //           fontSize: 20,
-            //           color: Colors.black,
-            //         ),
-            //       ),
+            Container(
+              child:
+                  Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                Text(
+                  _sNome,
+                  style: TextStyle(
+                    fontSize: 20,
+                    color: Colors.black,
+                  ),
+                ),
+              ]),
+            ),
 
             //       //trazer do model
             //       // Consumer<CadastroMod>(builder: (context, CadastroMod, child) {
@@ -343,11 +345,8 @@ class _HomeSevState extends State<HomeSev> {
   getNome(String email, String senha) async {
     try {
       final dio = Dio();
-      var response = await dio.get(
-          "https://apiseverinos.azurewebsites.net/api/Cadastro/" +
-              email +
-              "/" +
-              senha);
+      var response = await dio
+          .get("http://192.168.15.7:5000/api/Cadastro/" + email + "/" + senha);
 
       if (response.statusCode == 200) {
         var nome = response.data;
@@ -363,7 +362,7 @@ class _HomeSevState extends State<HomeSev> {
   // getNome(String email, String senha) async {
   //   final dio = Dio();
   //   var response = await dio.get(
-  //       "https://apiseverinos.azurewebsites.net/api/Cadastro/" +
+  //       "http://192.168.15.7:5000/api/Cadastro/" +
   //           email +
   //           "/" +
   //           senha);

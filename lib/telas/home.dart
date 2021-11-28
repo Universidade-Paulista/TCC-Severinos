@@ -300,8 +300,7 @@ class _HomeState extends State<Home> {
   getListProfissoes() async {
     try {
       final dio = Dio();
-      var response = await dio
-          .get("https://apiseverinos.azurewebsites.net/api/profissao/");
+      var response = await dio.get("http://192.168.15.7:5000/api/profissao/");
 
       if (response.statusCode == 200) {
         var lista = List<String>.from(response.data);
