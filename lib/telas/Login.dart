@@ -142,12 +142,12 @@ class _LoginState extends State<Login> {
                     if (usuario['IndSeverino'] == 'N') {
                       email = _txtEmail.text;
                       senha = _txtSenha.text;
-                      _getSalvar(usuario['SeqPessoa']);
+                      _getSalvar(usuario['SeqPessoa'].toString());
                       Get.to(Home());
                     } else if (usuario['IndSeverino'] == 'S') {
                       email = _txtEmail.text;
                       senha = _txtSenha.text;
-                      _getSalvar(usuario['SeqPessoa']);
+                      _getSalvar(usuario['SeqPessoa'].toString());
                       // _modelCad(cad);
                       // _salvar(context);
                       Get.to(HomeSev());

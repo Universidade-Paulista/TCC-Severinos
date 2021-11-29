@@ -19,6 +19,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   final _txtEndereco = TextEditingController();
   String _servicoId = '';
+  int controle = 0;
   final service = new HomeService();
   List<String> _profissoes = [];
 
@@ -299,11 +300,15 @@ class _HomeState extends State<Home> {
   getListProfissoes() async {
     try {
       final dio = Dio();
-      var response = await dio.get("http://192.168.15.7:5000/api/profissao/");
+      var response = await dio.get("http://192.168.15.9:5000/api/profissao/");
 
       if (response.statusCode == 200) {
         var lista = List<String>.from(response.data);
-        setState(() => _profissoes = lista);
+
+        if (controle == 0) {
+          setState(() => _profissoes = lista);
+          controle = 1;
+        }
       } else {
         AlertDialog(
           title: Text(response.statusMessage),

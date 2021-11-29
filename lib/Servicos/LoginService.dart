@@ -10,7 +10,7 @@ class LoginService {
     try {
       final dio = Dio();
       var response = await dio
-          .get("http://192.168.15.7:5000/api/Login/" + email + "/" + senha);
+          .get("http://192.168.15.9:5000/api/Login/" + email + "/" + senha);
 
       if (response.statusCode == 200) {
         return response.data;
@@ -30,7 +30,7 @@ class LoginService {
     try {
       final dio = Dio();
       var response =
-          await dio.get("http://192.168.15.7:5000/api/ValidacoesCPF/" + cpf);
+          await dio.get("http://192.168.15.9:5000/api/ValidacoesCPF/" + cpf);
 
       if (response.statusCode == 200) {
         return response.data;
@@ -48,7 +48,7 @@ class LoginService {
 
   putSenha(final context, String cpf, String senha) async {
     final response = await http.put(
-        Uri.parse('http://192.168.15.7:5000/api/Login/' + cpf + "/" + senha));
+        Uri.parse('http://192.168.15.9:5000/api/Login/' + cpf + "/" + senha));
 
     if (response.statusCode == 200) {
       return response.body;

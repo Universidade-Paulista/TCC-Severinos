@@ -142,7 +142,7 @@ class _HomeSevState extends State<HomeSev> {
               alignment: Alignment.center,
               child: SizedBox.expand(
                 child: ElevatedButton.icon(
-                  onPressed: () => getImageFromBD(),
+                  onPressed: () => chamaImagem(),
                   icon: Icon(
                     Icons.edit,
                     color: Colors.black,
@@ -336,7 +336,7 @@ class _HomeSevState extends State<HomeSev> {
 
   Future getImageFromBD() async {
     if (service.getImagem() != null) {
-      Uint8List imageBytes = base64.decode(service.getImagem());
+      Uint8List imageBytes = base64.decode(service.getImagem().toString());
 
       String dir = (await getApplicationDocumentsDirectory()).path;
 
@@ -348,11 +348,19 @@ class _HomeSevState extends State<HomeSev> {
     }
   }
 
+  chamaImagem() {
+    if (service.getImagem() != null) {
+      getImageFromBD();
+    } else {
+      getFileFromGallery();
+    }
+  }
+
   getNome(String email, String senha) async {
     try {
       final dio = Dio();
       var response = await dio
-          .get("http://192.168.15.7:5000/api/Cadastro/" + email + "/" + senha);
+          .get("http://192.168.15.9:5000/api/Cadastro/" + email + "/" + senha);
 
       if (response.statusCode == 200) {
         var nome = response.data;
@@ -372,7 +380,7 @@ class _HomeSevState extends State<HomeSev> {
   // getNome(String email, String senha) async {
   //   final dio = Dio();
   //   var response = await dio.get(
-  //       "http://192.168.15.7:5000/api/Cadastro/" +
+  //       "http://192.168.15.9:5000/api/Cadastro/" +
   //           email +
   //           "/" +
   //           senha);

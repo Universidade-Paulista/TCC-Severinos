@@ -1,8 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:brasil_fields/brasil_fields.dart';
 import 'package:severino/Servicos/CadastroService.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class EditCad extends StatefulWidget {
   @override
@@ -31,7 +34,11 @@ class _EditCadState extends State<EditCad> {
   final indseverino = TextEditingController();
   final cadServ = new CadastroService();
 
+  String est = "São Paulo";
+  int controle = 0;
+
   Widget build(BuildContext context) {
+    getEdit();
     return Scaffold(
         appBar: AppBar(
           foregroundColor: Colors.black,
@@ -91,19 +98,7 @@ class _EditCadState extends State<EditCad> {
                   this._currentStep = this._currentStep + 1;
                   // _formUserData.currentState.validate();
                 } else {
-                  cadServ.putCadastro(
-                      context,
-                      nome.text,
-                      cpf.text,
-                      telefone.text,
-                      indseverino.text == "S" ? true : false,
-                      logradouro.text,
-                      complemento.text,
-                      numero.text,
-                      bairro.text,
-                      cep.text,
-                      estado.text,
-                      cidade.text);
+                  alterarCad();
                   // _formUserAddress.currentState.validate();
                 }
               });
@@ -317,6 +312,7 @@ class _EditCadState extends State<EditCad> {
                     fontSize: 12,
                   ),
                 ),
+
                 items: Estados.listaEstados.map((String estado) {
                   return DropdownMenuItem(
                     child: Text(estado),
@@ -326,6 +322,7 @@ class _EditCadState extends State<EditCad> {
                 onChanged: (String novoEstadoSelecionado) {
                   estado.text = novoEstadoSelecionado;
                 },
+                value: est,
                 // validator: (value) {
                 //   if (value == null) return "Selecione um estado";
                 //   return null;
@@ -353,6 +350,50 @@ class _EditCadState extends State<EditCad> {
           )),
     ];
     return _steps;
+  }
+
+  alterarCad() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    String idpessoa = prefs.getString('Idpessoa');
+
+    cadServ.putCadastro(
+        context,
+        nome.text,
+        cpf.text,
+        telefone.text,
+        indseverino.text == "S" ? true : false,
+        logradouro.text,
+        complemento.text,
+        numero.text,
+        bairro.text,
+        cep.text,
+        estado.text,
+        cidade.text,
+        idpessoa);
+  }
+
+  getEdit() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    String idpessoa = prefs.getString('Idpessoa');
+
+    Map<String, dynamic> perfil =
+        jsonDecode(await cadServ.getCadastro(idpessoa));
+
+    nome.text = perfil['Nome'];
+    cpf.text = perfil['NroCPF'];
+    telefone.text = perfil['Telefone'];
+    cep.text = perfil['Cep'];
+    logradouro.text = perfil['Logradouro'];
+    numero.text = perfil['Numero'].toString();
+    bairro.text = perfil['Bairro'];
+    cidade.text = perfil['Cidade'];
+    if (controle == 0) {
+      setState(() => est = perfil["Estado"]);
+      controle = 1;
+    }
+    complemento.text = perfil['Complemento'];
   }
 
   // Future<void> showMyDialog(sMensagem) async {

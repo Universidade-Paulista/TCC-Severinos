@@ -73,7 +73,7 @@ class CadastroService {
     var headers = {'Content-Type': 'application/json'};
 
     var request = http.Request(
-        'POST', Uri.parse('http://192.168.15.7:5000/api/Cadastro/'));
+        'POST', Uri.parse('http://192.168.15.9:5000/api/Cadastro/'));
 
     request.body = jsonEncode(sbody);
     request.headers.addAll(headers);
@@ -108,7 +108,8 @@ class CadastroService {
       String bairro,
       String cep,
       String estado,
-      String cidade) async {
+      String cidade,
+      String id) async {
     String sbody = "{" +
         "\"nome\": \"" +
         nome +
@@ -152,7 +153,7 @@ class CadastroService {
     var headers = {'Content-Type': 'application/json'};
 
     var request = http.Request(
-        'PUT', Uri.parse('http://192.168.15.7:5000/api/Cadastro/100'));
+        'PUT', Uri.parse('http://192.168.15.9:5000/api/Cadastro/$id'));
 
     request.body = jsonEncode(sbody);
     request.headers.addAll(headers);
@@ -175,94 +176,17 @@ class CadastroService {
     }
   }
 
-  getCadastro(
-      String seqPessoa,
-      String nome,
-      String cpf,
-      String email,
-      String celular,
-      bool indseverino,
-      String senha,
-      String logradouro,
-      String complemento,
-      String numero,
-      String bairro,
-      String cep,
-      String estado,
-      String cidade,
-      String razaosocial,
-      String nrocpfcnpj,
-      String linkwhatsapp,
-      String nrotelcomercial) async {
-    String sbody = "{" +
-        "\"nome\": \"" +
-        nome +
-        "\",                          " +
-        "   \"cpf\": \"" +
-        cpf +
-        "\",                            " +
-        "   \"email\": \"" +
-        email +
-        "\",                        " +
-        "	  \"telefone\": \"" +
-        celular +
-        "\",                  " +
-        "   \"indseverino\": \"" +
-        indseverino.toString() +
-        "\", " +
-        "	  \"senha\": \"" +
-        senha +
-        "\",                        " +
-        "	  \"logradouro\": \"" +
-        logradouro +
-        "\",              " +
-        "	  \"complemento\": \"" +
-        complemento +
-        "\",                " +
-        "	  \"numero\": \"" +
-        numero +
-        "\",                      " +
-        "	  \"bairro\": \"" +
-        bairro +
-        "\",                      " +
-        "	  \"cep\": \"" +
-        cep +
-        "\",                            " +
-        "	  \"estado\": \"" +
-        estado +
-        "\",                      " +
-        "   \"cidade\": \"" +
-        cidade +
-        "\",                      " +
-        "	  \"razaosocial\": \"" +
-        razaosocial +
-        "\",                      " +
-        "   \"nrocpfcnpj\": \"" +
-        nrocpfcnpj +
-        "\",                      " +
-        "	  \"linkwhatsapp\": \"" +
-        linkwhatsapp +
-        "\",                      " +
-        "	  \"nrotelcomercial\": \"" +
-        nrotelcomercial +
-        "\", " +
-        "}                                                       ";
-
-    var headers = {'Content-Type': 'application/json'};
-
-    var request = http.Request(
-        'GET', Uri.parse('http://192.168.15.7:5000/api/Cadastro/'));
-
-    request.body = jsonEncode(sbody);
-    request.headers.addAll(headers);
-
-    http.StreamedResponse response = await request.send();
+  getCadastro(String id) async {
+    final dio = Dio();
+    Response response =
+        await dio.get("http://192.168.15.9:5000/api/Cadastro/$id");
 
     if (response.statusCode == 200) {
-      return sbody;
+      String edit = response.data;
+      return edit;
     } else {
       AlertDialog(
-        title: Text(response.reasonPhrase),
+        title: Text(response.statusMessage),
       );
     }
   }
