@@ -1,5 +1,8 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:severino/Servicos/PerfilService.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class PerfilSeverino extends StatefulWidget {
   @override
@@ -7,6 +10,7 @@ class PerfilSeverino extends StatefulWidget {
 }
 
 class _PerfilSeverinoState extends State<PerfilSeverino> {
+  final ps = new PerfilService();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,7 +49,9 @@ class _PerfilSeverinoState extends State<PerfilSeverino> {
                       alignment: Alignment.center,
                       child: SizedBox.expand(
                           child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          linkWhats();
+                        },
                         child: Icon(
                           Icons.person_rounded,
                           color: Colors.white,
@@ -103,7 +109,9 @@ class _PerfilSeverinoState extends State<PerfilSeverino> {
                 ),
                 child: SizedBox.expand(
                   child: TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      linkWhats();
+                    },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -126,6 +134,19 @@ class _PerfilSeverinoState extends State<PerfilSeverino> {
             ],
           ),
         ));
+  }
+
+  linkWhats() async {
+    const url = 'https://api.whatsapp.com/send?phone=5516993078764';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+    // SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    // String idpessoa = prefs.getString('Idpessoa');
+    // return 'https://api.whatsapp.com/send?phone=55' + ps.getWhats(idpessoa);
   }
 
   File arquivo;

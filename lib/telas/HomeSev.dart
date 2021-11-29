@@ -20,6 +20,7 @@ class _HomeSevState extends State<HomeSev> {
   bool _isButtonDisabled = true;
   final txtNome = TextEditingController();
   String _sNome = "";
+  int controle = 0;
   HomeSevService service = new HomeSevService();
 
   @override
@@ -364,7 +365,10 @@ class _HomeSevState extends State<HomeSev> {
 
       if (response.statusCode == 200) {
         var nome = response.data;
-        setState(() => _sNome = nome);
+        if (controle == 0) {
+          setState(() => _sNome = nome);
+          controle = 1;
+        }
       } else {
         AlertDialog(
           title: Text(response.statusMessage),
