@@ -6,15 +6,20 @@ class HomeService {
   Dio dio = new Dio();
 
   getListProfissoes() async {
-    final dio = Dio();
-    Response response = await dio
-        .get("http://https://apiseverinos.azurewebsites.net/api/profissao/");
+    try {
+      final dio = Dio();
+      var response = await dio.get("http://192.168.15.9:5000/api/profissao/");
 
-    if (response.statusCode == 200) {
-      return response.data;
-    } else {
+      if (response.statusCode == 200) {
+        return response.data;
+      } else {
+        AlertDialog(
+          title: Text(response.statusMessage),
+        );
+      }
+    } on DioError catch (error) {
       AlertDialog(
-        title: Text(response.statusMessage),
+        title: Text(error.message),
       );
     }
   }

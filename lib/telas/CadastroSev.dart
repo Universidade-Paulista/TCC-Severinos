@@ -46,6 +46,7 @@ class _CadastroSevState extends State<CadastroSev> {
   final indseverino = TextEditingController();
   final cadSevServ = new CadastroSevService();
 
+  int controle = 0;
   List<String> profissoes = [];
 
   // prencherLista() async {
@@ -662,7 +663,11 @@ class _CadastroSevState extends State<CadastroSev> {
 
       if (response.statusCode == 200) {
         var lista = List<String>.from(response.data);
-        setState(() => profissoes = lista);
+
+        if (controle == 0) {
+          setState(() => profissoes = lista);
+          controle = 1;
+        }
       } else {
         AlertDialog(
           title: Text(response.statusMessage),

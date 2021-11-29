@@ -181,16 +181,21 @@ class CadastroService {
   }
 
   getCadastro(String id) async {
-    final dio = Dio();
-    Response response = await dio
-        .get("http://https://apiseverinos.azurewebsites.net/api/Cadastro/$id");
+    try {
+      final dio = Dio();
+      var response = await dio.get("http://192.168.15.9:5000/api/Cadastro/$id");
 
-    if (response.statusCode == 200) {
-      String edit = response.data;
-      return edit;
-    } else {
+      if (response.statusCode == 200) {
+        String edit = response.data;
+        return edit;
+      } else {
+        AlertDialog(
+          title: Text(response.statusMessage),
+        );
+      }
+    } on DioError catch (error) {
       AlertDialog(
-        title: Text(response.statusMessage),
+        title: Text(error.message),
       );
     }
   }

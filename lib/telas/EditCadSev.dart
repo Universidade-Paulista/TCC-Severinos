@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -46,14 +45,14 @@ class _EditCadSevState extends State<EditCadSev> {
   final cadSev = new CadastroService();
 
   String est = "São Paulo";
-  String prof = "Eletricista";
+  String prof = "Pintor";
   int controle = 0;
 
   List<String> profissoes = [];
 
   Widget build(BuildContext context) {
-    getEdit();
     getListProfissoes();
+    getEdit();
     return Scaffold(
         appBar: AppBar(
           foregroundColor: Colors.black,
@@ -114,23 +113,7 @@ class _EditCadSevState extends State<EditCadSev> {
                     //  _formUserData.currentState.validate();
                   } else {
                     alterarCad();
-                    // cadSevServ.putCadastro(
-                    //     context,
-                    //     nome.text,
-                    //     cpf.text,
-                    //     telefone.text,
-                    //     indseverino.text == "S",
-                    //     logradouro.text,
-                    //     complemento.text,
-                    //     numero.text,
-                    //     bairro.text,
-                    //     cep.text,
-                    //     estado.text,
-                    //     cidade.text,
-                    //     razaosocial.text,
-                    //     nrocpfcnpj.text,
-                    //     linkwhatsapp.text,
-                    //     nrotelcomercial.text);
+
                     // _formUserAddress.currentState.validate();
                   }
                 });
@@ -496,33 +479,36 @@ class _EditCadSevState extends State<EditCadSev> {
           fontSize: 12,
         ),
       ),
-      items: profissoes.map((dynamic profissao) {
-        prof = profissao;
+      items: profissoes.map((String profissao) {
+        // prof = profissao;
         return DropdownMenuItem(
           child: Text(profissao),
-          value: prof,
+          value: profissao,
         );
       }).toList(),
-      onChanged: (dynamic novaProfissaoSelecionada) {
+      onChanged: (String novaProfissaoSelecionada) {
         tipoprof.text = novaProfissaoSelecionada;
       },
       value: prof,
-      validator: (value) {
-        if (value == null) return "Selecione um serviço";
-        return null;
-      },
+      // validator: (value) {
+      //   if (value == null) return "Selecione um serviço";
+      //   return null;
+      // },
     );
   }
 
   getListProfissoes() async {
     try {
       final dio = Dio();
-      var response = await dio
-          .get("http://https://apiseverinos.azurewebsites.net/api/Profissao/");
+      var response = await dio.get("http://192.168.15.9:5000/api/profissao/");
 
       if (response.statusCode == 200) {
         var lista = List<String>.from(response.data);
-        setState(() => profissoes = lista);
+
+        if (controle == 0) {
+          setState(() => profissoes = lista);
+          controle = 1;
+        }
       } else {
         AlertDialog(
           title: Text(response.statusMessage),
