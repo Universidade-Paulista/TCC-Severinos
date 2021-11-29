@@ -1,4 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:get/get_rx/src/rx_types/rx_types.dart';
+import 'package:severino/Servicos/ListPrestadoresService.dart';
 
 class ListaPrestadores extends StatefulWidget {
   @override
@@ -17,6 +21,8 @@ class _ListaPrestadoresState extends State<ListaPrestadores> {
 
   @override
   Widget build(BuildContext context) {
+    ListPrestadoresService service = new ListPrestadoresService();
+    Map<String, dynamic> usuario;
     return Scaffold(
       appBar: AppBar(
         foregroundColor: Colors.black,
@@ -36,7 +42,8 @@ class _ListaPrestadoresState extends State<ListaPrestadores> {
                     SizedBox(
                       height: 10,
                     ),
-                    for (var i = 0; i < _profissoes.length; i++)
+                    usuario = jsonDecode(service.getListaPrestadores()),
+                    for (var i = 0; i < usuario.length; i++)
                       _getCaixaDeInfo(_profissoes[i], 1)
                   ],
                 ),
