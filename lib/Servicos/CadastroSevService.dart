@@ -119,25 +119,24 @@ class CadastroSevService {
   }
 
   putCadastro(
-    final context,
-    String nome,
-    String cpf,
-    String celular,
-    bool indseverino,
-    String logradouro,
-    String complemento,
-    String numero,
-    String bairro,
-    String cep,
-    String estado,
-    String cidade,
-    String razaosocial,
-    String nrocpfcnpj,
-    String linkwhatsapp,
-    String nrotelcomercial,
-    String tipoprof,
-    String id,
-  ) async {
+      final context,
+      String nome,
+      String cpf,
+      String celular,
+      bool indseverino,
+      String logradouro,
+      String complemento,
+      String numero,
+      String bairro,
+      String cep,
+      String estado,
+      String cidade,
+      String razaosocial,
+      String nrocpfcnpj,
+      String linkwhatsapp,
+      String nrotelcomercial,
+      String tipoprof,
+      String id) async {
     final bool indseverino = true;
     // final String link = 'https://api.whatsapp.com/send?phone=55' +
     //     linkwhatsapp.replaceAll('(', '').replaceAll(')', '');
