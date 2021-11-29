@@ -200,7 +200,6 @@ class _HomeState extends State<Home> {
           child: SizedBox.expand(
             child: TextButton(
               onPressed: () {
-                var teste = titulo;
                 Get.to(ListaPrestadores());
               },
               child: Column(
@@ -310,6 +309,10 @@ class _HomeState extends State<Home> {
           title: Text(response.statusMessage),
         );
       }
-    } on DioError catch (error) {}
+    } on DioError catch (error) {
+      AlertDialog(
+        title: Text(error.message),
+      );
+    }
   }
 }

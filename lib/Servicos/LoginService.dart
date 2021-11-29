@@ -19,7 +19,11 @@ class LoginService {
           title: Text(response.statusMessage),
         );
       }
-    } on DioError catch (error) {}
+    } on DioError catch (error) {
+      AlertDialog(
+        title: Text(error.message),
+      );
+    }
   }
 
   getCPF(String cpf) async {
@@ -35,7 +39,11 @@ class LoginService {
           title: Text(response.statusMessage),
         );
       }
-    } on DioError catch (error) {}
+    } on DioError catch (error) {
+      AlertDialog(
+        title: Text(error.message),
+      );
+    }
   }
 
   putSenha(final context, String cpf, String senha) async {

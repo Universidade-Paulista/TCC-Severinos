@@ -1,7 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-//import 'package:provider/provider.dart';
-import 'package:severino/Models/CadastroMod.dart';
 import 'package:severino/Servicos/LoginService.dart';
 import 'package:get/get.dart';
 import 'package:severino/telas/HomeSev.dart';
@@ -136,18 +136,18 @@ class _LoginState extends State<Login> {
               child: TextButton(
                 onPressed: () async {
                   if (_formKey.currentState.validate()) {
-                    String result =
-                        await log.getLogin(_txtEmail.text, _txtSenha.text);
+                    Map<String, dynamic> usuario = jsonDecode(
+                        await log.getLogin(_txtEmail.text, _txtSenha.text));
 
-                    if (result == 'N') {
+                    if (usuario['IndSeverino'] == 'N') {
                       email = _txtEmail.text;
                       senha = _txtSenha.text;
-                      _getSalvar();
+                      _getSalvar(usuario['SeqPessoa']);
                       Get.to(Home());
-                    } else if (result == 'S') {
+                    } else if (usuario['IndSeverino'] == 'S') {
                       email = _txtEmail.text;
                       senha = _txtSenha.text;
-                      _getSalvar();
+                      _getSalvar(usuario['SeqPessoa']);
                       // _modelCad(cad);
                       // _salvar(context);
                       Get.to(HomeSev());
@@ -193,11 +193,12 @@ class _LoginState extends State<Login> {
     );
   }
 
-  _getSalvar() async {
+  _getSalvar(String id) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     prefs.setString('Email', _txtEmail.text);
     prefs.setString('Senha', _txtSenha.text);
+    prefs.setString('Idpessoa', id);
   }
 
   Future<void> _showMyDialog(sMensagem) async {

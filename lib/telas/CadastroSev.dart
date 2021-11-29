@@ -667,6 +667,10 @@ class _CadastroSevState extends State<CadastroSev> {
           title: Text(response.statusMessage),
         );
       }
-    } on DioError catch (error) {}
+    } on DioError catch (error) {
+      AlertDialog(
+        title: Text(error.message),
+      );
+    }
   }
 }

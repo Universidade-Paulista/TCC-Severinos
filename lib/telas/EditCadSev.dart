@@ -1,10 +1,8 @@
-import 'package:dropdownfield/dropdownfield.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:brasil_fields/brasil_fields.dart';
 import 'package:severino/Servicos/CadastroSevService.dart';
-import 'package:severino/Servicos/HomeService.dart';
 
 class EditCadSev extends StatefulWidget {
   @override

@@ -1,7 +1,5 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:severino/telas/SolicitarServico.dart';
 
 class PerfilSeverino extends StatefulWidget {
   @override

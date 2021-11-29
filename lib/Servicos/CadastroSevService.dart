@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:severino/telas/Cadastro.dart';
-import 'package:severino/telas/CadastroSev.dart';
 import 'package:severino/telas/HomeSev.dart';
 import 'package:severino/telas/Login.dart';
 
@@ -207,6 +206,27 @@ class CadastroSevService {
           },
         ),
       );
+    } else {
+      AlertDialog(
+        title: Text(response.reasonPhrase),
+      );
+    }
+  }
+
+  putImagem(String ImgBase64) async {
+    String sbody = "{\"imagem\": \"$ImgBase64\"}";
+    var headers = {'Content-Type': 'application/json'};
+
+    var request = http.Request(
+        'PUT', Uri.parse('http://192.168.15.7:5000/api/Cadastro/39'));
+
+    request.body = jsonEncode(sbody);
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      return response.statusCode;
     } else {
       AlertDialog(
         title: Text(response.reasonPhrase),
