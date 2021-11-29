@@ -45,13 +45,14 @@ class _EditCadSevState extends State<EditCadSev> {
   final cadSev = new CadastroService();
 
   String est = "São Paulo";
-  String prof = "Pintor";
+  String prof = "";
   int controle = 0;
+
+  int controle3 = 0;
 
   List<String> profissoes = [];
 
   Widget build(BuildContext context) {
-    getListProfissoes();
     getEdit();
     return Scaffold(
         appBar: AppBar(
@@ -110,6 +111,9 @@ class _EditCadSevState extends State<EditCadSev> {
                 setState(() {
                   if (this._currentStep < this._mySteps().length - 1) {
                     this._currentStep = this._currentStep + 1;
+                    if (this._currentStep == 1) {
+                      getListProfissoes();
+                    }
                     //  _formUserData.currentState.validate();
                   } else {
                     alterarCad();
@@ -505,9 +509,9 @@ class _EditCadSevState extends State<EditCadSev> {
       if (response.statusCode == 200) {
         var lista = List<String>.from(response.data);
 
-        if (controle == 0) {
+        if (controle3 == 0) {
           setState(() => profissoes = lista);
-          controle = 1;
+          controle3 = 1;
         }
       } else {
         AlertDialog(
@@ -539,6 +543,7 @@ class _EditCadSevState extends State<EditCadSev> {
     cidade.text = perfil['Cidade'];
     if (controle == 0) {
       setState(() => est = perfil["Estado"]);
+      setState(() => prof = perfil["NomeProfissao"]);
       controle = 1;
     }
     complemento.text = perfil['Complemento'];
@@ -546,10 +551,6 @@ class _EditCadSevState extends State<EditCadSev> {
     nrocpfcnpj.text = perfil['NroCpfCnpj'];
     nrotelcomercial.text = perfil['NroTelComercial'];
     linkwhatsapp.text = perfil['LinkWhatsapp'];
-    if (controle == 0) {
-      setState(() => prof = perfil["NomeProfissao"]);
-      controle = 1;
-    }
   }
 
   alterarCad() async {

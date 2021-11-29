@@ -54,7 +54,7 @@ class _HomeSevState extends State<HomeSev> {
                 children: [
                   Text(
                     // "Bem-Vindo \n" + _sNome + " !",
-                    "Bem-Vindo !",
+                    "Bem-Vindo(a),",
                     style: TextStyle(
                       fontSize: 25,
                       color: Colors.black,
@@ -64,7 +64,7 @@ class _HomeSevState extends State<HomeSev> {
               ),
             ),
             SizedBox(
-              height: 10,
+              height: 5,
             ),
             Container(
               child:
