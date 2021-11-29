@@ -1,8 +1,13 @@
+import 'dart:convert';
+
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:brasil_fields/brasil_fields.dart';
+import 'package:severino/Servicos/CadastroService.dart';
 import 'package:severino/Servicos/CadastroSevService.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class EditCadSev extends StatefulWidget {
   @override
@@ -38,8 +43,17 @@ class _EditCadSevState extends State<EditCadSev> {
 
   final indseverino = TextEditingController();
   final cadSevServ = new CadastroSevService();
+  final cadSev = new CadastroService();
+
+  String est = "São Paulo";
+  String prof = "Eletricista";
+  int controle = 0;
+
+  List<String> profissoes = [];
 
   Widget build(BuildContext context) {
+    getEdit();
+    getListProfissoes();
     return Scaffold(
         appBar: AppBar(
           foregroundColor: Colors.black,
@@ -99,23 +113,24 @@ class _EditCadSevState extends State<EditCadSev> {
                     this._currentStep = this._currentStep + 1;
                     //  _formUserData.currentState.validate();
                   } else {
-                    cadSevServ.putCadastro(
-                        context,
-                        nome.text,
-                        cpf.text,
-                        telefone.text,
-                        indseverino.text == "S",
-                        logradouro.text,
-                        complemento.text,
-                        numero.text,
-                        bairro.text,
-                        cep.text,
-                        estado.text,
-                        cidade.text,
-                        razaosocial.text,
-                        nrocpfcnpj.text,
-                        linkwhatsapp.text,
-                        nrotelcomercial.text);
+                    alterarCad();
+                    // cadSevServ.putCadastro(
+                    //     context,
+                    //     nome.text,
+                    //     cpf.text,
+                    //     telefone.text,
+                    //     indseverino.text == "S",
+                    //     logradouro.text,
+                    //     complemento.text,
+                    //     numero.text,
+                    //     bairro.text,
+                    //     cep.text,
+                    //     estado.text,
+                    //     cidade.text,
+                    //     razaosocial.text,
+                    //     nrocpfcnpj.text,
+                    //     linkwhatsapp.text,
+                    //     nrotelcomercial.text);
                     // _formUserAddress.currentState.validate();
                   }
                 });
@@ -325,7 +340,7 @@ class _EditCadSevState extends State<EditCadSev> {
                   labelStyle: TextStyle(
                     color: Colors.black87,
                     fontWeight: FontWeight.w400,
-                    fontSize: 12,
+                    fontSize: 18,
                   ),
                 ),
                 items: Estados.listaEstados.map((String estado) {
@@ -337,6 +352,7 @@ class _EditCadSevState extends State<EditCadSev> {
                 onChanged: (String novoEstadoSelecionado) {
                   estado.text = novoEstadoSelecionado;
                 },
+                value: est,
               ),
               TextFormField(
                 controller: complemento,
@@ -459,6 +475,7 @@ class _EditCadSevState extends State<EditCadSev> {
                   fontSize: 20,
                 ),
               ),
+              _getDropDown(),
               SizedBox(
                 height: 20,
               ),
@@ -466,5 +483,111 @@ class _EditCadSevState extends State<EditCadSev> {
           ))
     ];
     return _steps;
+  }
+
+  _getDropDown() {
+    return DropdownButtonFormField(
+      isExpanded: true,
+      decoration: InputDecoration(
+        labelText: "Serviço prestado",
+        labelStyle: TextStyle(
+          color: Colors.black87,
+          fontWeight: FontWeight.w400,
+          fontSize: 12,
+        ),
+      ),
+      items: profissoes.map((dynamic profissao) {
+        prof = profissao;
+        return DropdownMenuItem(
+          child: Text(profissao),
+          value: prof,
+        );
+      }).toList(),
+      onChanged: (dynamic novaProfissaoSelecionada) {
+        tipoprof.text = novaProfissaoSelecionada;
+      },
+      value: prof,
+      validator: (value) {
+        if (value == null) return "Selecione um serviço";
+        return null;
+      },
+    );
+  }
+
+  getListProfissoes() async {
+    try {
+      final dio = Dio();
+      var response = await dio.get("http://192.168.15.9:5000/api/Profissao/");
+
+      if (response.statusCode == 200) {
+        var lista = List<String>.from(response.data);
+        setState(() => profissoes = lista);
+      } else {
+        AlertDialog(
+          title: Text(response.statusMessage),
+        );
+      }
+    } on DioError catch (error) {
+      AlertDialog(
+        title: Text(error.message),
+      );
+    }
+  }
+
+  getEdit() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    String idpessoa = prefs.getString('Idpessoa');
+
+    Map<String, dynamic> perfil =
+        jsonDecode(await cadSev.getCadastro(idpessoa));
+
+    nome.text = perfil['Nome'];
+    cpf.text = perfil['NroCPF'];
+    telefone.text = perfil['Telefone'];
+    cep.text = perfil['Cep'];
+    logradouro.text = perfil['Logradouro'];
+    numero.text = perfil['Numero'].toString();
+    bairro.text = perfil['Bairro'];
+    cidade.text = perfil['Cidade'];
+    if (controle == 0) {
+      setState(() => est = perfil["Estado"]);
+      controle = 1;
+    }
+    complemento.text = perfil['Complemento'];
+    razaosocial.text = perfil['RazaoSocial'];
+    nrocpfcnpj.text = perfil['NroCpfCnpj'];
+    nrotelcomercial.text = perfil['NroTelComercial'];
+    linkwhatsapp.text = perfil['LinkWhatsapp'];
+    if (controle == 0) {
+      setState(() => prof = perfil["NomeProfissao"]);
+      controle = 1;
+    }
+  }
+
+  alterarCad() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    String idpessoa = prefs.getString('Idpessoa');
+
+    cadSevServ.putCadastro(
+        context,
+        nome.text,
+        cpf.text,
+        telefone.text,
+        indseverino.text == "S" ? true : false,
+        logradouro.text,
+        complemento.text,
+        numero.text,
+        bairro.text,
+        cep.text,
+        estado.text,
+        cidade.text,
+        razaosocial.text,
+        nrocpfcnpj.text,
+        linkwhatsapp.text,
+        nrotelcomercial.text,
+        tipoprof.text,
+        idpessoa);
   }
 }

@@ -135,10 +135,12 @@ class CadastroSevService {
     String nrocpfcnpj,
     String linkwhatsapp,
     String nrotelcomercial,
+    String tipoprof,
+    String id,
   ) async {
     final bool indseverino = true;
-    final String link = 'https://api.whatsapp.com/send?phone=55' +
-        linkwhatsapp.replaceAll('(', '').replaceAll(')', '');
+    // final String link = 'https://api.whatsapp.com/send?phone=55' +
+    //     linkwhatsapp.replaceAll('(', '').replaceAll(')', '');
     String sbody = "{" +
         "\"nome\": \"" +
         nome +
@@ -180,17 +182,20 @@ class CadastroSevService {
         nrocpfcnpj +
         "\",                      " +
         "	  \"linkwhatsapp\": \"" +
-        link +
+        linkwhatsapp +
         "\",                      " +
         "	  \"nrotelcomercial\": \"" +
         nrotelcomercial +
+        "\", " +
+        "	  \"NomeProfissão\": \"" +
+        tipoprof +
         "\" " +
         "} ";
 
     var headers = {'Content-Type': 'application/json'};
 
     var request = http.Request(
-        'PUT', Uri.parse('http://192.168.15.9:5000/api/Cadastro/39'));
+        'PUT', Uri.parse('http://192.168.15.9:5000/api/Cadastro/$id'));
 
     request.body = jsonEncode(sbody);
     request.headers.addAll(headers);

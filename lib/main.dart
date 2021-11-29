@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
 import 'package:severino/telas/Login.dart';
 import 'package:get/get.dart';
+import 'package:severino/telas/PerfilSeverino.dart';
 
 class MyHttpOverrides extends HttpOverrides {
   @override
