@@ -21,6 +21,7 @@ class _HomeState extends State<Home> {
   String _servicoId = '';
   int controle = 0;
   final service = new HomeService();
+  ListaPrestadores telaListaPrestadores = new ListaPrestadores();
   List<String> _profissoes = [];
 
   @override
@@ -201,6 +202,12 @@ class _HomeState extends State<Home> {
           child: SizedBox.expand(
             child: TextButton(
               onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ListaPrestadores(profissao: titulo),
+                  ),
+                );
                 Get.to(ListaPrestadores());
               },
               child: Column(
@@ -300,7 +307,8 @@ class _HomeState extends State<Home> {
   getListProfissoes() async {
     try {
       final dio = Dio();
-      var response = await dio.get("http://192.168.15.9:5000/api/profissao/");
+      var response = await dio
+          .get("http://https://apiseverinos.azurewebsites.net/api/profissao/");
 
       if (response.statusCode == 200) {
         var lista = List<String>.from(response.data);

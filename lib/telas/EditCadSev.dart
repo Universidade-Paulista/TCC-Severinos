@@ -517,7 +517,8 @@ class _EditCadSevState extends State<EditCadSev> {
   getListProfissoes() async {
     try {
       final dio = Dio();
-      var response = await dio.get("http://192.168.15.9:5000/api/Profissao/");
+      var response = await dio
+          .get("http://https://apiseverinos.azurewebsites.net/api/Profissao/");
 
       if (response.statusCode == 200) {
         var lista = List<String>.from(response.data);

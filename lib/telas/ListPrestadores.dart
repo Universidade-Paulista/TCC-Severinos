@@ -1,28 +1,27 @@
 import 'dart:convert';
-
+import 'dart:io';
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
-import 'package:get/get_rx/src/rx_types/rx_types.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:severino/Servicos/ListPrestadoresService.dart';
 
 class ListaPrestadores extends StatefulWidget {
+  ListaPrestadores(
+      {this.profissao}); /* Esse é o creator que vai receber os dados */
+  final String profissao;
+
   @override
   _ListaPrestadoresState createState() => _ListaPrestadoresState();
 }
 
 class _ListaPrestadoresState extends State<ListaPrestadores> {
-  List<String> _profissoes = [
-    "Encanador",
-    "Marceneiro",
-    "Eletricista",
-    "Mecanico",
-    "Garota de aluguel",
-    "Motorista"
-  ];
+  List<Map<String, dynamic>> _prestadores = [];
+  File arquivo;
+  ListPrestadoresService service = new ListPrestadoresService();
+  Map<String, dynamic> usuario;
 
   @override
   Widget build(BuildContext context) {
-    ListPrestadoresService service = new ListPrestadoresService();
-    Map<String, dynamic> usuario;
     return Scaffold(
       appBar: AppBar(
         foregroundColor: Colors.black,
@@ -34,7 +33,7 @@ class _ListaPrestadoresState extends State<ListaPrestadores> {
         ),
       ),
       body: ListView(
-        children: _profissoes
+        children: _prestadores
             .map(
               (element) => Card(
                 child: Column(
@@ -42,9 +41,7 @@ class _ListaPrestadoresState extends State<ListaPrestadores> {
                     SizedBox(
                       height: 10,
                     ),
-                    usuario = jsonDecode(service.getListaPrestadores()),
-                    for (var i = 0; i < usuario.length; i++)
-                      _getCaixaDeInfo(_profissoes[i], 1)
+                    _preencheListaPrestadores(ListaPrestadores().profissao),
                   ],
                 ),
                 color: Colors.grey.shade300,
@@ -55,7 +52,16 @@ class _ListaPrestadoresState extends State<ListaPrestadores> {
     );
   }
 
-  _getCaixaDeInfo(String titulo, int nota) {
+  _preencheListaPrestadores(String profissao) {
+    usuario = jsonDecode(service.getListaPrestadores(profissao));
+
+    for (var i = 0; i < usuario.length; i++)
+      return _getCaixaDeInfo(usuario[i].razaoSocial, usuario[i].seqColaborador,
+          usuario[i].imgLogo);
+  }
+
+  _getCaixaDeInfo(String titulo, String idSeverino, String imagem) {
+    getImageFromBD(imagem);
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
@@ -105,66 +111,87 @@ class _ListaPrestadoresState extends State<ListaPrestadores> {
               color: Colors.white,
               height: 150.0,
               width: 500.0,
-              child: _returnRating(nota),
+              child: Text(
+                idSeverino,
+                style: TextStyle(
+                  fontSize: 15,
+                  color: Colors.white,
+                ),
+              ),
               alignment: Alignment.centerLeft,
             ),
             Container(
               color: Colors.black,
               height: 150.0,
               width: 120.0,
-            )
+              child: Image.file(arquivo, fit: BoxFit.cover),
+            ),
           ],
         ),
       ),
     );
   }
 
-  _returnRating(int nota) {
-    return Container(
-      child: Row(
-        children: <Widget>[
-          Container(
-            color: Colors.white,
-            child: Icon(
-              Icons.star,
-              color: Colors.yellowAccent[700],
-            ),
-            alignment: Alignment.centerLeft,
-          ),
-          Container(
-            color: Colors.white,
-            child: Icon(
-              nota >= 2 ? Icons.star : Icons.star_border,
-              color: Colors.yellowAccent[700],
-            ),
-            alignment: Alignment.centerLeft,
-          ),
-          Container(
-            color: Colors.white,
-            child: Icon(
-              nota >= 3 ? Icons.star : Icons.star_border,
-              color: Colors.yellowAccent[700],
-            ),
-            alignment: Alignment.centerLeft,
-          ),
-          Container(
-            color: Colors.white,
-            child: Icon(
-              nota >= 4 ? Icons.star : Icons.star_border,
-              color: Colors.yellowAccent[700],
-            ),
-            alignment: Alignment.centerLeft,
-          ),
-          Container(
-            color: Colors.white,
-            child: Icon(
-              nota == 5 ? Icons.star : Icons.star_border,
-              color: Colors.yellowAccent[700],
-            ),
-            alignment: Alignment.centerLeft,
-          ),
-        ],
-      ),
-    );
+  Future getImageFromBD(String imgBase64) async {
+    if (imgBase64 != null) {
+      Uint8List imageBytes = base64.decode(imgBase64);
+
+      String dir = (await getApplicationDocumentsDirectory()).path;
+
+      File file = File(
+          "$dir/" + DateTime.now().millisecondsSinceEpoch.toString() + ".jpeg");
+      await file.writeAsBytes(imageBytes);
+
+      setState(() => arquivo = File(file.path));
+    }
   }
+
+  // _returnRating(int nota) {
+  //   return Container(
+  //     child: Row(
+  //       children: <Widget>[
+  //         Container(
+  //           color: Colors.white,
+  //           child: Icon(
+  //             Icons.star,
+  //             color: Colors.yellowAccent[700],
+  //           ),
+  //           alignment: Alignment.centerLeft,
+  //         ),
+  //         Container(
+  //           color: Colors.white,
+  //           child: Icon(
+  //             nota >= 2 ? Icons.star : Icons.star_border,
+  //             color: Colors.yellowAccent[700],
+  //           ),
+  //           alignment: Alignment.centerLeft,
+  //         ),
+  //         Container(
+  //           color: Colors.white,
+  //           child: Icon(
+  //             nota >= 3 ? Icons.star : Icons.star_border,
+  //             color: Colors.yellowAccent[700],
+  //           ),
+  //           alignment: Alignment.centerLeft,
+  //         ),
+  //         Container(
+  //           color: Colors.white,
+  //           child: Icon(
+  //             nota >= 4 ? Icons.star : Icons.star_border,
+  //             color: Colors.yellowAccent[700],
+  //           ),
+  //           alignment: Alignment.centerLeft,
+  //         ),
+  //         Container(
+  //           color: Colors.white,
+  //           child: Icon(
+  //             nota == 5 ? Icons.star : Icons.star_border,
+  //             color: Colors.yellowAccent[700],
+  //           ),
+  //           alignment: Alignment.centerLeft,
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 }
