@@ -8,6 +8,7 @@ import 'package:severino/Servicos/ListaPrestadorMod.dart';
 
 class ListaPrestadores extends StatefulWidget {
   final String profissao;
+
   ListaPrestadores({Key key, @required this.profissao})
       : super(key: key); /* Esse é o creator que vai receber os dados */
 

@@ -54,23 +54,4 @@ class HomeSevService {
       );
     }
   }
-
-  getStatus(String id) async {
-    try {
-      final dio = Dio();
-      var response = await dio.get("http://192.168.15.9:5000/api/Status/$id/");
-
-      if (response.statusCode == 200) {
-        return response.data;
-      } else {
-        AlertDialog(
-          title: Text(response.statusMessage),
-        );
-      }
-    } on DioError catch (error) {
-      AlertDialog(
-        title: Text(error.message),
-      );
-    }
-  }
 }

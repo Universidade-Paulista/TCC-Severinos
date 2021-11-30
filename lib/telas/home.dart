@@ -18,10 +18,14 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   final _txtEndereco = TextEditingController();
+  final service = new HomeService();
+
   String _servicoId = '';
   int controle = 0;
-  final service = new HomeService();
-  ListaPrestadores telaListaPrestadores = new ListaPrestadores();
+
+  ListaPrestadores telaListaPrestadores = new ListaPrestadores(
+    profissao: "",
+  );
   List<String> _profissoes = [];
 
   @override

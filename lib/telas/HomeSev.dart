@@ -22,16 +22,24 @@ class _HomeSevState extends State<HomeSev> {
   final txtNome = TextEditingController();
   final txtSeqPessoa = TextEditingController();
   final txtStatus = TextEditingController();
-  String _sNome = "";
-  int controle = 0;
-  HomeSevService service = new HomeSevService();
-  int controle2 = 0;
 
+  HomeSevService service = new HomeSevService();
+  int controle = 0;
+  int controle2 = 0;
+  int controle3 = 0;
+  int controle4 = 0;
+
+  String _sNome = "";
   String idpessoa = "";
+  String _status = "";
 
   @override
   Widget build(BuildContext context) {
     getIdPessoa();
+    if (controle3 == 0) {
+      getStatus(idpessoa);
+    }
+
     if (controle2 == 0) {
       getNome(email, senha);
     }
@@ -152,10 +160,16 @@ class _HomeSevState extends State<HomeSev> {
             SizedBox(
               height: 130,
             ),
-            validaStatus(),
+            controle4 == 0
+                ? _status == "I"
+                    ? validaStatus("I")
+                    : validaStatus("A")
+                : validaStatus("E"),
+            // buttonIniciar(),
             SizedBox(
               height: 20,
             ),
+            // buttonEncerrar(),
             SizedBox(
               height: 40,
             ),
@@ -178,9 +192,16 @@ class _HomeSevState extends State<HomeSev> {
       child: SizedBox.expand(
         child: TextButton(
           onPressed: () {
+            controle4 = 0;
             statusSev("A");
-            // _alternaButton();
-            validaStatus();
+
+            validaStatus("A");
+
+            if (controle4 == 0) {
+              setState(() {
+                controle4 = 1;
+              });
+            }
 
             //pop up
             ScaffoldMessenger.of(context).showSnackBar(
@@ -220,10 +241,14 @@ class _HomeSevState extends State<HomeSev> {
       child: SizedBox.expand(
         child: TextButton(
           onPressed: () {
+            controle4 = 0;
             statusSev("I");
-            // _alternaButton();
-            validaStatus();
-
+            validaStatus("I");
+            if (controle4 == 0) {
+              setState(() {
+                controle4 = 1;
+              });
+            }
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: const Text('Serviço Encerrado'),
@@ -246,14 +271,6 @@ class _HomeSevState extends State<HomeSev> {
         ),
       ),
     );
-  }
-
-  validaStatus() {
-    if (getStatusSev().toString() == "I") {
-      return buttonIniciar();
-    } else {
-      return buttonEncerrar();
-    }
   }
 
   _getContainerDrawer() {
@@ -387,18 +404,46 @@ class _HomeSevState extends State<HomeSev> {
     }
   }
 
-  statusSev(String status) {
-    service.postStatus(context, status, idpessoa);
+  validaStatus(String status) {
+    if (status == "I") {
+      return buttonIniciar();
+    } else if (status == "A") {
+      return buttonEncerrar();
+    }
   }
 
-  String getStatusSev() {
-    return service.getStatus(idpessoa).toString();
+  statusSev(String status) {
+    service.postStatus(context, status, idpessoa);
   }
 
   getIdPessoa() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     idpessoa = prefs.getString('Idpessoa');
+  }
+
+  getStatus(String id) async {
+    try {
+      final dio = Dio();
+      var response = await dio.get("http://192.168.15.9:5000/api/Status/$id/");
+
+      if (response.statusCode == 200) {
+        var status = response.data;
+
+        if (controle3 == 0) {
+          setState(() => _status = status);
+          controle3 = 1;
+        }
+      } else {
+        AlertDialog(
+          title: Text(response.statusMessage),
+        );
+      }
+    } on DioError catch (error) {
+      AlertDialog(
+        title: Text(error.message),
+      );
+    }
   }
 
   // Future pickImage(ImageSource source) async {
