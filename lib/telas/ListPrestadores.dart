@@ -4,60 +4,54 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:severino/Servicos/ListPrestadoresService.dart';
+import 'package:severino/Servicos/ListaPrestadorMod.dart';
 
 class ListaPrestadores extends StatefulWidget {
-  ListaPrestadores(
-      {this.profissao}); /* Esse é o creator que vai receber os dados */
   final String profissao;
+  ListaPrestadores({Key key, @required this.profissao})
+      : super(key: key); /* Esse é o creator que vai receber os dados */
 
   @override
-  _ListaPrestadoresState createState() => _ListaPrestadoresState();
+  _ListaPrestadoresState createState() =>
+      _ListaPrestadoresState(profissaoSelecionada: this.profissao);
 }
 
 class _ListaPrestadoresState extends State<ListaPrestadores> {
-  List<Map<String, dynamic>> _prestadores = [];
+  String profissaoSelecionada;
+  _ListaPrestadoresState({Key key, @required this.profissaoSelecionada});
+
   File arquivo;
   ListPrestadoresService service = new ListPrestadoresService();
   Map<String, dynamic> usuario;
+  List<ListaPrestadorMod> listaPrestMod = <ListaPrestadorMod>[];
+
+  initState() {
+    super.initState();
+    _getListaPrestadores();
+  }
+
+  dispose() {
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        foregroundColor: Colors.black,
-        backgroundColor: Colors.grey.shade300,
-        centerTitle: true,
-        title: Image.asset(
-          'assets/Logos/Logo-original.png',
-          height: 40,
+        appBar: AppBar(
+          foregroundColor: Colors.black,
+          backgroundColor: Colors.grey.shade300,
+          centerTitle: true,
+          title: Image.asset(
+            'assets/Logos/Logo-original.png',
+            height: 40,
+          ),
         ),
-      ),
-      body: ListView(
-        children: _prestadores
-            .map(
-              (element) => Card(
-                child: Column(
-                  children: <Widget>[
-                    SizedBox(
-                      height: 10,
-                    ),
-                    _preencheListaPrestadores(ListaPrestadores().profissao),
-                  ],
-                ),
-                color: Colors.grey.shade300,
-              ),
-            )
-            .toList(),
-      ),
-    );
-  }
-
-  _preencheListaPrestadores(String profissao) {
-    usuario = jsonDecode(service.getListaPrestadores(profissao));
-
-    for (var i = 0; i < usuario.length; i++)
-      return _getCaixaDeInfo(usuario[i].razaoSocial, usuario[i].seqColaborador,
-          usuario[i].imgLogo);
+        body: ListView.builder(
+            itemCount: listaPrestMod.length,
+            itemBuilder: (context, index) {
+              return _getCaixaDeInfo(listaPrestMod[index].razao,
+                  listaPrestMod[index].idSeverino, listaPrestMod[index].img);
+            }));
   }
 
   _getCaixaDeInfo(String titulo, String idSeverino, String imagem) {
@@ -144,6 +138,15 @@ class _ListaPrestadoresState extends State<ListaPrestadores> {
 
       setState(() => arquivo = File(file.path));
     }
+  }
+
+  _getListaPrestadores() async {
+    final jSon = await service.getListaPrestadores(profissaoSelecionada);
+    setState(() {
+      Iterable list = json.decode(json.encode(jSon)) as List<Iterable>;
+      listaPrestMod =
+          list.map((model) => ListaPrestadorMod.fromJson(model)).toList();
+    });
   }
 
   // _returnRating(int nota) {

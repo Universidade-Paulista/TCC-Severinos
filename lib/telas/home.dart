@@ -202,13 +202,9 @@ class _HomeState extends State<Home> {
           child: SizedBox.expand(
             child: TextButton(
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => ListaPrestadores(profissao: titulo),
-                  ),
-                );
-                Get.to(ListaPrestadores());
+                Get.to(ListaPrestadores(
+                  profissao: titulo,
+                ));
               },
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,

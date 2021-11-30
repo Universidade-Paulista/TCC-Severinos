@@ -9,7 +9,8 @@ class ListPrestadoresService {
         .get("http://192.168.15.9:5000/api/Colaborador/$profissao/lista");
 
     if (response.statusCode == 200) {
-      return response.data;
+      final jSon = response.data;
+      return jSon.toString();
     } else {
       AlertDialog(
         title: Text(response.statusMessage),
