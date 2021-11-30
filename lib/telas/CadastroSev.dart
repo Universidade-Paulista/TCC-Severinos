@@ -47,6 +47,7 @@ class _CadastroSevState extends State<CadastroSev> {
   final cadSevServ = new CadastroSevService();
 
   int controle = 0;
+  String prof = "Arrumadeira";
   List<String> profissoes = [];
 
   // prencherLista() async {
@@ -54,7 +55,10 @@ class _CadastroSevState extends State<CadastroSev> {
   // }
 
   Widget build(BuildContext context) {
-    getListProfissoes();
+    if (controle == 0) {
+      getListProfissoes();
+    }
+
     return Scaffold(
         appBar: AppBar(
           foregroundColor: Colors.black,
@@ -112,31 +116,33 @@ class _CadastroSevState extends State<CadastroSev> {
                 setState(() {
                   if (this._currentStep < this._mySteps().length - 1) {
                     this._currentStep = this._currentStep + 1;
-                    _formUserData.currentState.validate();
+                    bool f1 = _formUserData.currentState.validate();
                   } else {
-                    cadSevServ.postCadastroSev(
-                        context,
-                        nome.text,
-                        cpf.text,
-                        email.text,
-                        telefone.text,
-                        indseverino.text == "N" ? true : false,
-                        senha.text,
-                        logradouro.text,
-                        complemento.text,
-                        numero.text,
-                        bairro.text,
-                        cep.text,
-                        estado.text,
-                        cidade.text,
-                        razaosocial.text,
-                        nrocpfcnpj.text,
-                        linkwhatsapp.text,
-                        nrotelcomercial.text,
-                        tipoprof.text);
-                    _formUserAddress.currentState.validate();
-                    _formUserAuth.currentState.validate();
-                    _formUserSev.currentState.validate();
+                    bool f2 = _formUserAddress.currentState.validate();
+                    bool f3 = _formUserAuth.currentState.validate();
+                    bool f4 = _formUserSev.currentState.validate();
+                    if (f2 && f3 && f4) {
+                      cadSevServ.postCadastroSev(
+                          context,
+                          nome.text,
+                          cpf.text,
+                          email.text,
+                          telefone.text,
+                          indseverino.text == "N" ? true : false,
+                          senha.text,
+                          logradouro.text,
+                          complemento.text,
+                          numero.text,
+                          bairro.text,
+                          cep.text,
+                          estado.text,
+                          cidade.text,
+                          razaosocial.text,
+                          nrocpfcnpj.text,
+                          linkwhatsapp.text,
+                          nrotelcomercial.text,
+                          tipoprof.text);
+                    }
                   }
                 });
               },
@@ -630,36 +636,36 @@ class _CadastroSevState extends State<CadastroSev> {
 
   _getDropDown() {
     return DropdownButtonFormField(
-      isExpanded: true,
-      decoration: InputDecoration(
-        labelText: "Serviço prestado",
-        labelStyle: TextStyle(
-          color: Colors.black87,
-          fontWeight: FontWeight.w400,
-          fontSize: 12,
+        isExpanded: true,
+        decoration: InputDecoration(
+          labelText: "Serviço prestado",
+          labelStyle: TextStyle(
+            color: Colors.black87,
+            fontWeight: FontWeight.w400,
+            fontSize: 12,
+          ),
         ),
-      ),
-      items: profissoes.map((dynamic profissao) {
-        return DropdownMenuItem(
-          child: Text(profissao),
-          value: profissao,
+        items: profissoes.map((dynamic profissao) {
+          return DropdownMenuItem(
+            child: Text(profissao),
+            value: profissao,
+          );
+        }).toList(),
+        onChanged: (dynamic novaProfissaoSelecionada) {
+          tipoprof.text = novaProfissaoSelecionada;
+        }
+        // value: prof,
+        // validator: (value) {
+        //   if (value == null) return "Selecione um serviço";
+        //   return "";
+        // },
         );
-      }).toList(),
-      onChanged: (dynamic novaProfissaoSelecionada) {
-        tipoprof.text = novaProfissaoSelecionada;
-      },
-      validator: (value) {
-        if (value == null) return "Selecione um serviço";
-        return null;
-      },
-    );
   }
 
   getListProfissoes() async {
     try {
       final dio = Dio();
-      var response = await dio
-          .get("https://apiseverinos.azurewebsites.net/api/profissao/");
+      var response = await dio.get("http://192.168.15.9:5000/api/profissao/");
 
       if (response.statusCode == 200) {
         var lista = List<String>.from(response.data);
