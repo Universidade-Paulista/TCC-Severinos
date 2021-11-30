@@ -3,16 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-
-import 'package:severino/telas/HomeSev.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeSevService {
   putImagem(String imgBase64) async {
     String sbody = "{\"imagem\": \"$imgBase64\"}";
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String id = prefs.getString('Email');
+
     var headers = {'Content-Type': 'application/json'};
 
     var request = http.Request('PUT',
-        Uri.parse('https://apiseverinos.azurewebsites.net/api/Cadastro/39'));
+        Uri.parse('https://apiseverinos.azurewebsites.net/api/imagem/$id'));
 
     request.body = jsonEncode(sbody);
     request.headers.addAll(headers);
@@ -29,16 +31,24 @@ class HomeSevService {
   }
 
   getImagem() async {
-    final dio = Dio();
-    Response response =
-        await dio.get("https://apiseverinos.azurewebsites.net/api/Imagem");
+    try {
+      final dio = Dio();
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      String id = prefs.getString('Idpessoa');
 
-    if (response.statusCode == 200) {
-      String imgBase64 = response.data;
-      return imgBase64;
-    } else {
+      Response response = await dio
+          .get("https://apiseverinos.azurewebsites.net/api/imagem/$id");
+
+      if (response.statusCode == 200) {
+        return response.data;
+      } else {
+        AlertDialog(
+          title: Text(response.statusMessage),
+        );
+      }
+    } on DioError catch (error) {
       AlertDialog(
-        title: Text(response.statusMessage),
+        title: Text(error.message),
       );
     }
   }

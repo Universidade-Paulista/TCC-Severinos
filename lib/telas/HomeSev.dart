@@ -36,13 +36,12 @@ class _HomeSevState extends State<HomeSev> {
   @override
   Widget build(BuildContext context) {
     getIdPessoa();
-    if (controle3 == 0) {
-      getStatus(idpessoa);
-    }
 
     if (controle2 == 0) {
       getNome(email, senha);
+      getImageFromBD();
     }
+
     return Scaffold(
       appBar: AppBar(
         foregroundColor: Colors.black,
@@ -136,7 +135,7 @@ class _HomeSevState extends State<HomeSev> {
               alignment: Alignment.center,
               child: SizedBox.expand(
                 child: ElevatedButton.icon(
-                  onPressed: () => chamaImagem(),
+                  onPressed: () => getFileFromGallery(),
                   icon: Icon(
                     Icons.edit,
                     color: Colors.black,
@@ -160,16 +159,11 @@ class _HomeSevState extends State<HomeSev> {
             SizedBox(
               height: 130,
             ),
-            controle4 == 0
-                ? _status == "I"
-                    ? validaStatus("I")
-                    : validaStatus("A")
-                : validaStatus("E"),
-            // buttonIniciar(),
+            buttonIniciar(),
             SizedBox(
               height: 20,
             ),
-            // buttonEncerrar(),
+            buttonEncerrar(),
             SizedBox(
               height: 40,
             ),
@@ -192,16 +186,7 @@ class _HomeSevState extends State<HomeSev> {
       child: SizedBox.expand(
         child: TextButton(
           onPressed: () {
-            controle4 = 0;
             statusSev("A");
-
-            validaStatus("A");
-
-            if (controle4 == 0) {
-              setState(() {
-                controle4 = 1;
-              });
-            }
 
             //pop up
             ScaffoldMessenger.of(context).showSnackBar(
@@ -241,14 +226,7 @@ class _HomeSevState extends State<HomeSev> {
       child: SizedBox.expand(
         child: TextButton(
           onPressed: () {
-            controle4 = 0;
             statusSev("I");
-            validaStatus("I");
-            if (controle4 == 0) {
-              setState(() {
-                controle4 = 1;
-              });
-            }
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: const Text('Serviço Encerrado'),
@@ -355,8 +333,9 @@ class _HomeSevState extends State<HomeSev> {
   }
 
   Future getImageFromBD() async {
-    if (service.getImagem() != null) {
-      Uint8List imageBytes = base64.decode(service.getImagem().toString());
+    String img = await service.getImagem();
+    if (img != null) {
+      Uint8List imageBytes = base64.decode(img);
 
       String dir = (await getApplicationDocumentsDirectory()).path;
 
@@ -368,13 +347,13 @@ class _HomeSevState extends State<HomeSev> {
     }
   }
 
-  chamaImagem() {
-    if (service.getImagem() != null) {
-      getImageFromBD();
-    } else {
-      getFileFromGallery();
-    }
-  }
+  // chamaImagem() {
+  //   if (service.getImagem() != null) {
+  //     getImageFromBD();
+  //   } else {
+  //     getFileFromGallery();
+  //   }
+  // }
 
   getNome(String email, String senha) async {
     try {
@@ -407,14 +386,6 @@ class _HomeSevState extends State<HomeSev> {
     }
   }
 
-  validaStatus(String status) {
-    if (status == "I") {
-      return buttonIniciar();
-    } else if (status == "A") {
-      return buttonEncerrar();
-    }
-  }
-
   statusSev(String status) {
     service.postStatus(context, status, idpessoa);
   }
@@ -423,31 +394,6 @@ class _HomeSevState extends State<HomeSev> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     idpessoa = prefs.getString('Idpessoa');
-  }
-
-  getStatus(String id) async {
-    try {
-      final dio = Dio();
-      var response = await dio
-          .get("https://apiseverinos.azurewebsites.net/api/Status/$id/");
-
-      if (response.statusCode == 200) {
-        var status = response.data;
-
-        if (controle3 == 0) {
-          setState(() => _status = status);
-          controle3 = 1;
-        }
-      } else {
-        AlertDialog(
-          title: Text(response.statusMessage),
-        );
-      }
-    } on DioError catch (error) {
-      AlertDialog(
-        title: Text(error.message),
-      );
-    }
   }
 
   // Future pickImage(ImageSource source) async {
