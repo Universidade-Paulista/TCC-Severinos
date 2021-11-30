@@ -95,25 +95,27 @@ class _CadastroState extends State<Cadastro> {
               setState(() {
                 if (this._currentStep < this._mySteps().length - 1) {
                   this._currentStep = this._currentStep + 1;
-                  _formUserData.currentState.validate();
+                  bool f1 = _formUserData.currentState.validate();
                 } else {
-                  cadServ.postCadastro(
-                      context,
-                      nome.text,
-                      cpf.text,
-                      email.text,
-                      telefone.text,
-                      indseverino.text == "S" ? true : false,
-                      senha.text,
-                      logradouro.text,
-                      complemento.text,
-                      numero.text,
-                      bairro.text,
-                      cep.text,
-                      estado.text,
-                      cidade.text);
-                  _formUserAddress.currentState.validate();
-                  _formUserAuth.currentState.validate();
+                  bool f2 = _formUserAddress.currentState.validate();
+                  bool f3 = _formUserAuth.currentState.validate();
+                  if (f2 && f3) {
+                    cadServ.postCadastro(
+                        context,
+                        nome.text,
+                        cpf.text,
+                        email.text,
+                        telefone.text,
+                        indseverino.text == "S" ? true : false,
+                        senha.text,
+                        logradouro.text,
+                        complemento.text,
+                        numero.text,
+                        bairro.text,
+                        cep.text,
+                        estado.text,
+                        cidade.text);
+                  }
                 }
               });
             },
