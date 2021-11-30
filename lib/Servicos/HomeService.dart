@@ -27,7 +27,7 @@ class HomeService {
   // getNome(String email, String senha) async {
   //   final dio = Dio();
   //   var response = await dio.get(
-  //       "http://https://apiseverinos.azurewebsites.net/api/Cadastro/" +
+  //       "https://apiseverinos.azurewebsites.net/api/Cadastro/" +
   //           email +
   //           "/" +
   //           senha);

@@ -72,10 +72,8 @@ class CadastroService {
 
     var headers = {'Content-Type': 'application/json'};
 
-    var request = http.Request(
-        'POST',
-        Uri.parse(
-            'http://https://apiseverinos.azurewebsites.net/api/Cadastro/'));
+    var request = http.Request('POST',
+        Uri.parse('https://apiseverinos.azurewebsites.net/api/Cadastro/'));
 
     request.body = jsonEncode(sbody);
     request.headers.addAll(headers);
@@ -154,10 +152,8 @@ class CadastroService {
 
     var headers = {'Content-Type': 'application/json'};
 
-    var request = http.Request(
-        'PUT',
-        Uri.parse(
-            'http://https://apiseverinos.azurewebsites.net/api/Cadastro/$id'));
+    var request = http.Request('PUT',
+        Uri.parse('https://apiseverinos.azurewebsites.net/api/Cadastro/$id'));
 
     request.body = jsonEncode(sbody);
     request.headers.addAll(headers);

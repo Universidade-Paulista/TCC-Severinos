@@ -9,10 +9,8 @@ class HomeSevService {
     String sbody = "{\"imagem\": \"$imgBase64\"}";
     var headers = {'Content-Type': 'application/json'};
 
-    var request = http.Request(
-        'PUT',
-        Uri.parse(
-            'http://https://apiseverinos.azurewebsites.net/api/Cadastro/39'));
+    var request = http.Request('PUT',
+        Uri.parse('https://apiseverinos.azurewebsites.net/api/Cadastro/39'));
 
     request.body = jsonEncode(sbody);
     request.headers.addAll(headers);
@@ -30,8 +28,8 @@ class HomeSevService {
 
   getImagem() async {
     final dio = Dio();
-    Response response = await dio
-        .get("http://https://apiseverinos.azurewebsites.net/api/Imagem");
+    Response response =
+        await dio.get("https://apiseverinos.azurewebsites.net/api/Imagem");
 
     if (response.statusCode == 200) {
       String imgBase64 = response.data;

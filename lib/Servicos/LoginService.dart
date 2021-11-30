@@ -10,7 +10,7 @@ class LoginService {
     try {
       final dio = Dio();
       var response = await dio.get(
-          "http://https://apiseverinos.azurewebsites.net/api/Login/" +
+          "https://apiseverinos.azurewebsites.net/api/Login/" +
               email +
               "/" +
               senha);
@@ -33,8 +33,7 @@ class LoginService {
     try {
       final dio = Dio();
       var response = await dio.get(
-          "http://https://apiseverinos.azurewebsites.net/api/ValidacoesCPF/" +
-              cpf);
+          "https://apiseverinos.azurewebsites.net/api/ValidacoesCPF/" + cpf);
 
       if (response.statusCode == 200) {
         return response.data;
@@ -52,7 +51,7 @@ class LoginService {
 
   putSenha(final context, String cpf, String senha) async {
     final response = await http.put(Uri.parse(
-        'http://https://apiseverinos.azurewebsites.net/api/Login/' +
+        'https://apiseverinos.azurewebsites.net/api/Login/' +
             cpf +
             "/" +
             senha));

@@ -361,7 +361,7 @@ class _HomeSevState extends State<HomeSev> {
     try {
       final dio = Dio();
       var response = await dio.get(
-          "http://https://apiseverinos.azurewebsites.net/api/Cadastro/" +
+          "https://apiseverinos.azurewebsites.net/api/Cadastro/" +
               email +
               "/" +
               senha);
@@ -387,7 +387,7 @@ class _HomeSevState extends State<HomeSev> {
   // getNome(String email, String senha) async {
   //   final dio = Dio();
   //   var response = await dio.get(
-  //       "http://https://apiseverinos.azurewebsites.net/api/Cadastro/" +
+  //       "https://apiseverinos.azurewebsites.net/api/Cadastro/" +
   //           email +
   //           "/" +
   //           senha);
