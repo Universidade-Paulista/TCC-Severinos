@@ -44,8 +44,8 @@ class _EditCadSevState extends State<EditCadSev> {
   final cadSevServ = new CadastroSevService();
   final cadSev = new CadastroService();
 
-  String est = "";
-  String prof = "";
+  String est = "São Paulo";
+  String prof = "Arrumadeira";
   int controle = 0;
   int controle2 = 0;
 

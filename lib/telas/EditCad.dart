@@ -38,7 +38,9 @@ class _EditCadState extends State<EditCad> {
   int controle = 0;
 
   Widget build(BuildContext context) {
-    getEdit();
+    if (controle == 0) {
+      getEdit();
+    }
     return Scaffold(
         appBar: AppBar(
           foregroundColor: Colors.black,
@@ -389,10 +391,15 @@ class _EditCadState extends State<EditCad> {
     numero.text = perfil['Numero'].toString();
     bairro.text = perfil['Bairro'];
     cidade.text = perfil['Cidade'];
+
     if (controle == 0) {
-      setState(() => est = perfil["Estado"]);
+      if (perfil["Estado"] != "") {
+        setState(() => est = perfil["Estado"]);
+      }
+
       controle = 1;
     }
+
     complemento.text = perfil['Complemento'];
   }
 
