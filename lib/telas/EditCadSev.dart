@@ -54,7 +54,7 @@ class _EditCadSevState extends State<EditCadSev> {
   Widget build(BuildContext context) {
     if (controle2 == 0) {
       getEdit();
-    } else {
+    } else if (controle2 == 1) {
       getListProfissoes();
     }
 
