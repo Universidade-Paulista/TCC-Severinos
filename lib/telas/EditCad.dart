@@ -370,7 +370,7 @@ class _EditCadState extends State<EditCad> {
         numero.text,
         bairro.text,
         cep.text,
-        estado.text,
+        estado.text == "" ? est : estado.text,
         cidade.text,
         idpessoa);
   }
