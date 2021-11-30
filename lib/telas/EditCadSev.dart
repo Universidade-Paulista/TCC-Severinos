@@ -47,13 +47,17 @@ class _EditCadSevState extends State<EditCadSev> {
   String est = "";
   String prof = "";
   int controle = 0;
-
-  int controle3 = 0;
+  int controle2 = 0;
 
   List<String> profissoes = [];
 
   Widget build(BuildContext context) {
-    getEdit();
+    if (controle2 == 0) {
+      getEdit();
+    } else {
+      getListProfissoes();
+    }
+
     return Scaffold(
         appBar: AppBar(
           foregroundColor: Colors.black,
@@ -111,9 +115,6 @@ class _EditCadSevState extends State<EditCadSev> {
                 setState(() {
                   if (this._currentStep < this._mySteps().length - 1) {
                     this._currentStep = this._currentStep + 1;
-                    if (this._currentStep == 1) {
-                      getListProfissoes();
-                    }
                     //  _formUserData.currentState.validate();
                   } else {
                     alterarCad();
@@ -504,14 +505,14 @@ class _EditCadSevState extends State<EditCadSev> {
   getListProfissoes() async {
     try {
       final dio = Dio();
-      var response = await dio.get("http://192.168.15.9:5000/api/profissao/");
+      var response = await dio.get("http://192.168.18.63:5000/api/profissao/");
 
       if (response.statusCode == 200) {
         var lista = List<String>.from(response.data);
 
-        if (controle3 == 0) {
+        if (controle2 == 1) {
           setState(() => profissoes = lista);
-          controle3 = 1;
+          controle2 = 2;
         }
       } else {
         AlertDialog(
@@ -541,16 +542,26 @@ class _EditCadSevState extends State<EditCadSev> {
     numero.text = perfil['Numero'].toString();
     bairro.text = perfil['Bairro'];
     cidade.text = perfil['Cidade'];
+
     if (controle == 0) {
-      setState(() => est = perfil["Estado"]);
-      setState(() => prof = perfil["NomeProfissao"]);
+      if (perfil["Estado"] != "") {
+        setState(() => est = perfil["Estado"]);
+      }
+
+      if (perfil["NomeProfissao"] != "") {
+        setState(() => prof = perfil["NomeProfissao"]);
+      }
+
       controle = 1;
     }
+
     complemento.text = perfil['Complemento'];
     razaosocial.text = perfil['RazaoSocial'];
     nrocpfcnpj.text = perfil['NroCpfCnpj'];
     nrotelcomercial.text = perfil['NroTelComercial'];
     linkwhatsapp.text = perfil['LinkWhatsapp'];
+
+    controle2 = 1;
   }
 
   alterarCad() async {
