@@ -206,9 +206,11 @@ class _HomeState extends State<Home> {
           child: SizedBox.expand(
             child: TextButton(
               onPressed: () {
-                Get.to(ListaPrestadores(
-                  profissao: titulo,
-                ));
+                Get.to(
+                  ListaPrestadores(
+                    profissao: titulo,
+                  ),
+                );
               },
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -258,6 +260,11 @@ class _HomeState extends State<Home> {
     return DropDownField(
       onValueChanged: (dynamic value) {
         _servicoId = value;
+        Get.to(
+          ListaPrestadores(
+            profissao: value,
+          ),
+        );
       },
       value: _servicoId,
       required: false,
@@ -298,11 +305,6 @@ class _HomeState extends State<Home> {
       return "Nenhum endereço encontrado!";
     }
   }
-
-  // _prencherListaPrestadores() async {
-  //   _profissoes = await service.getListProfissoes();
-  //   return _profissoes;
-  // }
 
   getListProfissoes() async {
     try {
