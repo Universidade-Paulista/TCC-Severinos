@@ -8,7 +8,8 @@ class HomeService {
   getListProfissoes() async {
     try {
       final dio = Dio();
-      var response = await dio.get("http://192.168.15.9:5000/api/profissao/");
+      var response = await dio
+          .get("https://apiseverinos.azurewebsites.net/api/profissao/");
 
       if (response.statusCode == 200) {
         return response.data;
@@ -27,7 +28,7 @@ class HomeService {
   // getNome(String email, String senha) async {
   //   final dio = Dio();
   //   var response = await dio.get(
-  //       "http://192.168.15.9:5000/api/Cadastro/" +
+  //       "https://apiseverinos.azurewebsites.net/api/Cadastro/" +
   //           email +
   //           "/" +
   //           senha);

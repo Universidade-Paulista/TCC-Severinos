@@ -11,7 +11,7 @@ class ListaPrestadorMod {
 
   ListaPrestadorMod.fromJson(Map json)
       : razao = json['razaoSocial'],
-        idSeverino = json['seqColaborador'],
+        idSeverino = json['seqColaborador'].toString(),
         img = json['imgLogo'];
 
   Map toJson() {

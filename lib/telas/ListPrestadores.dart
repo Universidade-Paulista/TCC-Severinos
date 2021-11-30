@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:severino/Servicos/ListPrestadoresService.dart';
@@ -21,6 +22,7 @@ class _ListaPrestadoresState extends State<ListaPrestadores> {
   String profissaoSelecionada;
   _ListaPrestadoresState({Key key, @required this.profissaoSelecionada});
 
+  int controle = 0;
   File arquivo;
   ListPrestadoresService service = new ListPrestadoresService();
   Map<String, dynamic> usuario;
@@ -28,7 +30,10 @@ class _ListaPrestadoresState extends State<ListaPrestadores> {
 
   initState() {
     super.initState();
-    _getListaPrestadores();
+    if (controle == 0) {
+      getListaPrestadores();
+      controle = 1;
+    }
   }
 
   dispose() {
@@ -38,25 +43,26 @@ class _ListaPrestadoresState extends State<ListaPrestadores> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          foregroundColor: Colors.black,
-          backgroundColor: Colors.grey.shade300,
-          centerTitle: true,
-          title: Image.asset(
-            'assets/Logos/Logo-original.png',
-            height: 40,
-          ),
+      appBar: AppBar(
+        foregroundColor: Colors.black,
+        backgroundColor: Colors.grey.shade300,
+        centerTitle: true,
+        title: Image.asset(
+          'assets/Logos/Logo-original.png',
+          height: 40,
         ),
-        body: ListView.builder(
-            itemCount: listaPrestMod.length,
-            itemBuilder: (context, index) {
-              return _getCaixaDeInfo(listaPrestMod[index].razao,
-                  listaPrestMod[index].idSeverino, listaPrestMod[index].img);
-            }));
+      ),
+      body: ListView.builder(
+        itemCount: listaPrestMod.length,
+        itemBuilder: (context, index) {
+          return _getCaixaDeInfo(listaPrestMod[index].razao,
+              listaPrestMod[index].idSeverino, listaPrestMod[index].img);
+        },
+      ),
+    );
   }
 
   _getCaixaDeInfo(String titulo, String idSeverino, String imagem) {
-    getImageFromBD(imagem);
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
@@ -119,7 +125,7 @@ class _ListaPrestadoresState extends State<ListaPrestadores> {
               color: Colors.black,
               height: 150.0,
               width: 120.0,
-              child: Image.file(arquivo, fit: BoxFit.cover),
+              child: Image.memory(base64.decode(imagem)),
             ),
           ],
         ),
@@ -127,27 +133,38 @@ class _ListaPrestadoresState extends State<ListaPrestadores> {
     );
   }
 
-  Future getImageFromBD(String imgBase64) async {
-    if (imgBase64 != null) {
-      Uint8List imageBytes = base64.decode(imgBase64);
+  // _getListaPrestadores() async {
+  //   final jSon = await service.getListaPrestadores(profissaoSelecionada);
+  //   setState(() {
+  //     Iterable list = json.decode(json.encode(jSon)) as List<Iterable>;
+  //     listaPrestMod =
+  //         list.map((model) => ListaPrestadorMod.fromJson(model)).toList();
+  //   });
+  // }
 
-      String dir = (await getApplicationDocumentsDirectory()).path;
+  getListaPrestadores() async {
+    final dio = Dio();
 
-      File file = File(
-          "$dir/" + DateTime.now().millisecondsSinceEpoch.toString() + ".jpeg");
-      await file.writeAsBytes(imageBytes);
+    try {
+      Response response = await dio.get(
+          "https://apiseverinos.azurewebsites.net/api/Colaborador/$profissaoSelecionada/lista");
 
-      setState(() => arquivo = File(file.path));
+      if (response.statusCode == 200) {
+        setState(() {
+          Iterable list = json.decode(json.encode(response.data));
+          listaPrestMod =
+              list.map((model) => ListaPrestadorMod.fromJson(model)).toList();
+        });
+      } else {
+        AlertDialog(
+          title: Text(response.statusMessage),
+        );
+      }
+    } on DioError catch (error) {
+      AlertDialog(
+        title: Text(error.message),
+      );
     }
-  }
-
-  _getListaPrestadores() async {
-    final jSon = await service.getListaPrestadores(profissaoSelecionada);
-    setState(() {
-      Iterable list = json.decode(json.encode(jSon)) as List<Iterable>;
-      listaPrestMod =
-          list.map((model) => ListaPrestadorMod.fromJson(model)).toList();
-    });
   }
 
   // _returnRating(int nota) {

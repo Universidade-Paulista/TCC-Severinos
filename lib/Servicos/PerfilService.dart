@@ -7,8 +7,8 @@ class PerfilService {
   getWhats(String id) async {
     try {
       final dio = Dio();
-      var response = await dio
-          .get("http://192.168.15.9:5000/api/Colaborador/$id/whatsapp");
+      var response = await dio.get(
+          "https://apiseverinos.azurewebsites.net/api/Colaborador/$id/whatsapp");
 
       if (response.statusCode == 200) {
         String edit = response.data;
