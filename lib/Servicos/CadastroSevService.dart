@@ -95,9 +95,7 @@ class CadastroSevService {
     var headers = {'Content-Type': 'application/json'};
 
     var request = http.Request(
-        'POST',
-        Uri.parse(
-            'http://https://apiseverinos.azurewebsites.net/api/Cadastro/'));
+        'POST', Uri.parse('http://192.168.15.9:5000/api/Cadastro/'));
 
     request.body = jsonEncode(sbody);
     request.headers.addAll(headers);
@@ -188,7 +186,7 @@ class CadastroSevService {
         "	  \"nrotelcomercial\": \"" +
         nrotelcomercial +
         "\", " +
-        "	  \"NomeProfissão\": \"" +
+        "	  \"NomeProfissao\": \"" +
         tipoprof +
         "\" " +
         "} ";
@@ -196,9 +194,7 @@ class CadastroSevService {
     var headers = {'Content-Type': 'application/json'};
 
     var request = http.Request(
-        'PUT',
-        Uri.parse(
-            'http://https://apiseverinos.azurewebsites.net/api/Cadastro/$id'));
+        'PUT', Uri.parse('http://192.168.15.9:5000/api/Cadastro/$id'));
 
     request.body = jsonEncode(sbody);
     request.headers.addAll(headers);
@@ -224,7 +220,7 @@ class CadastroSevService {
   // Future<dynamic> getProfissao() async {
   //   final dio = Dio();
   //   Response response =
-  //       await dio.get("http://https://apiseverinos.azurewebsites.net/api/Profissao");
+  //       await dio.get("http://192.168.15.9:5000/api/Profissao");
 
   //   if (response.statusCode == 200) {
   //     var lista = response.data as List;

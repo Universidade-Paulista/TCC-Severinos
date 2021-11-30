@@ -4,15 +4,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+import 'package:severino/telas/HomeSev.dart';
+
 class HomeSevService {
   putImagem(String imgBase64) async {
     String sbody = "{\"imagem\": \"$imgBase64\"}";
     var headers = {'Content-Type': 'application/json'};
 
     var request = http.Request(
-        'PUT',
-        Uri.parse(
-            'http://https://apiseverinos.azurewebsites.net/api/Cadastro/39'));
+        'PUT', Uri.parse('http://192.168.15.9:5000/api/Cadastro/39'));
 
     request.body = jsonEncode(sbody);
     request.headers.addAll(headers);
@@ -30,8 +30,7 @@ class HomeSevService {
 
   getImagem() async {
     final dio = Dio();
-    Response response = await dio
-        .get("http://https://apiseverinos.azurewebsites.net/api/Imagem");
+    Response response = await dio.get("http://192.168.15.9:5000/api/Imagem");
 
     if (response.statusCode == 200) {
       String imgBase64 = response.data;
@@ -39,6 +38,38 @@ class HomeSevService {
     } else {
       AlertDialog(
         title: Text(response.statusMessage),
+      );
+    }
+  }
+
+  postStatus(final context, String status, String id) async {
+    final response = await http
+        .post(Uri.parse('http://192.168.15.9:5000/api/Status/$id/$status'));
+
+    if (response.statusCode == 200) {
+      response.body;
+    } else {
+      AlertDialog(
+        title: Text(response.reasonPhrase),
+      );
+    }
+  }
+
+  getStatus(String id) async {
+    try {
+      final dio = Dio();
+      var response = await dio.get("http://192.168.15.9:5000/api/Status/$id/");
+
+      if (response.statusCode == 200) {
+        return response.data;
+      } else {
+        AlertDialog(
+          title: Text(response.statusMessage),
+        );
+      }
+    } on DioError catch (error) {
+      AlertDialog(
+        title: Text(error.message),
       );
     }
   }

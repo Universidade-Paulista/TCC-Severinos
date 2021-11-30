@@ -10,6 +10,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:severino/Servicos/HomeSevService.dart';
 import 'package:severino/telas/EditCadSev.dart';
 import 'package:severino/telas/Login.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeSev extends StatefulWidget {
   @override
@@ -17,15 +18,23 @@ class HomeSev extends StatefulWidget {
 }
 
 class _HomeSevState extends State<HomeSev> {
-  bool _isButtonDisabled = true;
+  // bool _isButtonDisabled = true;
   final txtNome = TextEditingController();
+  final txtSeqPessoa = TextEditingController();
+  final txtStatus = TextEditingController();
   String _sNome = "";
   int controle = 0;
   HomeSevService service = new HomeSevService();
+  int controle2 = 0;
+
+  String idpessoa = "";
 
   @override
   Widget build(BuildContext context) {
-    getNome(email, senha);
+    getIdPessoa();
+    if (controle2 == 0) {
+      getNome(email, senha);
+    }
     return Scaffold(
       appBar: AppBar(
         foregroundColor: Colors.black,
@@ -78,30 +87,6 @@ class _HomeSevState extends State<HomeSev> {
                 ),
               ]),
             ),
-
-            //       //trazer do model
-            //       // Consumer<CadastroMod>(builder: (context, CadastroMod, child) {
-            //       //   if (CadastroMod.nome != null) {
-            //       //     return Text(
-            //       //       ' ${CadastroMod.nome.split(" ")}',
-            //       //       style: TextStyle(
-            //       //         fontSize: 15,
-            //       //         color: Colors.black,
-            //       //       ),
-            //       //     );
-            //       //   }
-
-            //       //   return Text(
-            //       //     'Severino',
-            //       //     style: TextStyle(
-            //       //       fontSize: 15,
-            //       //       color: Colors.black,
-            //       //     ),
-            //       //   );
-            //       // }),
-            //     ],
-            //   ),
-            // ),
             SizedBox(
               height: 70,
             ),
@@ -167,83 +152,9 @@ class _HomeSevState extends State<HomeSev> {
             SizedBox(
               height: 130,
             ),
-            Container(
-              height: 50,
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: Colors.cyan.shade300,
-                borderRadius: BorderRadius.all(
-                  Radius.circular(10),
-                ),
-              ),
-              child: SizedBox.expand(
-                child: TextButton(
-                  onPressed: () {
-                    _alternaButton();
-
-                    //pop up
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: const Text('Aguardando Serviços'),
-                      ),
-                    );
-                  },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        (_isButtonDisabled ? "Iniciar" : "Aguardando"),
-                        style: TextStyle(
-                          fontSize: 25,
-                          color: Colors.black,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
+            validaStatus(),
             SizedBox(
               height: 20,
-            ),
-            Container(
-              height: 40,
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: Colors.red,
-                borderRadius: BorderRadius.all(
-                  Radius.circular(10),
-                ),
-              ),
-              child: SizedBox.expand(
-                child: TextButton(
-                  onPressed: _isButtonDisabled
-                      ? null
-                      : () {
-                          _alternaButton();
-
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: const Text('Serviço Encerrado'),
-                            ),
-                          );
-                        },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        ("Encerrar"),
-                        style: TextStyle(
-                          fontSize: 20,
-                          color: Colors.black,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
             ),
             SizedBox(
               height: 40,
@@ -252,6 +163,97 @@ class _HomeSevState extends State<HomeSev> {
         ),
       ),
     );
+  }
+
+  buttonIniciar() {
+    return Container(
+      height: 50,
+      alignment: Alignment.center,
+      decoration: BoxDecoration(
+        color: Colors.cyan.shade300,
+        borderRadius: BorderRadius.all(
+          Radius.circular(10),
+        ),
+      ),
+      child: SizedBox.expand(
+        child: TextButton(
+          onPressed: () {
+            statusSev("A");
+            // _alternaButton();
+            validaStatus();
+
+            //pop up
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: const Text('Aguardando Serviços'),
+              ),
+            );
+          },
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                ("Iniciar"),
+                style: TextStyle(
+                  fontSize: 25,
+                  color: Colors.black,
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  buttonEncerrar() {
+    return Container(
+      height: 40,
+      alignment: Alignment.center,
+      decoration: BoxDecoration(
+        color: Colors.red,
+        borderRadius: BorderRadius.all(
+          Radius.circular(10),
+        ),
+      ),
+      child: SizedBox.expand(
+        child: TextButton(
+          onPressed: () {
+            statusSev("I");
+            // _alternaButton();
+            validaStatus();
+
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: const Text('Serviço Encerrado'),
+              ),
+            );
+          },
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                ("Encerrar"),
+                style: TextStyle(
+                  fontSize: 20,
+                  color: Colors.black,
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  validaStatus() {
+    if (getStatusSev().toString() == "I") {
+      return buttonIniciar();
+    } else {
+      return buttonEncerrar();
+    }
   }
 
   _getContainerDrawer() {
@@ -303,9 +305,9 @@ class _HomeSevState extends State<HomeSev> {
   }
 
   //iniciar e encerrar serviço - botões
-  _alternaButton() {
-    setState(() => _isButtonDisabled = !_isButtonDisabled);
-  }
+  // _alternaButton() {
+  //   setState(() => _isButtonDisabled = !_isButtonDisabled);
+  // }
 
   //imagem
   File arquivo;
@@ -359,48 +361,45 @@ class _HomeSevState extends State<HomeSev> {
 
   getNome(String email, String senha) async {
     try {
-      final dio = Dio();
-      var response = await dio.get(
-          "http://https://apiseverinos.azurewebsites.net/api/Cadastro/" +
-              email +
-              "/" +
-              senha);
+      try {
+        final dio = Dio();
+        var response = await dio.get(
+            "http://192.168.15.9:5000/api/Cadastro/" + email + "/" + senha);
 
-      if (response.statusCode == 200) {
-        var nome = response.data;
-        if (controle == 0) {
-          setState(() => _sNome = nome);
-          controle = 1;
+        if (response.statusCode == 200) {
+          var nome = response.data;
+          if (controle == 0) {
+            setState(() => _sNome = nome);
+            controle = 1;
+          }
+        } else {
+          AlertDialog(
+            title: Text(response.statusMessage),
+          );
         }
-      } else {
+      } on DioError catch (error) {
         AlertDialog(
-          title: Text(response.statusMessage),
+          title: Text(error.message),
         );
       }
-    } on DioError catch (error) {
-      AlertDialog(
-        title: Text(error.message),
-      );
+    } finally {
+      controle2 = 1;
     }
   }
 
-  // getNome(String email, String senha) async {
-  //   final dio = Dio();
-  //   var response = await dio.get(
-  //       "http://https://apiseverinos.azurewebsites.net/api/Cadastro/" +
-  //           email +
-  //           "/" +
-  //           senha);
+  statusSev(String status) {
+    service.postStatus(context, status, idpessoa);
+  }
 
-  //   if (response.statusCode == 200) {
-  //     var lista = response.data as List;
-  //     return lista;
-  //   } else {
-  //     AlertDialog(
-  //       title: Text(response.statusMessage),
-  //     );
-  //   }
-  // }
+  String getStatusSev() {
+    return service.getStatus(idpessoa).toString();
+  }
+
+  getIdPessoa() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    idpessoa = prefs.getString('Idpessoa');
+  }
 
   // Future pickImage(ImageSource source) async {
   //   try {
