@@ -1,16 +1,31 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:severino/Servicos/PerfilService.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class PerfilSeverino extends StatefulWidget {
+  final String idSeverinos;
+  String imagem = "";
+  String nome = "";
+
+  PerfilSeverino({Key key, @required this.idSeverinos, this.nome, this.imagem})
+      : super(key: key); /* Esse é o creator que vai receber os dados */
   @override
-  _PerfilSeverinoState createState() => _PerfilSeverinoState();
+  _PerfilSeverinoState createState() => _PerfilSeverinoState(
+      idSeverinos: idSeverinos, nome: nome, imagem: imagem);
 }
 
 class _PerfilSeverinoState extends State<PerfilSeverino> {
-  final ps = new PerfilService();
+  String idSeverinos = "";
+  String imagem = "";
+  String nome = "";
+  String numWhats;
+  _PerfilSeverinoState(
+      {Key key, @required this.idSeverinos, this.nome, this.imagem});
+
+  final service = new PerfilService();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,40 +47,48 @@ class _PerfilSeverinoState extends State<PerfilSeverino> {
               right: 40,
             ),
             children: <Widget>[
-              arquivo != null
-                  ? Padding(
-                      padding: EdgeInsets.only(bottom: 0),
-                      child: Center(
-                        child: SizedBox(
-                          width: 150,
-                          height: 150,
-                          child: ClipOval(
-                              child: Image.file(arquivo, fit: BoxFit.cover)),
+              Padding(
+                padding: EdgeInsets.only(bottom: 0),
+                child: Center(
+                  child: SizedBox(
+                    width: 150,
+                    height: 150,
+                    child: ClipOval(
+                      child: Image.memory(
+                        base64.decode(imagem),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 40,
+              ),
+              Container(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Flexible(
+                      child: new Container(
+                        padding: new EdgeInsets.only(right: 10.0),
+                        child: new Text(
+                          nome,
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 5,
+                          style: TextStyle(
+                            fontSize: 18,
+                            color: Colors.black,
+                          ),
+                          textAlign: TextAlign.center,
                         ),
                       ),
-                    )
-                  : Container(
-                      height: 150,
-                      alignment: Alignment.center,
-                      child: SizedBox.expand(
-                          child: ElevatedButton(
-                        onPressed: () {
-                          linkWhats();
-                        },
-                        child: Icon(
-                          Icons.person_rounded,
-                          color: Colors.white,
-                          size: 30,
-                        ),
-                        style: ElevatedButton.styleFrom(
-                          shape: CircleBorder(),
-                          padding: EdgeInsets.all(20),
-                          primary: Colors.grey.shade400,
-                        ),
-                      )),
                     ),
+                  ],
+                ),
+              ),
+
               SizedBox(
-                height: 150,
+                height: 90,
               ),
               // Container(
               //   height: 40,
@@ -137,31 +160,36 @@ class _PerfilSeverinoState extends State<PerfilSeverino> {
   }
 
   linkWhats() async {
-    const url = 'https://api.whatsapp.com/send?phone=5516993078764';
+    numWhats = await service.getWhats(idSeverinos);
+    String url = 'https://api.whatsapp.com/send?phone=55$numWhats';
     if (await canLaunch(url)) {
       await launch(url);
     } else {
       throw 'Could not launch $url';
     }
-    // SharedPreferences prefs = await SharedPreferences.getInstance();
-
-    // String idpessoa = prefs.getString('Idpessoa');
-    // return 'https://api.whatsapp.com/send?phone=55' + ps.getWhats(idpessoa);
   }
 
-  File arquivo;
-  // final picker = ImagePicker();
-
-  // Future getFileFromGallery() async {
-  //   final file = await picker.pickImage(source: ImageSource.gallery);
-
-  //   if (file != null) {
-  //     setState(() => arquivo = File(file.path));
-
-  //     File imageFile = new File(file.path);
-  //     List<int> imageBytes = imageFile.readAsBytesSync();
-  //     String base64Img = base64.encode(imageBytes);
-  //     var test = base64Img;
-  //   }
-  // }
+  getIcon() {
+    return Container(
+      height: 150,
+      alignment: Alignment.center,
+      child: SizedBox.expand(
+        child: ElevatedButton(
+          onPressed: () {
+            linkWhats();
+          },
+          child: Icon(
+            Icons.person_rounded,
+            color: Colors.white,
+            size: 30,
+          ),
+          style: ElevatedButton.styleFrom(
+            shape: CircleBorder(),
+            padding: EdgeInsets.all(20),
+            primary: Colors.grey.shade400,
+          ),
+        ),
+      ),
+    );
+  }
 }

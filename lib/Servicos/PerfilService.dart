@@ -11,8 +11,7 @@ class PerfilService {
           "https://apiseverinos.azurewebsites.net/api/Colaborador/$id/whatsapp");
 
       if (response.statusCode == 200) {
-        String edit = response.data;
-        return edit;
+        return response.data.toString();
       } else {
         AlertDialog(
           title: Text(response.statusMessage),

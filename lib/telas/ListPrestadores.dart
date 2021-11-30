@@ -1,11 +1,11 @@
 import 'dart:convert';
 import 'dart:io';
-import 'dart:typed_data';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:path_provider/path_provider.dart';
+import 'package:get/get.dart';
 import 'package:severino/Servicos/ListPrestadoresService.dart';
 import 'package:severino/Servicos/ListaPrestadorMod.dart';
+import 'package:severino/telas/PerfilSeverino.dart';
 
 class ListaPrestadores extends StatefulWidget {
   final String profissao;
@@ -70,7 +70,7 @@ class _ListaPrestadoresState extends State<ListaPrestadores> {
           color: Colors.cyan.shade300,
         ),
       ),
-      margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+      margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
       height: 150,
       child: Container(
         margin: EdgeInsets.fromLTRB(5, 5, 5, 5),
@@ -90,7 +90,15 @@ class _ListaPrestadoresState extends State<ListaPrestadores> {
                     width: 500.0,
                     child: Flexible(
                       child: TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Get.to(
+                            PerfilSeverino(
+                              idSeverinos: idSeverino,
+                              nome: titulo,
+                              imagem: imagem,
+                            ),
+                          );
+                        },
                         child: Text(
                           titulo,
                           maxLines: 5,
@@ -106,20 +114,6 @@ class _ListaPrestadoresState extends State<ListaPrestadores> {
                   )
                 ],
               ),
-            ),
-            Container(
-              margin: EdgeInsets.fromLTRB(125, 100, 0, 0),
-              color: Colors.white,
-              height: 150.0,
-              width: 500.0,
-              child: Text(
-                idSeverino,
-                style: TextStyle(
-                  fontSize: 15,
-                  color: Colors.white,
-                ),
-              ),
-              alignment: Alignment.centerLeft,
             ),
             Container(
               color: Colors.black,
@@ -144,9 +138,8 @@ class _ListaPrestadoresState extends State<ListaPrestadores> {
 
   getListaPrestadores() async {
     final dio = Dio();
-
     try {
-      Response response = await dio.get(
+      final response = await dio.get(
           "https://apiseverinos.azurewebsites.net/api/Colaborador/$profissaoSelecionada/lista");
 
       if (response.statusCode == 200) {
